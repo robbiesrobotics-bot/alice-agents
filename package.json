@@ -20,7 +20,10 @@
   "files": [
     "bin/",
     "lib/",
+    "tools/",
+    "snapshots/",
     "templates/",
+    "SELF-HEALING-SPEC.md",
     "README.md"
   ],
   "publishConfig": {

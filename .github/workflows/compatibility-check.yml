@@ -1,0 +1,179 @@
+name: A.L.I.C.E. Compatibility Check
+
+on:
+  schedule:
+    # Daily check at 02:00 UTC
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+  push:
+    paths:
+      - 'snapshots/**'
+      - 'tools/compatibility-checker.mjs'
+
+jobs:
+  detect-openclaw-release:
+    name: Detect OpenClaw Release
+    runs-on: ubuntu-latest
+    outputs:
+      new-version: ${{ steps.check.outputs.new-version }}
+      has-changes: ${{ steps.check.outputs.has-changes }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Check for new OpenClaw release
+        id: check
+        run: |
+          # Get latest OpenClaw release from npm
+          LATEST=$(npm view openclaw version 2>/dev/null || echo "unknown")
+          echo "new-version=$LATEST" >> $GITHUB_OUTPUT
+          echo "Latest OpenClaw: $LATEST"
+          
+          # Check if this version was already tested
+          if [ -f "compatibility-reports/$LATEST.json" ]; then
+            echo "has-changes=false" >> $GITHUB_OUTPUT
+            echo "Already tested $LATEST"
+          else
+            echo "has-changes=true" >> $GITHUB_OUTPUT
+            echo "New version to test: $LATEST"
+          fi
+
+  check-compatibility:
+    name: Run Compatibility Checker
+    runs-on: ubuntu-latest
+    needs: detect-openclaw-release
+    if: needs.detect-openclaw-release.outputs.has-changes == 'true'
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install OpenClaw
+        run: |
+          npm install -g openclaw@${{ needs.detect-openclaw-release.outputs.new-version }}
+          openclaw --version
+
+      - name: Run compatibility checker
+        id: check
+        run: |
+          node tools/compatibility-checker.mjs \
+            --verbose \
+            --output=/tmp/report.json
+          
+          cat /tmp/report.json
+          
+          # Parse report
+          COMPATIBLE=$(jq -r '.compatible' /tmp/report.json)
+          TOTAL=$(jq -r '.summary.total' /tmp/report.json)
+          
+          echo "compatible=$COMPATIBLE" >> $GITHUB_OUTPUT
+          echo "total-issues=$TOTAL" >> $GITHUB_OUTPUT
+          
+          # Save report
+          mkdir -p compatibility-reports
+          cp /tmp/report.json compatibility-reports/${{ needs.detect-openclaw-release.outputs.new-version }}.json
+
+      - name: Create GitHub issue on breaking changes
+        if: steps.check.outputs.compatible == 'false'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const report = JSON.parse(fs.readFileSync('/tmp/report.json', 'utf8'));
+            
+            const criticals = report.breakingChanges.filter(c => c.severity === 'critical' || c.severity === 'high');
+            const body = `
+            # A.L.I.C.E. Compatibility Alert
+            
+            OpenClaw **${report.openclawVersion}** introduces breaking changes for A.L.I.C.E.
+            
+            ## Summary
+            - **Total issues:** ${report.summary.total}
+            - **Critical/High:** ${criticals.length}
+            - **Medium:** ${report.summary.medium}
+            - **Low:** ${report.summary.low}
+            - **Auto-fixable:** ${report.summary.autoFixable}
+            
+            ## Breaking Changes
+            
+            ${report.breakingChanges.map(c => `
+            - **[${c.severity}]** \`${c.field}\` (${c.category})
+              - ${c.change}
+              - ${c.autoFixable ? '✅ Auto-fixable' : '⚠️ Manual review required'}
+            `).join('\n')}
+            
+            ---
+            
+            **Report:** [View full report](compatibility-reports/${report.openclawVersion}.json)
+            
+            **Action:** Deploy a patch version with auto-fixes, or release manual migration guide.
+            `;
+            
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `⚠️ Breaking changes in OpenClaw ${report.openclawVersion}`,
+              body,
+              labels: ['compatibility', 'openclaw']
+            });
+
+      - name: Commit report to repo
+        if: always()
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: 'chore: compatibility report for OpenClaw ${{ needs.detect-openclaw-release.outputs.new-version }}'
+          file_pattern: 'compatibility-reports/**'
+          skip_fetch: false
+          skip_checkout: false
+
+      - name: Notify on Telegram
+        if: steps.check.outputs.compatible == 'false'
+        run: |
+          OPENCLAW_VERSION="${{ needs.detect-openclaw-release.outputs.new-version }}"
+          TOTAL="${{ steps.check.outputs.total-issues }}"
+          REPORT_URL="https://github.com/${{ github.repository }}/blob/main/compatibility-reports/$OPENCLAW_VERSION.json"
+          
+          MESSAGE="🚨 A.L.I.C.E. Compatibility Alert%0A%0AOpenClaw $OPENCLAW_VERSION breaks $TOTAL configs.%0A%0ARun: npx @robbiesrobotics/alice-agents --health%0A%0A<a href='$REPORT_URL'>View Report</a>"
+          
+          # Only if TELEGRAM_CHAT_ID is configured
+          if [ -n "${{ secrets.TELEGRAM_CHAT_ID }}" ]; then
+            curl -s "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage" \
+              -d "chat_id=${{ secrets.TELEGRAM_CHAT_ID }}" \
+              -d "text=$MESSAGE" \
+              -d "parse_mode=HTML"
+          fi
+
+  publish-patch:
+    name: Publish Patch (if needed)
+    runs-on: ubuntu-latest
+    needs: [detect-openclaw-release, check-compatibility]
+    if: failure() && needs.check-compatibility.result == 'failure'
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Bump patch version
+        run: |
+          npm version patch --no-git-tag-version
+
+      - name: Publish to npm
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          npm publish
+
+      - name: Commit version bump
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: 'chore: bump version for OpenClaw ${{ needs.detect-openclaw-release.outputs.new-version }} compatibility'
+          file_pattern: 'package.json'

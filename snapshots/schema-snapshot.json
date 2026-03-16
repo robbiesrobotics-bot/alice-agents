@@ -1,0 +1,221 @@
+{
+  "meta": {
+    "capturedAt": "2026-03-16T00:00:00Z",
+    "openclawVersion": "2026.3.13",
+    "aliceVersion": "1.1.1",
+    "description": "Config fields A.L.I.C.E. depends on",
+    "checksum": "458186002246ca46"
+  },
+  "agents": {
+    "defaults": {
+      "model": {
+        "path": "agents.defaults.model",
+        "required": true,
+        "fields": {
+          "primary": {
+            "type": "string",
+            "example": "anthropic/claude-sonnet-4-6"
+          },
+          "fallbacks": {
+            "type": "array"
+          }
+        }
+      },
+      "workspace": {
+        "path": "agents.defaults.workspace",
+        "type": "string",
+        "required": true
+      },
+      "heartbeat": {
+        "path": "agents.defaults.heartbeat",
+        "required": false,
+        "fields": {
+          "every": {
+            "type": "string",
+            "example": "15m"
+          },
+          "target": {
+            "type": "string",
+            "allowedValues": [
+              "last",
+              "new"
+            ]
+          },
+          "directPolicy": {
+            "type": "string",
+            "allowedValues": [
+              "allow",
+              "deny"
+            ]
+          },
+          "prompt": {
+            "type": "string"
+          }
+        }
+      },
+      "maxConcurrent": {
+        "path": "agents.defaults.maxConcurrent",
+        "type": "number",
+        "required": false
+      },
+      "subagents": {
+        "path": "agents.defaults.subagents",
+        "fields": {
+          "maxConcurrent": {
+            "type": "number"
+          },
+          "archiveAfterMinutes": {
+            "type": "number"
+          },
+          "runTimeoutSeconds": {
+            "type": "number"
+          }
+        }
+      },
+      "compaction": {
+        "path": "agents.defaults.compaction",
+        "fields": {
+          "mode": {
+            "type": "string",
+            "allowedValues": [
+              "safeguard",
+              "auto",
+              "off"
+            ]
+          }
+        }
+      }
+    },
+    "list_entry": {
+      "description": "Schema for each entry in agents.list",
+      "fields": {
+        "id": {
+          "type": "string",
+          "required": true
+        },
+        "name": {
+          "type": "string",
+          "required": true
+        },
+        "workspace": {
+          "type": "string",
+          "required": true
+        },
+        "identity": {
+          "required": true,
+          "fields": {
+            "name": {
+              "type": "string"
+            },
+            "theme": {
+              "type": "string"
+            },
+            "emoji": {
+              "type": "string"
+            }
+          }
+        },
+        "sandbox": {
+          "required": true,
+          "fields": {
+            "mode": {
+              "type": "string",
+              "allowedValues": [
+                "off",
+                "all"
+              ]
+            },
+            "scope": {
+              "type": "string",
+              "allowedValues": [
+                "agent",
+                "workspace"
+              ]
+            }
+          }
+        },
+        "tools": {
+          "required": true,
+          "variants": {
+            "profile_based": {
+              "fields": {
+                "profile": {
+                  "type": "string",
+                  "allowedValues": [
+                    "full",
+                    "coding",
+                    "basic"
+                  ]
+                },
+                "alsoAllow": {
+                  "type": "array"
+                },
+                "deny": {
+                  "type": "array"
+                }
+              }
+            },
+            "explicit": {
+              "fields": {
+                "allow": {
+                  "type": "array",
+                  "required": true
+                },
+                "deny": {
+                  "type": "array"
+                }
+              }
+            }
+          }
+        },
+        "model": {
+          "type": "string",
+          "required": false
+        },
+        "default": {
+          "type": "boolean",
+          "required": false
+        },
+        "subagents": {
+          "type": "object",
+          "required": false
+        },
+        "groupChat": {
+          "type": "object",
+          "required": false
+        }
+      }
+    }
+  },
+  "tools": {
+    "agentToAgent": {
+      "path": "tools.agentToAgent",
+      "fields": {
+        "allow": {
+          "type": "array",
+          "description": "Agent IDs that can receive spawned tasks"
+        }
+      }
+    }
+  },
+  "hooks": {
+    "knownHooks": [
+      "boot-md",
+      "bootstrap-extra-files",
+      "command-logger",
+      "session-memory"
+    ],
+    "path": "hooks.entries"
+  },
+  "sessions": {
+    "path": "sessions",
+    "fields": {
+      "plugins": {
+        "type": "object"
+      },
+      "capabilities": {
+        "type": "object"
+      }
+    }
+  }
+}

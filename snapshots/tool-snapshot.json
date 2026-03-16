@@ -1,0 +1,37 @@
+{
+  "meta": {
+    "capturedAt": "2026-03-16T00:00:00Z",
+    "openclawVersion": "2026.3.13",
+    "aliceVersion": "1.1.1",
+    "description": "Tools A.L.I.C.E. references in agent configs"
+  },
+  "tools": {
+    "read":            { "criticality": "core",     "usedBy": ["all"] },
+    "write":           { "criticality": "core",     "usedBy": ["all"] },
+    "edit":            { "criticality": "core",     "usedBy": ["dylan","darius","avery","isaac","felix","caleb","devon","quinn","alex","daphne"] },
+    "exec":            { "criticality": "core",     "usedBy": ["dylan","darius","avery","isaac","owen","selena","devon","quinn","alex","felix","caleb"] },
+    "process":         { "criticality": "core",     "usedBy": ["dylan","darius","avery","isaac","devon","quinn"] },
+    "apply_patch":     { "criticality": "core",     "usedBy": ["dylan","darius","avery","isaac","felix","caleb","devon","quinn","alex","daphne"] },
+    "web_search":      { "criticality": "core",     "usedBy": ["all"] },
+    "web_fetch":       { "criticality": "core",     "usedBy": ["all"] },
+    "browser":         { "criticality": "optional", "usedBy": ["olivia","rowan","quinn","uma","alex","tommy","nadia","morgan","sloane"] },
+    "canvas":          { "criticality": "optional", "usedBy": ["olivia","nadia"] },
+    "message":         { "criticality": "optional", "usedBy": ["olivia","clara","sophie","sloane","morgan","eva","parker"] },
+    "tts":             { "criticality": "optional", "usedBy": ["olivia"] },
+    "sessions_spawn":  { "criticality": "core",     "usedBy": ["olivia"] },
+    "sessions_send":   { "criticality": "core",     "usedBy": ["olivia"] },
+    "sessions_list":   { "criticality": "core",     "usedBy": ["olivia","all"] },
+    "sessions_history":{ "criticality": "core",     "usedBy": ["olivia","all"] },
+    "session_status":  { "criticality": "core",     "usedBy": ["olivia","all"] },
+    "agents_list":     { "criticality": "core",     "usedBy": ["olivia"] },
+    "cron":            { "criticality": "optional", "usedBy": ["olivia","avery","tommy","sloane","morgan","eva","parker"] },
+    "memory_search":   { "criticality": "core",     "usedBy": ["olivia"] },
+    "memory_get":      { "criticality": "core",     "usedBy": ["olivia"] },
+    "image":           { "criticality": "optional", "usedBy": ["olivia"] },
+    "pdf":             { "criticality": "optional", "usedBy": ["olivia"] }
+  },
+  "profiles": {
+    "full":   { "description": "All tools available", "usedBy": ["olivia"] },
+    "coding": { "description": "Code-focused toolset with exec/edit/apply_patch", "usedBy": ["dylan","darius","avery","isaac","devon","felix","quinn","alex","caleb"] }
+  }
+}
