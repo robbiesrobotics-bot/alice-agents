@@ -1,0 +1,13 @@
+{
+  "version": "1.0.0",
+  "installedAt": "2026-03-16T12:00:00.000Z",
+  "updatedAt": "2026-03-16T12:00:00.000Z",
+  "tier": "starter",
+  "agents": [
+    "olivia", "dylan", "selena", "devon", "quinn",
+    "felix", "daphne", "rowan", "darius", "sophie"
+  ],
+  "userName": "Rob",
+  "userTimezone": "America/New_York",
+  "modelPreset": "sonnet"
+}

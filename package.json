@@ -1,0 +1,29 @@
+{
+  "name": "@robbiesrobotics/alice-agents",
+  "version": "1.1.1",
+  "description": "A.L.I.C.E. — 28 AI agents for OpenClaw. One conversation, one team.",
+  "bin": {
+    "alice-agents": "bin/alice-install.mjs"
+  },
+  "type": "module",
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "openclaw",
+    "ai-agents",
+    "multi-agent",
+    "orchestration",
+    "alice"
+  ],
+  "license": "MIT",
+  "files": [
+    "bin/",
+    "lib/",
+    "templates/",
+    "README.md"
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
+}
