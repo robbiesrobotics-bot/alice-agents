@@ -139,7 +139,7 @@ If you're already running NemoClaw, A.L.I.C.E. works out of the box — no extra
 
 - [OpenClaw](https://openclaw.ai) or [NemoClaw](https://nemoclaw.com) installed and configured
 - Node.js 18+
-- At least one AI provider configured in OpenClaw (Anthropic, OpenAI, Ollama, or any other supported provider)
+- At least one model configured in OpenClaw or NemoClaw — no specific API key required. A.L.I.C.E. uses whatever you already have set up.
 
 ## License
 
