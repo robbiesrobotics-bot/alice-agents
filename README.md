@@ -1,8 +1,10 @@
-# 🧠 A.L.I.C.E. — AI Agent Framework for OpenClaw
+# 🧠 A.L.I.C.E. — AI Agent Framework for NemoClaw & OpenClaw
 
 **Adaptive Learning & Intelligent Coordination Engine**
 
-One conversation. One orchestrator. Ten starter agents — with 18 more in Pro. A.L.I.C.E. turns OpenClaw into a full AI team — talk to Olivia, and she routes your request to the right expert.
+One conversation. One orchestrator. Ten starter agents — with 18 more in Pro. A.L.I.C.E. turns your agent runtime into a full AI team — talk to Olivia, and she routes your request to the right expert.
+
+**NemoClaw compatible** — A.L.I.C.E. v1.2.7+ runs natively on [NVIDIA NemoClaw](https://nvidia.com/nemoclaw), the secure open-source agent runtime. Agents execute inside the OpenShell sandbox for enterprise-grade security.
 
 ## Quick Start
 
@@ -10,7 +12,7 @@ One conversation. One orchestrator. Ten starter agents — with 18 more in Pro. 
 npx @robbiesrobotics/alice-agents
 ```
 
-That's it. The installer detects your OpenClaw installation, asks a few questions, and sets up everything.
+That's it. The installer detects your runtime (NemoClaw or OpenClaw) and sets everything up. If neither is installed, it will offer to install NemoClaw — the recommended option.
 
 ## What You Get
 
@@ -117,12 +119,14 @@ A.L.I.C.E. runs on any OpenClaw-compatible runtime:
 
 | Runtime | Status | Notes |
 |---------|--------|-------|
-| **OpenClaw** | ✅ Fully supported | Default. [openclaw.com](https://openclaw.com) |
-| **NemoClaw** | ✅ Fully supported | NVIDIA's enterprise distribution. Agents run inside OpenShell sandbox. |
+| **NemoClaw** | ✅ Recommended | NVIDIA's secure distribution. Agents run inside OpenShell sandbox. [Get NemoClaw](https://nvidia.com/nemoclaw) |
+| **OpenClaw** | ✅ Fully supported | Lightweight option. [openclaw.com](https://openclaw.com) |
 
-### NemoClaw Users
+### Why NemoClaw?
 
-If you're running NemoClaw (NVIDIA's enterprise OpenClaw distribution), A.L.I.C.E. agents are fully compatible. Your OpenShell security policies will apply to all A.L.I.C.E. agent tool use — this is expected behavior and adds enterprise-grade security to your AI team.
+NemoClaw is NVIDIA's open-source, enterprise-grade distribution of OpenClaw. It adds the OpenShell security sandbox — isolating what agents can access on your machine, enforcing policy-based guardrails, and keeping your data private. A.L.I.C.E. is NemoClaw-native as of v1.2.7: the installer defaults to NemoClaw, and agents display their sandbox status on startup.
+
+If you're already running NemoClaw, A.L.I.C.E. works out of the box — no extra config needed.
 
 ## Requirements
 
