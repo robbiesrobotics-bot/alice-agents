@@ -51,15 +51,22 @@ An orchestrator (Olivia) backed by specialist agents across every domain:
 | **Eva** | Executive Assistant | 📌 | Pro |
 | **Parker** | Project Management | 📅 | Pro |
 
-## Model Presets
+## Model Flexibility
+
+A.L.I.C.E. works with **whatever model you already have configured** in OpenClaw/NemoClaw. There's no required API key — just use what you've got.
+
+When you install, the installer will **auto-detect your configured model** and use it by default. You can also choose from presets or specify a custom model.
 
 | Preset | Models | Best For |
 |--------|--------|----------|
-| **Sonnet** (default) | claude-sonnet-4-6 for all | Balanced speed + quality |
-| **Opus + Sonnet** | Opus for orchestrator, Sonnet for specialists | Maximum orchestration quality |
+| **Auto-detect** (default) | Your current OpenClaw model | Zero friction — works with what you have |
+| **Sonnet** | claude-sonnet-4-6 for all | Balanced speed + quality (requires Anthropic key) |
+| **Opus + Sonnet** | Opus for orchestrator, Sonnet for specialists | Maximum quality (requires Anthropic key) |
 | **OpenAI** | GPT-5.4 / GPT-5.4-mini | OpenAI users |
-| **Local (Ollama)** | Local models | Privacy, offline use |
+| **Local (Ollama)** | Local models | Privacy, offline use, no API key needed |
 | **Custom** | Your choice | Full control |
+
+> **Tip:** We prefer Claude Opus for orchestration when available — but A.L.I.C.E. is model-agnostic. Whatever model OpenClaw has configured will work.
 
 ## Install Options
 
@@ -132,7 +139,7 @@ If you're already running NemoClaw, A.L.I.C.E. works out of the box — no extra
 
 - [OpenClaw](https://openclaw.ai) or [NemoClaw](https://nemoclaw.com) installed and configured
 - Node.js 18+
-- At least one AI provider configured (Anthropic, OpenAI, or Ollama)
+- At least one AI provider configured in OpenClaw (Anthropic, OpenAI, Ollama, or any other supported provider)
 
 ## License
 
