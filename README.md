@@ -109,9 +109,22 @@ Each agent has its own workspace with:
 - `LEARNINGS.md` — task log
 - `memory/` — persistent context between sessions
 
+## Compatibility
+
+A.L.I.C.E. runs on any OpenClaw-compatible runtime:
+
+| Runtime | Status | Notes |
+|---------|--------|-------|
+| **OpenClaw** | ✅ Fully supported | Default. [openclaw.com](https://openclaw.com) |
+| **NemoClaw** | ✅ Fully supported | NVIDIA's enterprise distribution. Agents run inside OpenShell sandbox. |
+
+### NemoClaw Users
+
+If you're running NemoClaw (NVIDIA's enterprise OpenClaw distribution), A.L.I.C.E. agents are fully compatible. Your OpenShell security policies will apply to all A.L.I.C.E. agent tool use — this is expected behavior and adds enterprise-grade security to your AI team.
+
 ## Requirements
 
-- [OpenClaw](https://openclaw.com) installed and configured
+- [OpenClaw](https://openclaw.com) or [NemoClaw](https://nemoclaw.com) installed and configured
 - Node.js 18+
 - At least one AI provider configured (Anthropic, OpenAI, or Ollama)
 
