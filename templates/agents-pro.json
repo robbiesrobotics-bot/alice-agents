@@ -1,0 +1,550 @@
+[
+  {
+    "id": "hannah",
+    "name": "Hannah",
+    "domain": "HR",
+    "theme": "HR specialist",
+    "emoji": "\ud83d\udc65",
+    "description": "Team processes, hiring workflows, culture documentation",
+    "tier": "pro",
+    "coding": false,
+    "sandbox": {
+      "mode": "all",
+      "scope": "agent"
+    },
+    "tools": {
+      "allow": [
+        "read",
+        "write",
+        "edit",
+        "web_search",
+        "web_fetch",
+        "sessions_list",
+        "sessions_history",
+        "session_status"
+      ],
+      "deny": [
+        "exec",
+        "process",
+        "browser",
+        "canvas",
+        "apply_patch",
+        "cron"
+      ]
+    }
+  },
+  {
+    "id": "aiden",
+    "name": "Aiden",
+    "domain": "Analytics",
+    "theme": "analytics specialist",
+    "emoji": "\ud83d\udcc8",
+    "description": "Business analytics, metrics, dashboards, data visualization",
+    "tier": "pro",
+    "coding": true,
+    "sandbox": {
+      "mode": "off"
+    },
+    "tools": {
+      "profile": "coding",
+      "alsoAllow": [
+        "web_search",
+        "web_fetch"
+      ]
+    }
+  },
+  {
+    "id": "clara",
+    "name": "Clara",
+    "domain": "Communication",
+    "theme": "communication specialist",
+    "emoji": "\u270d\ufe0f",
+    "description": "Copy, messaging, email drafts, announcements, brand voice",
+    "tier": "pro",
+    "coding": false,
+    "sandbox": {
+      "mode": "all",
+      "scope": "agent"
+    },
+    "tools": {
+      "allow": [
+        "read",
+        "write",
+        "edit",
+        "web_search",
+        "web_fetch",
+        "message",
+        "sessions_list",
+        "sessions_history",
+        "session_status"
+      ],
+      "deny": [
+        "exec",
+        "process",
+        "browser",
+        "canvas",
+        "apply_patch",
+        "cron"
+      ]
+    }
+  },
+  {
+    "id": "avery",
+    "name": "Avery",
+    "domain": "Automation",
+    "theme": "automation specialist",
+    "emoji": "\u2699\ufe0f",
+    "description": "Workflow automation, cron jobs, scripting, process optimization",
+    "tier": "pro",
+    "coding": true,
+    "sandbox": {
+      "mode": "off"
+    },
+    "tools": {
+      "profile": "coding",
+      "alsoAllow": [
+        "web_search",
+        "web_fetch",
+        "cron"
+      ]
+    }
+  },
+  {
+    "id": "owen",
+    "name": "Owen",
+    "domain": "Operations",
+    "theme": "operations specialist",
+    "emoji": "\ud83d\udd27",
+    "description": "System health, monitoring, incident response, operational readiness",
+    "tier": "pro",
+    "coding": false,
+    "sandbox": {
+      "mode": "off"
+    },
+    "tools": {
+      "allow": [
+        "read",
+        "exec",
+        "process",
+        "web_search",
+        "web_fetch",
+        "sessions_list",
+        "sessions_history",
+        "session_status"
+      ],
+      "deny": [
+        "write",
+        "edit",
+        "apply_patch",
+        "canvas",
+        "browser",
+        "cron"
+      ]
+    }
+  },
+  {
+    "id": "isaac",
+    "name": "Isaac",
+    "domain": "Integration",
+    "theme": "integration specialist",
+    "emoji": "\ud83d\udd0c",
+    "description": "API integration, third-party services, webhooks, connectors",
+    "tier": "pro",
+    "coding": true,
+    "sandbox": {
+      "mode": "off"
+    },
+    "tools": {
+      "profile": "coding",
+      "alsoAllow": [
+        "web_search",
+        "web_fetch"
+      ]
+    }
+  },
+  {
+    "id": "tommy",
+    "name": "Tommy",
+    "domain": "Travel",
+    "theme": "travel specialist",
+    "emoji": "\u2708\ufe0f",
+    "description": "Trip planning, itineraries, booking research, travel logistics",
+    "tier": "pro",
+    "coding": false,
+    "sandbox": {
+      "mode": "all",
+      "scope": "agent"
+    },
+    "tools": {
+      "allow": [
+        "read",
+        "write",
+        "edit",
+        "web_search",
+        "web_fetch",
+        "browser",
+        "cron",
+        "sessions_list",
+        "sessions_history",
+        "session_status"
+      ],
+      "deny": [
+        "exec",
+        "process",
+        "canvas",
+        "apply_patch"
+      ]
+    }
+  },
+  {
+    "id": "sloane",
+    "name": "Sloane",
+    "domain": "Sales",
+    "theme": "sales specialist",
+    "emoji": "\ud83d\udcbc",
+    "description": "Sales strategy, outreach, pipeline management, proposals",
+    "tier": "pro",
+    "coding": false,
+    "sandbox": {
+      "mode": "all",
+      "scope": "agent"
+    },
+    "tools": {
+      "allow": [
+        "read",
+        "write",
+        "edit",
+        "web_search",
+        "web_fetch",
+        "browser",
+        "message",
+        "sessions_list",
+        "sessions_history",
+        "session_status",
+        "cron"
+      ],
+      "deny": [
+        "exec",
+        "process",
+        "canvas",
+        "apply_patch"
+      ]
+    }
+  },
+  {
+    "id": "nadia",
+    "name": "Nadia",
+    "domain": "UI/UX Design",
+    "theme": "UI/UX design specialist",
+    "emoji": "\ud83c\udfa8",
+    "description": "Design systems, wireframes, UI patterns, visual design",
+    "tier": "pro",
+    "coding": false,
+    "sandbox": {
+      "mode": "all",
+      "scope": "agent"
+    },
+    "tools": {
+      "allow": [
+        "read",
+        "write",
+        "edit",
+        "apply_patch",
+        "canvas",
+        "browser",
+        "web_search",
+        "web_fetch",
+        "sessions_list",
+        "sessions_history",
+        "session_status"
+      ],
+      "deny": [
+        "exec",
+        "process",
+        "cron"
+      ]
+    }
+  },
+  {
+    "id": "morgan",
+    "name": "Morgan",
+    "domain": "Marketing",
+    "theme": "marketing specialist",
+    "emoji": "\ud83d\udce3",
+    "description": "Marketing strategy, content planning, SEO, campaigns",
+    "tier": "pro",
+    "coding": false,
+    "sandbox": {
+      "mode": "all",
+      "scope": "agent"
+    },
+    "tools": {
+      "allow": [
+        "read",
+        "write",
+        "edit",
+        "web_search",
+        "web_fetch",
+        "browser",
+        "message",
+        "sessions_list",
+        "sessions_history",
+        "session_status",
+        "cron"
+      ],
+      "deny": [
+        "exec",
+        "process",
+        "canvas",
+        "apply_patch"
+      ]
+    }
+  },
+  {
+    "id": "alex",
+    "name": "Alex",
+    "domain": "API Crawling",
+    "theme": "API crawler specialist",
+    "emoji": "\ud83d\udd77\ufe0f",
+    "description": "API discovery, web scraping, data extraction, crawl automation",
+    "tier": "pro",
+    "coding": true,
+    "sandbox": {
+      "mode": "off"
+    },
+    "tools": {
+      "profile": "coding",
+      "alsoAllow": [
+        "web_search",
+        "web_fetch",
+        "browser"
+      ]
+    }
+  },
+  {
+    "id": "uma",
+    "name": "Uma",
+    "domain": "UX Research",
+    "theme": "UX researcher",
+    "emoji": "\ud83e\uddea",
+    "description": "User research, usability testing, personas, journey maps",
+    "tier": "pro",
+    "coding": false,
+    "sandbox": {
+      "mode": "all",
+      "scope": "agent"
+    },
+    "tools": {
+      "allow": [
+        "read",
+        "write",
+        "edit",
+        "browser",
+        "canvas",
+        "web_search",
+        "web_fetch",
+        "sessions_list",
+        "sessions_history",
+        "session_status"
+      ],
+      "deny": [
+        "exec",
+        "process",
+        "cron",
+        "apply_patch"
+      ]
+    }
+  },
+  {
+    "id": "caleb",
+    "name": "Caleb",
+    "domain": "CRM",
+    "theme": "CRM builder specialist",
+    "emoji": "\ud83d\uddc2\ufe0f",
+    "description": "CRM design, customer data, pipeline tooling, relationship tracking",
+    "tier": "pro",
+    "coding": true,
+    "sandbox": {
+      "mode": "off"
+    },
+    "tools": {
+      "profile": "coding",
+      "alsoAllow": [
+        "web_search",
+        "web_fetch"
+      ]
+    }
+  },
+  {
+    "id": "elena",
+    "name": "Elena",
+    "domain": "Estimation",
+    "theme": "estimator specialist",
+    "emoji": "\ud83d\udccb",
+    "description": "Project estimation, cost analysis, timeline planning, scoping",
+    "tier": "pro",
+    "coding": false,
+    "sandbox": {
+      "mode": "all",
+      "scope": "agent"
+    },
+    "tools": {
+      "allow": [
+        "read",
+        "write",
+        "edit",
+        "web_search",
+        "web_fetch",
+        "sessions_list",
+        "sessions_history",
+        "session_status"
+      ],
+      "deny": [
+        "exec",
+        "process",
+        "browser",
+        "canvas",
+        "apply_patch",
+        "cron"
+      ]
+    }
+  },
+  {
+    "id": "audrey",
+    "name": "Audrey",
+    "domain": "Accounting",
+    "theme": "accounting specialist",
+    "emoji": "\ud83d\udcb0",
+    "description": "Financial tracking, invoicing, expense reports, bookkeeping",
+    "tier": "pro",
+    "coding": false,
+    "sandbox": {
+      "mode": "all",
+      "scope": "agent"
+    },
+    "tools": {
+      "allow": [
+        "read",
+        "write",
+        "edit",
+        "web_search",
+        "web_fetch",
+        "sessions_list",
+        "sessions_history",
+        "session_status"
+      ],
+      "deny": [
+        "exec",
+        "process",
+        "browser",
+        "canvas",
+        "apply_patch",
+        "cron"
+      ]
+    }
+  },
+  {
+    "id": "logan",
+    "name": "Logan",
+    "domain": "Legal",
+    "theme": "legal specialist",
+    "emoji": "\u2696\ufe0f",
+    "description": "Contract review, compliance, terms of service, legal research",
+    "tier": "pro",
+    "coding": false,
+    "sandbox": {
+      "mode": "all",
+      "scope": "agent"
+    },
+    "tools": {
+      "allow": [
+        "read",
+        "write",
+        "edit",
+        "web_search",
+        "web_fetch",
+        "sessions_list",
+        "sessions_history",
+        "session_status"
+      ],
+      "deny": [
+        "exec",
+        "process",
+        "browser",
+        "canvas",
+        "apply_patch",
+        "cron"
+      ]
+    }
+  },
+  {
+    "id": "eva",
+    "name": "Eva",
+    "domain": "Executive Assistant",
+    "theme": "executive assistant",
+    "emoji": "\ud83d\udccc",
+    "description": "Scheduling, task management, priority triaging, reminders",
+    "tier": "pro",
+    "coding": false,
+    "sandbox": {
+      "mode": "all",
+      "scope": "agent"
+    },
+    "tools": {
+      "allow": [
+        "read",
+        "write",
+        "edit",
+        "web_search",
+        "web_fetch",
+        "message",
+        "sessions_list",
+        "sessions_history",
+        "session_status",
+        "cron"
+      ],
+      "deny": [
+        "exec",
+        "process",
+        "browser",
+        "canvas",
+        "apply_patch"
+      ]
+    }
+  },
+  {
+    "id": "parker",
+    "name": "Parker",
+    "domain": "Project Management",
+    "theme": "project manager",
+    "emoji": "\ud83d\udcc5",
+    "description": "Project planning, milestone tracking, team coordination, roadmaps",
+    "tier": "pro",
+    "coding": false,
+    "sandbox": {
+      "mode": "all",
+      "scope": "agent"
+    },
+    "tools": {
+      "allow": [
+        "read",
+        "write",
+        "edit",
+        "web_search",
+        "web_fetch",
+        "message",
+        "sessions_list",
+        "sessions_history",
+        "session_status",
+        "cron"
+      ],
+      "deny": [
+        "exec",
+        "process",
+        "browser",
+        "canvas",
+        "apply_patch"
+      ]
+    }
+  }
+]

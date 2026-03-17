@@ -1,8 +1,8 @@
-# 🧠 A.L.I.C.E. — 28 AI Agents for OpenClaw
+# 🧠 A.L.I.C.E. — AI Agent Framework for OpenClaw
 
 **Adaptive Learning & Intelligent Coordination Engine**
 
-One conversation. One orchestrator. Twenty-eight specialists. A.L.I.C.E. turns OpenClaw into a full AI team — talk to Olivia, and she routes your request to the right expert.
+One conversation. One orchestrator. Ten starter agents — with 18 more in Pro. A.L.I.C.E. turns OpenClaw into a full AI team — talk to Olivia, and she routes your request to the right expert.
 
 ## Quick Start
 
@@ -13,6 +13,8 @@ npx @robbiesrobotics/alice-agents
 That's it. The installer detects your OpenClaw installation, asks a few questions, and sets up everything.
 
 ## What You Get
+
+**Starter** includes 10 agents. **Pro** unlocks 18 more — [sign up at getalice.av3.ai](https://getalice.av3.ai/signup?plan=pro)
 
 An orchestrator (Olivia) backed by specialist agents across every domain:
 

@@ -1,0 +1,287 @@
+[
+  {
+    "id": "olivia",
+    "name": "Olivia",
+    "domain": "Orchestration",
+    "theme": "orchestrator of a 28-agent team",
+    "emoji": "\ud83e\udde0",
+    "description": "Routes tasks, coordinates specialists, manages conversations",
+    "tier": "starter",
+    "coding": false,
+    "isOrchestrator": true,
+    "sandbox": {
+      "mode": "off"
+    },
+    "tools": {
+      "profile": "full",
+      "alsoAllow": [
+        "web_search",
+        "web_fetch",
+        "canvas",
+        "browser",
+        "message",
+        "tts",
+        "sessions_spawn",
+        "sessions_send",
+        "sessions_list",
+        "sessions_history",
+        "session_status",
+        "agents_list",
+        "cron"
+      ]
+    },
+    "extraConfig": {
+      "default": true,
+      "groupChat": {
+        "mentionPatterns": [
+          "@olivia",
+          "@alice",
+          "olivia",
+          "alice"
+        ]
+      },
+      "subagents": {
+        "allowAgents": [
+          "*"
+        ]
+      }
+    }
+  },
+  {
+    "id": "dylan",
+    "name": "Dylan",
+    "domain": "Development",
+    "theme": "development specialist",
+    "emoji": "\ud83d\udcbb",
+    "description": "Code, architecture, technical implementation, debugging",
+    "tier": "starter",
+    "coding": true,
+    "sandbox": {
+      "mode": "off"
+    },
+    "tools": {
+      "profile": "coding",
+      "alsoAllow": [
+        "web_search",
+        "web_fetch"
+      ]
+    }
+  },
+  {
+    "id": "selena",
+    "name": "Selena",
+    "domain": "Security",
+    "theme": "security specialist",
+    "emoji": "\ud83d\udee1\ufe0f",
+    "description": "Security review, policy/risk analysis, secure implementation guidance",
+    "tier": "starter",
+    "coding": false,
+    "sandbox": {
+      "mode": "off"
+    },
+    "tools": {
+      "allow": [
+        "read",
+        "write",
+        "exec",
+        "process",
+        "web_search",
+        "web_fetch",
+        "sessions_list",
+        "sessions_history",
+        "session_status"
+      ],
+      "deny": [
+        "edit",
+        "apply_patch",
+        "canvas",
+        "browser",
+        "cron"
+      ]
+    }
+  },
+  {
+    "id": "devon",
+    "name": "Devon",
+    "domain": "DevOps",
+    "theme": "DevOps specialist",
+    "emoji": "\ud83d\ude80",
+    "description": "CI/CD, infrastructure, deployment, containerization",
+    "tier": "starter",
+    "coding": true,
+    "sandbox": {
+      "mode": "off"
+    },
+    "tools": {
+      "profile": "coding",
+      "alsoAllow": [
+        "web_search",
+        "web_fetch"
+      ]
+    }
+  },
+  {
+    "id": "quinn",
+    "name": "Quinn",
+    "domain": "QA/Testing",
+    "theme": "QA/testing specialist",
+    "emoji": "\u2705",
+    "description": "Test strategy, test writing, quality assurance, bug triage",
+    "tier": "starter",
+    "coding": true,
+    "sandbox": {
+      "mode": "off"
+    },
+    "tools": {
+      "profile": "coding",
+      "alsoAllow": [
+        "web_search",
+        "web_fetch",
+        "browser"
+      ]
+    }
+  },
+  {
+    "id": "felix",
+    "name": "Felix",
+    "domain": "Frontend",
+    "theme": "frontend developer",
+    "emoji": "\ud83d\udda5\ufe0f",
+    "description": "UI components, frontend frameworks, responsive design, CSS",
+    "tier": "starter",
+    "coding": true,
+    "sandbox": {
+      "mode": "off"
+    },
+    "tools": {
+      "profile": "coding",
+      "alsoAllow": [
+        "web_search",
+        "web_fetch"
+      ]
+    }
+  },
+  {
+    "id": "daphne",
+    "name": "Daphne",
+    "domain": "Documentation",
+    "theme": "documentation specialist",
+    "emoji": "\ud83d\udcdd",
+    "description": "Technical writing, API docs, guides, README files",
+    "tier": "starter",
+    "coding": false,
+    "sandbox": {
+      "mode": "all",
+      "scope": "agent"
+    },
+    "tools": {
+      "allow": [
+        "read",
+        "write",
+        "edit",
+        "apply_patch",
+        "web_search",
+        "web_fetch",
+        "sessions_list",
+        "sessions_history",
+        "session_status"
+      ],
+      "deny": [
+        "exec",
+        "process",
+        "browser",
+        "canvas",
+        "cron"
+      ]
+    }
+  },
+  {
+    "id": "rowan",
+    "name": "Rowan",
+    "domain": "Research",
+    "theme": "research specialist",
+    "emoji": "\ud83d\udd0d",
+    "description": "Deep research, competitive analysis, literature review, fact-finding",
+    "tier": "starter",
+    "coding": false,
+    "sandbox": {
+      "mode": "all",
+      "scope": "agent"
+    },
+    "tools": {
+      "allow": [
+        "read",
+        "write",
+        "web_search",
+        "web_fetch",
+        "browser",
+        "sessions_list",
+        "sessions_history",
+        "session_status"
+      ],
+      "deny": [
+        "exec",
+        "process",
+        "edit",
+        "canvas",
+        "apply_patch",
+        "cron"
+      ]
+    }
+  },
+  {
+    "id": "darius",
+    "name": "Darius",
+    "domain": "Data",
+    "theme": "data specialist",
+    "emoji": "\ud83d\udcca",
+    "description": "Data pipelines, databases, SQL, ETL, data modeling",
+    "tier": "starter",
+    "coding": true,
+    "sandbox": {
+      "mode": "off"
+    },
+    "tools": {
+      "profile": "coding",
+      "alsoAllow": [
+        "web_search",
+        "web_fetch"
+      ]
+    }
+  },
+  {
+    "id": "sophie",
+    "name": "Sophie",
+    "domain": "Support",
+    "theme": "support specialist",
+    "emoji": "\ud83d\udcac",
+    "description": "User support, troubleshooting guidance, FAQ creation",
+    "tier": "starter",
+    "coding": false,
+    "sandbox": {
+      "mode": "all",
+      "scope": "agent"
+    },
+    "tools": {
+      "allow": [
+        "read",
+        "web_search",
+        "web_fetch",
+        "message",
+        "sessions_list",
+        "sessions_history",
+        "session_status"
+      ],
+      "deny": [
+        "write",
+        "edit",
+        "exec",
+        "process",
+        "canvas",
+        "browser",
+        "apply_patch",
+        "cron"
+      ]
+    }
+  }
+]
