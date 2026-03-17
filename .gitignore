@@ -1,0 +1,9 @@
+
+# Private — not for public repo
+templates/agents-pro.json
+templates/agents.json
+marketing/
+scripts/
+ROSTER.md
+NEMOCLAW.md
+*.tgz
