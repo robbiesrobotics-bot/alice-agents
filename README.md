@@ -57,7 +57,7 @@ An orchestrator (Olivia) backed by specialist agents across every domain:
 |--------|--------|----------|
 | **Sonnet** (default) | claude-sonnet-4-6 for all | Balanced speed + quality |
 | **Opus + Sonnet** | Opus for orchestrator, Sonnet for specialists | Maximum orchestration quality |
-| **OpenAI** | GPT-4.1 / GPT-4.1-mini | OpenAI users |
+| **OpenAI** | GPT-5.4 / GPT-5.4-mini | OpenAI users |
 | **Local (Ollama)** | Local models | Privacy, offline use |
 | **Custom** | Your choice | Full control |
 
@@ -120,7 +120,7 @@ A.L.I.C.E. runs on any OpenClaw-compatible runtime:
 | Runtime | Status | Notes |
 |---------|--------|-------|
 | **NemoClaw** | ✅ Recommended | NVIDIA's secure distribution. Agents run inside OpenShell sandbox. [Get NemoClaw](https://nvidia.com/nemoclaw) |
-| **OpenClaw** | ✅ Fully supported | Lightweight option. [openclaw.com](https://openclaw.com) |
+| **OpenClaw** | ✅ Fully supported | Lightweight option. [openclaw.ai](https://openclaw.ai) |
 
 ### Why NemoClaw?
 
@@ -130,7 +130,7 @@ If you're already running NemoClaw, A.L.I.C.E. works out of the box — no extra
 
 ## Requirements
 
-- [OpenClaw](https://openclaw.com) or [NemoClaw](https://nemoclaw.com) installed and configured
+- [OpenClaw](https://openclaw.ai) or [NemoClaw](https://nemoclaw.com) installed and configured
 - Node.js 18+
 - At least one AI provider configured (Anthropic, OpenAI, or Ollama)
 
