@@ -40,7 +40,7 @@ These copy updates ensure honest, compelling messaging for early adopters arrivi
 - **Before:** `Your CLI is waiting to be connected.`
 - **After:** `Be first when Pro opens. $49 one-time, no subscription.`
 
-> **Note for Darius:** These heading/subhead changes are in `SignupForm` inside the title `<div>` block. If you're rebuilding this page, preserve the waitlist framing — heading + subhead above. The `PlanBadge` component (shows "Pro Plan · $29/mo") is still intact and can be kept or removed depending on your new layout.
+> **Note for Darius:** These heading/subhead changes are in `SignupForm` inside the title `<div>` block. If you're rebuilding this page, preserve the waitlist framing — heading + subhead above. Update the `PlanBadge` component to show "Pro Plan · $49 one-time" depending on your new layout.
 
 ---
 

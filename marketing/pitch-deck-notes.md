@@ -163,7 +163,7 @@
 - 28-agent roster built and operational
 - Multi-channel delivery: Telegram, CLI, iMessage
 - Persistent memory architecture shipped (Pro tier)
-- Founder pricing pre-launch cohort being assembled
+- Early adopter cohort being assembled (Pro $49 one-time)
 
 **Roadmap milestones:**
 | Quarter | Milestone |

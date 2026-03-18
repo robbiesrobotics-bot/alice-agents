@@ -249,4 +249,4 @@ Free to start, no account required, and MIT licensed — so even if you hate it,
 ---
 
 *Copy written by Morgan 📣 — A.L.I.C.E. Marketing Specialist*
-*Ready for design handoff. Founder pricing callout needs live seat count wired in.*
+*Ready for design handoff. Pricing confirmed: Free / Pro $49 one-time / Cloud $20/mo.*
