@@ -80,8 +80,8 @@ The Starter team covers the full dev lifecycle: build, secure, ship, test, docum
 
 ---
 
-**Pro — $20/mo**
-The full 28-agent organization, plus persistent memory and cloud sync.
+**Pro — $49 one-time**
+The full 28-agent organization. Pay once, own it forever.
 
 Unlock the departments you didn't know you needed — until you did.
 
@@ -124,36 +124,30 @@ Unlock the departments you didn't know you needed — until you did.
 ---
 
 ### Tier: Pro
-**Price:** $20/month or $180/year (save two months)
-**Tagline:** The full organization. Persistent. Synced. Ready.
+**Price:** $49 one-time purchase
+**Tagline:** The full organization. Yours forever.
 
 - All 28 specialist agents unlocked
 - Persistent memory — agents remember context across sessions
-- Cloud sync — pick up where you left off on any machine
+- One-time purchase — no recurring charges, no subscriptions
 - Priority access to new agents as they ship
 - Everything in Starter, no limits
 
 ---
 
-### Tier: Team
-**Price:** $15/seat/month
-**Tagline:** When it's not just you anymore.
+### Tier: Cloud Add-on
+**Price:** $20/month (requires active Pro license)
+**Tagline:** Take your team anywhere.
 
-- Shared team memory — agents know what your whole team knows
-- SSO and centralized access control
-- Admin dashboard for usage and permissions
-- All 28 agents per seat
-- Dedicated onboarding support
+- Hosted Mission Control dashboard
+- Cloud sync — pick up where you left off on any machine
+- Requires Pro license to activate
+- Cancel anytime
 
 ---
 
-### Founder Pricing Callout
-
-> **⚡ Founder Pricing — $99/year, locked for life.**
->
-> First 500 customers only. Pay once, get the Pro tier at this price forever — even when it goes up. This isn't a marketing gimmick; it's a thank-you for being early. Once 500 seats are gone, this offer disappears.
->
-> **[Claim Founder Pricing →]** *(X of 500 remaining)*
+### Team Tier
+*(Coming soon — not yet available)*
 
 ---
 
@@ -167,9 +161,6 @@ That's up to you. A.L.I.C.E. works with Anthropic (Claude), OpenAI (GPT), and lo
 
 **Q: What happens to my data?**
 On Starter and self-hosted Pro, everything runs locally. Cloud sync (Pro) is opt-in and stores memory state only — not your full conversation history. MIT licensed, so you can verify exactly what's happening.
-
-**Q: Is the $99 founder price actually locked forever?**
-Yes. If you buy Founder pricing, you pay $99/year indefinitely — even after we raise prices. We're not going to claw that back. It's in your account, it's yours.
 
 **Q: Can I build on top of this or modify the agents?**
 Absolutely. MIT license means you can fork it, customize agent personas, add your own specialists, or integrate it into something else entirely. We'd love to see what you build.

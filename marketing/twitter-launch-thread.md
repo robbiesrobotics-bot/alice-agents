@@ -75,10 +75,10 @@ Free Starter gives you 10. Pro unlocks all 28.
 Pricing that's actually for developers:
 
 → **Starter** — Free. 10 agents. No account needed.
-→ **Pro** — $20/mo. All 28 agents. Persistent memory.
-→ **Team** — $15/seat/mo. Shared context. Works together.
+→ **Pro** — $49 one-time. All 28 agents. Persistent memory.
+→ **Cloud Add-on** — $20/mo. Hosted Mission Control. Requires Pro.
 
-**Founder deal:** $99/year for Pro. First 500 only.
+$49 is an impulse buy. You probably spend more on coffee this week.
 
 The free tier is real. Go try it right now:
 `npx @robbiesrobotics/alice-agents`
@@ -123,7 +123,7 @@ Nova outlined the narrative. Finn built the financial summary. Clara formatted t
 
 The human team reviewed and approved in 20 minutes.
 
-That's the Team tier. $15/seat/mo for that leverage.
+That's Pro. $49 one-time for that leverage.
 
 ---
 
@@ -135,8 +135,8 @@ Ready to try it?
 
 Free Starter. No account. No catch.
 
-If you like it → Pro is $20/mo
-If you want locked-in pricing → Founder is $99/yr (500 spots)
+If you like it → Pro is $49 one-time (no subscription)
+If you want cloud features → Cloud Add-on is $20/mo (requires Pro)
 
 Star the repo. Share the thread. Tell me what breaks.
 
