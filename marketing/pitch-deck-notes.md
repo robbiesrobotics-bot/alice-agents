@@ -168,7 +168,7 @@
 **Roadmap milestones:**
 | Quarter | Milestone |
 |---------|-----------|
-| Q1 2026 | Public launch, Product Hunt, first 500 Founder installs |
+| Q1 2026 | Public launch, Product Hunt, $49 pricing live |
 | Q2 2026 | Team workspace + shared memory, 5K MAU |
 | Q3 2026 | API tier, plugin ecosystem, 15K MAU |
 | Q4 2026 | Enterprise pilot, SOC 2 Type I, $1M ARR target |

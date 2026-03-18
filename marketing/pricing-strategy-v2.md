@@ -83,29 +83,27 @@ That's a product. A good one, potentially. But it's not a service. Charging $29/
 
 ---
 
-## 4. Option C — Current Subscription (Status Quo)
+## 4. Option C — Rejected: Subscription Model (Why it failed)
 
-| Tier | Price |
-|------|-------|
-| Starter | Free |
-| Pro | $29/mo |
-| Team | $99/mo |
+> **Status: REJECTED — Rob chose Option A instead**
 
-### Honest Critique
+| Tier | Price | Status |
+|------|-------|--------|
+| Starter | Free | ✅ Still live |
+| Pro | ~~$29/mo~~ | ❌ Rejected — changed to $49 one-time |
+| Team | ~~$99/mo~~ | ❌ Rejected — coming soon |
 
-**What justifies $29/mo right now?**
+### Why the subscription model didn't work
 
-Unless there's active cloud infrastructure, an AI model API being proxied, continuous new agent development, or an always-on dashboard — not much.
+The original $29/mo Pro tier was unsustainable because:
 
-The developer community will forgive a lot, but they don't forgive "you're charging me monthly for config files." This is the thing that kills word-of-mouth and generates negative HackerNews threads.
+1. **Honest assessment:** Charging monthly for config files is a trust-killer with developers.
+2. **High churn risk:** Monthly subscribers constantly re-evaluate. One-time buyers don't.
+3. **Support burden:** Monthly payers feel entitled to ongoing support.
+4. **Mismatched signal:** Subscription implies active service delivery. CLI + configs doesn't justify it.
+5. **Competitive threat:** First open-source alternative kills the recurring revenue base.
 
-**Specific problems with the status quo:**
-1. **High churn risk.** Monthly subscribers constantly re-evaluate. One-time buyers don't.
-2. **Support burden.** Monthly payers feel entitled to ongoing support. You'll be buried in tickets.
-3. **Mismatched trust signal.** Subscription implies ongoing service delivery. If the product is CLI + configs, devs will feel deceived when they realize the scope.
-4. **Competitive threat.** The moment an open-source alternative appears with similar agents, you lose your recurring subscribers fast. A one-time buyer is already "paid and happy."
-
-**The only scenario where $29/mo is defensible today:** if you're shipping meaningful new agents or capabilities monthly, actively maintaining cloud infrastructure, and have a support tier baked in. If that's not happening yet, change the model before the community defines the narrative for you.
+**Outcome:** Rob pivoted to Option A (one-time purchase) before launch. The subscription model was conceptually wrong for the product.
 
 ---
 
@@ -162,7 +160,7 @@ That's a legit $99-$500/mo product — but it requires infrastructure. Build tow
 - **Proxyman** — $49–$99 one-time, developer tool, strong NPS.
 
 **The honest investor pitch:**
-"Our TAM isn't just individual developers paying $29/mo. It's teams on NemoClaw paying $500/mo for enterprise memory and managed hosting. The one-time model is the acquisition layer. The cloud services are the monetization layer. We're building a land-and-expand motion where $49 gets someone into the ecosystem and $9–$500/mo keeps them there."
+"Our TAM isn't just individual developers. It's teams on NemoClaw paying $500+/mo for enterprise memory and managed hosting. The one-time $49 model is the acquisition layer. The cloud services ($20/mo) are the monetization layer. We're building a land-and-expand motion where $49 gets someone into the ecosystem and $20–$500+/mo keeps them there as they scale."
 
 **Revenue modeling for investors:**
 | Scenario | Customers | Revenue |
