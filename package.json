@@ -1,7 +1,7 @@
 {
   "name": "@robbiesrobotics/alice-agents",
-  "version": "1.3.2",
-  "description": "A.L.I.C.E. — 28 AI agents for OpenClaw. One conversation, one team.",
+  "version": "1.3.3",
+  "description": "A.L.I.C.E. \u2014 28 AI agents for OpenClaw. One conversation, one team.",
   "bin": {
     "alice-agents": "bin/alice-install.mjs"
   },
