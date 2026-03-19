@@ -1,0 +1,11 @@
+{
+  "name": "@alice/mission-control-bridge",
+  "version": "1.0.0",
+  "description": "Bridges OpenClaw diagnostic events to Mission Control ingest endpoint",
+  "type": "module",
+  "openclaw": {
+    "extensions": [
+      "./index.ts"
+    ]
+  }
+}

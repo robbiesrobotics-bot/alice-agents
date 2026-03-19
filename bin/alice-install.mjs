@@ -9,6 +9,12 @@ import { runSkillsManager } from '../lib/skills.mjs';
 const args = process.argv.slice(2);
 const flags = new Set(args);
 
+function getFlagValue(name) {
+  const idx = args.indexOf(name);
+  if (idx === -1) return undefined;
+  return args[idx + 1];
+}
+
 if (flags.has('--version') || flags.has('-v')) {
   const pkg = JSON.parse(readFileSync(new URL('../package.json', import.meta.url)));
   console.log(pkg.version);
@@ -26,6 +32,7 @@ if (flags.has('--help') || flags.has('-h')) {
     npx @robbiesrobotics/alice-agents --uninstall  Remove A.L.I.C.E. agents from config
     npx @robbiesrobotics/alice-agents --doctor     Run diagnostics on your A.L.I.C.E. install
     npx @robbiesrobotics/alice-agents --skills     Manage skills (install, remove, browse)
+    npx @robbiesrobotics/alice-agents --cloud      Enable Mission Control Cloud during install
     npx @robbiesrobotics/alice-agents --version    Show version
     npx @robbiesrobotics/alice-agents --help       Show this help
 
@@ -34,6 +41,11 @@ if (flags.has('--help') || flags.has('-h')) {
     --update      Non-interactive upgrade (alias for --yes with upgrade mode)
     --uninstall   Remove A.L.I.C.E. agents (preserves non-ALICE agents)
     --doctor      Run diagnostics and check install health
+    --cloud       Enable Mission Control Cloud setup during install
+    --no-cloud    Skip Mission Control Cloud setup during install
+    --cloud-token <token>           Mission Control ingest/access token
+    --cloud-dashboard-url <url>     Mission Control dashboard URL
+    --cloud-ingest-url <url>        Mission Control ingest endpoint
     --version     Print package version
   `);
   process.exit(0);
@@ -45,7 +57,14 @@ if (flags.has('--doctor')) {
     process.exit(1);
   });
 } else if (flags.has('--update')) {
-  runInstall({ yes: true, modeOverride: 'upgrade' }).catch((err) => {
+  runInstall({
+    yes: true,
+    modeOverride: 'upgrade',
+    cloud: flags.has('--cloud') ? true : flags.has('--no-cloud') ? false : undefined,
+    cloudToken: getFlagValue('--cloud-token'),
+    cloudDashboardUrl: getFlagValue('--cloud-dashboard-url'),
+    cloudIngestUrl: getFlagValue('--cloud-ingest-url'),
+  }).catch((err) => {
     console.error('  ❌ Update failed:', err.message);
     process.exit(1);
   });
@@ -60,7 +79,13 @@ if (flags.has('--doctor')) {
     process.exit(1);
   });
 } else {
-  runInstall({ yes: flags.has('--yes') }).catch((err) => {
+  runInstall({
+    yes: flags.has('--yes'),
+    cloud: flags.has('--cloud') ? true : flags.has('--no-cloud') ? false : undefined,
+    cloudToken: getFlagValue('--cloud-token'),
+    cloudDashboardUrl: getFlagValue('--cloud-dashboard-url'),
+    cloudIngestUrl: getFlagValue('--cloud-ingest-url'),
+  }).catch((err) => {
     console.error('  ❌ Install failed:', err.message);
     process.exit(1);
   });

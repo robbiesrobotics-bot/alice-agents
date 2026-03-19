@@ -1,6 +1,6 @@
 {
   "name": "@robbiesrobotics/alice-agents",
-  "version": "1.4.3",
+  "version": "1.4.4",
   "description": "A.L.I.C.E. — 28 AI agents for OpenClaw. One conversation, one team.",
   "bin": {
     "alice-agents": "bin/alice-install.mjs"
@@ -23,6 +23,7 @@
     "tools/",
     "snapshots/",
     "templates/agents-starter.json",
+    "templates/mission-control-bridge/",
     "templates/skills/",
     "templates/workspaces/",
     "SELF-HEALING-SPEC.md",

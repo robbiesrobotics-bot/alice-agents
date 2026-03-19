@@ -18,6 +18,11 @@ That's it. The installer detects your runtime (NemoClaw or OpenClaw) and sets ev
 
 **Starter** includes 10 agents. **Pro** unlocks 18 more — [sign up at getalice.av3.ai](https://getalice.av3.ai/signup?plan=pro)
 
+**Mission Control Cloud** is available as a Pro add-on. If enabled during install, the package now:
+- installs the `mission-control-bridge` plugin into your OpenClaw home
+- writes a portable local Mission Control config at `~/.openclaw/.alice-mission-control.json`
+- enables the bridge in `openclaw.json` so your runtime can forward live telemetry to Mission Control
+
 An orchestrator (A.L.I.C.E., also addressable as Alice or Olivia) backed by specialist agents across every domain:
 
 | Agent | Domain | Emoji | Tier |
@@ -77,6 +82,9 @@ npx @robbiesrobotics/alice-agents
 # Non-interactive with defaults (detected model if available, otherwise Sonnet; Starter tier)
 npx @robbiesrobotics/alice-agents --yes
 
+# Non-interactive Pro install with Mission Control Cloud enabled
+npx @robbiesrobotics/alice-agents --cloud --cloud-token YOUR_TOKEN
+
 # Show help
 npx @robbiesrobotics/alice-agents --help
 ```
@@ -86,6 +94,19 @@ npx @robbiesrobotics/alice-agents --help
 - **Fresh** — Replaces the agents section in `openclaw.json` (recommended for first install)
 - **Merge** — Adds A.L.I.C.E. agents alongside your existing agents
 - **Upgrade** — Updates product files (SOUL.md, AGENTS.md, etc.) without touching user customizations
+
+### Mission Control Cloud
+
+If you're a Pro user with the cloud add-on, the installer can configure your local runtime for Mission Control in the same pass.
+
+- Interactive install: choose `Pro`, validate your license, then enable the Mission Control Cloud add-on when prompted
+- Non-interactive install: pass `--cloud`
+- Optional flags:
+  - `--cloud-token <token>` — access or ingest token for authenticated telemetry
+  - `--cloud-dashboard-url <url>` — defaults to `https://alice.av3.ai`
+  - `--cloud-ingest-url <url>` — defaults to `<dashboard-url>/api/v1/ingest`
+
+The cloud config is stored in `~/.openclaw/.alice-mission-control.json`, and the bundled bridge plugin reads from that file so the setup remains portable across macOS, Linux, and Windows.
 
 ## Upgrade
 
