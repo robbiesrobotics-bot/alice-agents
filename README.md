@@ -74,7 +74,7 @@ When you install, the installer will **auto-detect your configured model** and u
 # Interactive install
 npx @robbiesrobotics/alice-agents
 
-# Non-interactive with defaults (Sonnet, Starter tier)
+# Non-interactive with defaults (detected model if available, otherwise Sonnet; Starter tier)
 npx @robbiesrobotics/alice-agents --yes
 
 # Show help

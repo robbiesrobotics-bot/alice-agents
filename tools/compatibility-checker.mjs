@@ -89,6 +89,33 @@ function diffConfigSchema(snapshot, liveConfig) {
     });
   }
 
+  const configuredProviders = new Set([
+    ...Object.keys(liveConfig?.models?.providers || {}),
+    ...Object.values(liveConfig?.auth?.profiles || {}).map((profile) => profile?.provider),
+  ].filter(Boolean).map((provider) => provider === 'openai-codex' ? 'openai' : provider));
+
+  const referencedModels = [
+    defaults?.model?.primary,
+    defaults?.model?.orchestrator,
+    ...(defaults?.model?.fallbacks || []),
+    ...agents.map((agent) => agent?.model).filter(Boolean),
+  ].filter(Boolean);
+
+  for (const model of referencedModels) {
+    const provider = typeof model === 'string' && model.includes('/') ? model.split('/')[0] : null;
+    const normalized = provider === 'openai-codex' ? 'openai' : provider;
+    if (normalized && configuredProviders.size > 0 && !configuredProviders.has(normalized)) {
+      changes.push({
+        category: 'config',
+        severity: 'high',
+        field: 'agents.defaults.model',
+        change: `Model '${model}' references provider '${normalized}', but that provider is not configured in OpenClaw auth/models`,
+        autoFixable: false
+      });
+      break;
+    }
+  }
+
   return changes;
 }
 

@@ -7,7 +7,7 @@
  */
 import { test, describe, before, after } from 'node:test';
 import assert from 'node:assert/strict';
-import { mkdirSync, writeFileSync, rmSync, existsSync, unlinkSync } from 'node:fs';
+import { mkdirSync, writeFileSync, readFileSync, rmSync, existsSync, unlinkSync } from 'node:fs';
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
 
@@ -23,13 +23,14 @@ const originalHome = process.env.HOME;
 process.env.HOME = TEMP_HOME;
 
 // Now import the module — OPENCLAW_DIR and CONFIG_PATH constants will use TEMP_HOME
-const { detectAvailableModels } = await import('../lib/config-merger.mjs');
+const { detectAvailableModels, mergeConfig } = await import('../lib/config-merger.mjs');
 
 // Restore HOME (not strictly necessary for tests, but good hygiene)
 process.env.HOME = originalHome;
 
 // Helper: write config to our controlled path
 function writeConfig(obj) {
+  mkdirSync(OPENCLAW_DIR, { recursive: true });
   writeFileSync(CONFIG_PATH, JSON.stringify(obj), 'utf8');
 }
 
@@ -69,6 +70,27 @@ describe('detectAvailableModels', () => {
     assert.ok('providers' in result, 'should have providers field');
   });
 
+  test('detects providers from auth profiles as well as models.providers', () => {
+    writeConfig({
+      auth: {
+        profiles: {
+          'openai-codex:default': { provider: 'openai-codex' },
+          'anthropic:default': { provider: 'anthropic' },
+        },
+      },
+      agents: {
+        defaults: {
+          model: {
+            primary: 'anthropic/claude-sonnet-4-6',
+          },
+        },
+      },
+    });
+
+    const result = detectAvailableModels();
+    assert.deepEqual(result.providers.sort(), ['anthropic', 'openai']);
+  });
+
   test('returns null on malformed JSON — does not throw', () => {
     writeFileSync(CONFIG_PATH, '{ bad json !!!', 'utf8');
     let result;
@@ -84,5 +106,47 @@ describe('detectAvailableModels', () => {
     // Config exists but no model — should not throw, returns object with hasModel: false
     // (or null if config is valid but incomplete — implementation returns object)
     assert.doesNotThrow(() => detectAvailableModels());
+  });
+});
+
+describe('mergeConfig compatibility guard', () => {
+  const agents = [
+    {
+      id: 'olivia',
+      name: 'Olivia',
+      theme: 'orchestrator',
+      emoji: '🧠',
+      sandbox: { mode: 'off' },
+      tools: { profile: 'full' },
+      isOrchestrator: true,
+      extraConfig: {},
+    },
+  ];
+
+  test('falls back to detected config when chosen preset is incompatible with configured providers', () => {
+    writeConfig({
+      auth: {
+        profiles: {
+          'anthropic:default': { provider: 'anthropic' },
+        },
+      },
+      agents: {
+        defaults: {
+          model: {
+            primary: 'anthropic/claude-sonnet-4-6',
+            fallbacks: ['anthropic/claude-haiku-4-5'],
+          },
+        },
+        list: [],
+      },
+    });
+
+    const result = mergeConfig({ agents, mode: 'merge', preset: 'openai' });
+    const updated = JSON.parse(readFileSync(CONFIG_PATH, 'utf8'));
+
+    assert.equal(result.effectivePreset, 'detected');
+    assert.match(result.warning, /does not match configured OpenClaw providers/i);
+    assert.equal(updated.agents.defaults.model.primary, 'anthropic/claude-sonnet-4-6');
+    assert.equal(updated.agents.list[0].model, 'anthropic/claude-sonnet-4-6');
   });
 });
