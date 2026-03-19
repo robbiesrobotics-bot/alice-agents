@@ -4,6 +4,7 @@ import { readFileSync } from 'node:fs';
 import { createRequire } from 'node:module';
 import { runInstall, runUninstall } from '../lib/installer.mjs';
 import { runDoctor } from '../lib/doctor.mjs';
+import { runSkillsManager } from '../lib/skills.mjs';
 
 const args = process.argv.slice(2);
 const flags = new Set(args);
@@ -24,6 +25,7 @@ if (flags.has('--help') || flags.has('-h')) {
     npx @robbiesrobotics/alice-agents --update     Non-interactive upgrade to latest agents
     npx @robbiesrobotics/alice-agents --uninstall  Remove A.L.I.C.E. agents from config
     npx @robbiesrobotics/alice-agents --doctor     Run diagnostics on your A.L.I.C.E. install
+    npx @robbiesrobotics/alice-agents --skills     Manage skills (install, remove, browse)
     npx @robbiesrobotics/alice-agents --version    Show version
     npx @robbiesrobotics/alice-agents --help       Show this help
 
@@ -45,6 +47,11 @@ if (flags.has('--doctor')) {
 } else if (flags.has('--update')) {
   runInstall({ yes: true, modeOverride: 'upgrade' }).catch((err) => {
     console.error('  ❌ Update failed:', err.message);
+    process.exit(1);
+  });
+} else if (flags.has('--skills')) {
+  runSkillsManager().catch((err) => {
+    console.error(`  ✗ Skills manager failed: ${err.message}`);
     process.exit(1);
   });
 } else if (flags.has('--uninstall')) {
