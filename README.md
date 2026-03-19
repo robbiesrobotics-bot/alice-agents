@@ -55,11 +55,11 @@ An orchestrator (Olivia) backed by specialist agents across every domain:
 
 A.L.I.C.E. works with **whatever model you already have configured** in OpenClaw/NemoClaw. There's no required API key — just use what you've got.
 
-When you install, the installer will **auto-detect your configured model** and use it by default. You can also choose from presets or specify a custom model.
+When you install, the installer will **auto-detect your configured model** and let the agent team inherit that runtime default. You can also choose from presets or specify a custom model for the OpenClaw/NemoClaw defaults A.L.I.C.E. should use.
 
 | Preset | Models | Best For |
 |--------|--------|----------|
-| **Auto-detect** (default) | Your current OpenClaw model | Zero friction — works with what you have |
+| **Auto-detect** (default) | Your current OpenClaw/NemoClaw default | Zero friction — agents inherit what your runtime already uses |
 | **Sonnet** | claude-sonnet-4-6 for all | Balanced speed + quality (requires Anthropic key) |
 | **Opus + Sonnet** | Opus for orchestrator, Sonnet for specialists | Maximum quality (requires Anthropic key) |
 | **OpenAI** | GPT-5.4 / GPT-5.4-mini | OpenAI users |

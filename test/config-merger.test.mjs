@@ -147,6 +147,26 @@ describe('mergeConfig compatibility guard', () => {
     assert.equal(result.effectivePreset, 'detected');
     assert.match(result.warning, /does not match configured OpenClaw providers/i);
     assert.equal(updated.agents.defaults.model.primary, 'anthropic/claude-sonnet-4-6');
-    assert.equal(updated.agents.list[0].model, 'anthropic/claude-sonnet-4-6');
+    assert.equal(updated.agents.list[0].model, undefined);
+    assert.equal(updated.agents.list[0].default, true);
+  });
+
+  test('does not pin the orchestrator to a specific model', () => {
+    writeConfig({
+      agents: {
+        defaults: {
+          model: {
+            primary: 'openai/gpt-5.4-mini',
+          },
+        },
+        list: [],
+      },
+    });
+
+    mergeConfig({ agents, mode: 'merge', preset: 'detected' });
+    const updated = JSON.parse(readFileSync(CONFIG_PATH, 'utf8'));
+
+    assert.equal(updated.agents.list[0].model, undefined);
+    assert.equal(updated.agents.list[0].default, true);
   });
 });
