@@ -93,7 +93,7 @@ exec:
 2. **One task per invocation** — don't chain unrelated work in one prompt
 3. **Always verify** — ask Claude Code to run the build/tests before finishing
 4. **Background for >5min tasks** — use background:true and the notification line
-5. **Report results** — after Claude Code finishes, summarize what changed to Olivia
+5. **Report results** — after Claude Code finishes, summarize what changed to A.L.I.C.E.
 6. **Never run in ~/.openclaw/ itself** — always in a project subdirectory
 
 ## Agents authorized to use this skill
@@ -108,4 +108,4 @@ exec:
   command: which claude && claude --version
 ```
 
-If not found, tell Olivia — she'll handle escalation.
+If not found, tell A.L.I.C.E. — she'll handle escalation.

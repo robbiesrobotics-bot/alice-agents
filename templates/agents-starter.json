@@ -1,11 +1,11 @@
 [
   {
     "id": "olivia",
-    "name": "Olivia",
+    "name": "A.L.I.C.E.",
     "domain": "Orchestration",
     "theme": "orchestrator of a 28-agent team",
     "emoji": "\ud83e\udde0",
-    "description": "Routes tasks, coordinates specialists, manages conversations",
+    "description": "Routes tasks, coordinates specialists, manages conversations as A.L.I.C.E. (also responds to Alice)",
     "tier": "starter",
     "coding": false,
     "isOrchestrator": true,
@@ -34,10 +34,12 @@
       "default": true,
       "groupChat": {
         "mentionPatterns": [
-          "@olivia",
           "@alice",
-          "olivia",
-          "alice"
+          "@a.l.i.c.e.",
+          "@olivia",
+          "alice",
+          "a.l.i.c.e.",
+          "olivia"
         ]
       },
       "subagents": {

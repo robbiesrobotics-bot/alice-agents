@@ -20,7 +20,7 @@ exec workdir=/path/to/project background=true command="claude --permission-mode 
 
 - Always set `workdir` to the project root
 - Use `max` effort for complex multi-file refactors
-- Review Claude Code's output before reporting to Olivia
+- Review Claude Code's output before reporting to A.L.I.C.E.
 
 ## Other Tools
 

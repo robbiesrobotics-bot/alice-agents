@@ -113,7 +113,7 @@ describe('mergeConfig compatibility guard', () => {
   const agents = [
     {
       id: 'olivia',
-      name: 'Olivia',
+      name: 'A.L.I.C.E.',
       theme: 'orchestrator',
       emoji: '🧠',
       sandbox: { mode: 'off' },

@@ -2,7 +2,7 @@
 
 **Adaptive Learning & Intelligent Coordination Engine**
 
-One conversation. One orchestrator. Ten starter agents — with 18 more in Pro. A.L.I.C.E. turns your agent runtime into a full AI team — talk to Olivia, and she routes your request to the right expert.
+One conversation. One orchestrator. Ten starter agents — with 18 more in Pro. A.L.I.C.E. turns your agent runtime into a full AI team — talk to A.L.I.C.E. (or just Alice), and she routes your request to the right expert.
 
 **NemoClaw compatible** — A.L.I.C.E. v1.2.7+ runs natively on [NVIDIA NemoClaw](https://nvidia.com/nemoclaw), the secure open-source agent runtime. Agents execute inside the OpenShell sandbox for enterprise-grade security.
 
@@ -18,11 +18,11 @@ That's it. The installer detects your runtime (NemoClaw or OpenClaw) and sets ev
 
 **Starter** includes 10 agents. **Pro** unlocks 18 more — [sign up at getalice.av3.ai](https://getalice.av3.ai/signup?plan=pro)
 
-An orchestrator (Olivia) backed by specialist agents across every domain:
+An orchestrator (A.L.I.C.E., also addressable as Alice or Olivia) backed by specialist agents across every domain:
 
 | Agent | Domain | Emoji | Tier |
 |-------|--------|-------|------|
-| **Olivia** | Orchestration | 🧠 | Starter |
+| **A.L.I.C.E.** | Orchestration | 🧠 | Starter |
 | **Dylan** | Development | 💻 | Starter |
 | **Selena** | Security | 🛡️ | Starter |
 | **Devon** | DevOps | 🚀 | Starter |
@@ -108,10 +108,10 @@ Removes A.L.I.C.E. agents from `openclaw.json` while preserving any non-ALICE ag
 
 ## How It Works
 
-1. **You talk to Olivia** — she's your single point of contact
-2. **Olivia routes to specialists** — "Build me an API" → Dylan (Development)
+1. **You talk to A.L.I.C.E.** — she's your single point of contact
+2. **A.L.I.C.E. routes to specialists** — "Build me an API" → Dylan (Development)
 3. **Specialists do the work** — using their domain-specific tools and expertise
-4. **Olivia synthesizes** — combines results and presents them to you
+4. **A.L.I.C.E. synthesizes** — combines results and presents them to you
 
 Each agent has its own workspace with:
 - `SOUL.md` — personality and values
