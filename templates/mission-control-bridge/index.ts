@@ -11,6 +11,7 @@ import type { DiagnosticEventPayload } from "openclaw/plugin-sdk/diagnostics-ote
 const OPENCLAW_HOME = process.env.OPENCLAW_HOME ?? join(homedir(), ".openclaw");
 const MC_CONFIG_PATH = join(OPENCLAW_HOME, ".alice-mission-control.json");
 const DEFAULT_DASHBOARD_URL = "https://alice.av3.ai";
+const DEFAULT_ADMIN_URL = "https://admin.av3.ai";
 const DEFAULT_INGEST_URL = `${DEFAULT_DASHBOARD_URL}/api/v1/ingest`;
 const DEFAULT_RUNTIME_BASE_URL = `${DEFAULT_DASHBOARD_URL}/api/v1/runtime`;
 const DEFAULT_GATEWAY_URL = process.env.OPENCLAW_GATEWAY_URL ?? "http://127.0.0.1:18789";
@@ -72,6 +73,9 @@ const cloudConfig = getCloudConfig();
 const DASHBOARD_URL = normalizeUrl(
   getString(process.env.MC_DASHBOARD_URL, getString(cloudConfig.dashboardUrl, DEFAULT_DASHBOARD_URL)),
 );
+const ADMIN_URL = normalizeUrl(
+  getString(process.env.MC_ADMIN_URL, getString(cloudConfig.adminUrl, DEFAULT_ADMIN_URL)),
+);
 const INGEST_URL = normalizeUrl(
   getString(process.env.MC_INGEST_URL, getString(cloudConfig.ingestUrl, DEFAULT_INGEST_URL)),
 );
@@ -85,6 +89,12 @@ const NODE_HEARTBEAT_URL = normalizeUrl(
   getString(
     process.env.MC_NODE_HEARTBEAT_URL,
     getString(cloudConfig.nodeHeartbeatUrl, `${RUNTIME_BASE_URL}/nodes/heartbeat`),
+  ),
+);
+const ADMIN_HEARTBEAT_URL = normalizeUrl(
+  getString(
+    process.env.MC_ADMIN_HEARTBEAT_URL,
+    getString(cloudConfig.adminHeartbeatUrl, `${ADMIN_URL}/api/admin/v1/node-heartbeat`),
   ),
 );
 const COMMANDS_URL = normalizeUrl(
@@ -187,27 +197,48 @@ async function registerNode(logger: { info(message: string): void; warn(message:
 
 async function heartbeatNode(logger: { warn(message: string): void }): Promise<void> {
   if (!WORKER_TOKEN) return;
+  const payload = {
+    nodeId: NODE_ID,
+    status: "online",
+    runtimeVersion: process.version,
+    platform: process.platform,
+    capabilities: {
+      telemetry: true,
+      commands: true,
+      directGateway: true,
+      commandTypes: ["agent.message.send"],
+    },
+    metadata: {
+      dashboardUrl: DASHBOARD_URL,
+    },
+  };
   try {
-    const res = await postJson(NODE_HEARTBEAT_URL, WORKER_TOKEN, {
-      nodeId: NODE_ID,
-      status: "online",
-      runtimeVersion: process.version,
-      platform: process.platform,
-      capabilities: {
-        telemetry: true,
-        commands: true,
-        directGateway: true,
-        commandTypes: ["agent.message.send"],
-      },
-      metadata: {
-        dashboardUrl: DASHBOARD_URL,
-      },
-    });
+    const res = await postJson(NODE_HEARTBEAT_URL, WORKER_TOKEN, payload);
     if (!res.ok) {
       logger.warn(`[mc-bridge] heartbeat failed ${res.status}: ${await res.text().catch(() => "")}`);
     }
   } catch (err) {
     logger.warn(`[mc-bridge] heartbeat failed: ${String(err)}`);
+  }
+
+  try {
+    const res = await postJson(ADMIN_HEARTBEAT_URL, WORKER_TOKEN, {
+      instanceId: NODE_ID,
+      nodeName: SOURCE_NODE,
+      tailscaleIp: getString(process.env.TAILSCALE_IP),
+      deployedVersion: getString(process.env.MC_DEPLOYED_VERSION),
+      runtimeVersion: process.version,
+      status: "healthy",
+      publicUrl: DASHBOARD_URL,
+      region: getString(process.env.MC_REGION),
+      backupStatus: "unknown",
+      memorySyncStatus: "healthy",
+    });
+    if (!res.ok) {
+      logger.warn(`[mc-bridge] admin heartbeat failed ${res.status}: ${await res.text().catch(() => "")}`);
+    }
+  } catch (err) {
+    logger.warn(`[mc-bridge] admin heartbeat failed: ${String(err)}`);
   }
 }
 

@@ -40,8 +40,10 @@ describe('mission-control installer helpers', () => {
     });
 
     assert.equal(settings.dashboardUrl, 'https://alice.av3.ai');
+    assert.equal(settings.adminUrl, 'https://admin.av3.ai');
     assert.equal(settings.ingestUrl, 'https://alice.av3.ai/api/v1/ingest');
     assert.equal(settings.runtimeBaseUrl, 'https://alice.av3.ai/api/v1/runtime');
+    assert.equal(settings.adminHeartbeatUrl, 'https://admin.av3.ai/api/admin/v1/node-heartbeat');
     assert.equal(settings.commandsUrl, 'https://alice.av3.ai/api/v1/runtime/commands');
     assert.equal(settings.nodeRegisterUrl, 'https://alice.av3.ai/api/v1/runtime/nodes/register');
     assert.equal(settings.nodeHeartbeatUrl, 'https://alice.av3.ai/api/v1/runtime/nodes/heartbeat');
@@ -57,8 +59,10 @@ describe('mission-control installer helpers', () => {
 
     assert.equal(result.summary.enabled, true);
     assert.equal(result.summary.dashboardUrl, 'https://alice.av3.ai');
+    assert.equal(result.summary.adminUrl, 'https://admin.av3.ai');
     assert.equal(result.summary.ingestUrl, 'https://alice.av3.ai/api/v1/ingest');
     assert.equal(result.summary.runtimeBaseUrl, 'https://alice.av3.ai/api/v1/runtime');
+    assert.equal(result.summary.adminHeartbeatUrl, 'https://admin.av3.ai/api/admin/v1/node-heartbeat');
     assert.equal(result.summary.hasIngestToken, true);
     assert.equal(result.summary.hasWorkerToken, true);
     assert.ok(existsSync(result.configPath), 'mission control config should exist');
@@ -76,7 +80,9 @@ describe('mission-control installer helpers', () => {
     const config = readMissionControlConfig();
     assert.ok(config);
     assert.equal(config.cloud.dashboardUrl, 'https://alice.av3.ai');
+    assert.equal(config.cloud.adminUrl, 'https://admin.av3.ai');
     assert.equal(config.cloud.commandsUrl, 'https://alice.av3.ai/api/v1/runtime/commands');
+    assert.equal(config.cloud.adminHeartbeatUrl, 'https://admin.av3.ai/api/admin/v1/node-heartbeat');
     assert.equal(config.cloud.sourceNode, 'portable-node');
     assert.equal(config.cloud.ingestToken, 'test-token');
     assert.equal(config.cloud.workerToken, 'test-token');
