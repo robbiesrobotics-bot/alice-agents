@@ -78,17 +78,17 @@ if (flags.has('--doctor')) {
     cloudTeamSlug: getFlagValue('--cloud-team-slug'),
     cloudTeamName: getFlagValue('--cloud-team-name'),
     cloudTeamPlan: getFlagValue('--cloud-team-plan'),
-  }).catch((err) => {
+  }).then(() => process.exit(0)).catch((err) => {
     console.error('  ❌ Update failed:', err.message);
     process.exit(1);
   });
 } else if (flags.has('--skills')) {
-  runSkillsManager().catch((err) => {
+  runSkillsManager().then(() => process.exit(0)).catch((err) => {
     console.error(`  ✗ Skills manager failed: ${err.message}`);
     process.exit(1);
   });
 } else if (flags.has('--uninstall')) {
-  runUninstall({ yes: flags.has('--yes') }).catch((err) => {
+  runUninstall({ yes: flags.has('--yes') }).then(() => process.exit(0)).catch((err) => {
     console.error('  ❌ Uninstall failed:', err.message);
     process.exit(1);
   });
@@ -106,7 +106,7 @@ if (flags.has('--doctor')) {
     cloudTeamSlug: getFlagValue('--cloud-team-slug'),
     cloudTeamName: getFlagValue('--cloud-team-name'),
     cloudTeamPlan: getFlagValue('--cloud-team-plan'),
-  }).catch((err) => {
+  }).then(() => process.exit(0)).catch((err) => {
     console.error('  ❌ Install failed:', err.message);
     process.exit(1);
   });
