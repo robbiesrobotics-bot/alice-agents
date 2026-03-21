@@ -37,15 +37,22 @@ if (flags.has('--help') || flags.has('-h')) {
     npx @robbiesrobotics/alice-agents --help       Show this help
 
   Options:
-    --yes         Skip prompts, use defaults (Sonnet, Starter tier)
+    --yes         Skip prompts, use detected model when available (otherwise Sonnet)
     --update      Non-interactive upgrade (alias for --yes with upgrade mode)
     --uninstall   Remove A.L.I.C.E. agents (preserves non-ALICE agents)
     --doctor      Run diagnostics and check install health
     --cloud       Enable Mission Control Cloud setup during install
     --no-cloud    Skip Mission Control Cloud setup during install
+    --tier <starter|pro>           Force the install tier
+    --license-key <key>            Provide a Pro license key for automation
+    --coding-tool <auto|claude|codex>  Override the preferred coding CLI
     --cloud-token <token>           Mission Control ingest/access token
     --cloud-dashboard-url <url>     Mission Control dashboard URL
     --cloud-ingest-url <url>        Mission Control ingest endpoint
+    --cloud-team-id <id>            Mission Control team UUID for hosted linkage
+    --cloud-team-slug <slug>        Mission Control team slug
+    --cloud-team-name <name>        Mission Control team display name
+    --cloud-team-plan <plan>        Mission Control team plan
     --version     Print package version
   `);
   process.exit(0);
@@ -61,9 +68,16 @@ if (flags.has('--doctor')) {
     yes: true,
     modeOverride: 'upgrade',
     cloud: flags.has('--cloud') ? true : flags.has('--no-cloud') ? false : undefined,
+    tierOverride: getFlagValue('--tier'),
+    licenseKey: getFlagValue('--license-key'),
+    codingTool: getFlagValue('--coding-tool'),
     cloudToken: getFlagValue('--cloud-token'),
     cloudDashboardUrl: getFlagValue('--cloud-dashboard-url'),
     cloudIngestUrl: getFlagValue('--cloud-ingest-url'),
+    cloudTeamId: getFlagValue('--cloud-team-id'),
+    cloudTeamSlug: getFlagValue('--cloud-team-slug'),
+    cloudTeamName: getFlagValue('--cloud-team-name'),
+    cloudTeamPlan: getFlagValue('--cloud-team-plan'),
   }).catch((err) => {
     console.error('  ❌ Update failed:', err.message);
     process.exit(1);
@@ -82,9 +96,16 @@ if (flags.has('--doctor')) {
   runInstall({
     yes: flags.has('--yes'),
     cloud: flags.has('--cloud') ? true : flags.has('--no-cloud') ? false : undefined,
+    tierOverride: getFlagValue('--tier'),
+    licenseKey: getFlagValue('--license-key'),
+    codingTool: getFlagValue('--coding-tool'),
     cloudToken: getFlagValue('--cloud-token'),
     cloudDashboardUrl: getFlagValue('--cloud-dashboard-url'),
     cloudIngestUrl: getFlagValue('--cloud-ingest-url'),
+    cloudTeamId: getFlagValue('--cloud-team-id'),
+    cloudTeamSlug: getFlagValue('--cloud-team-slug'),
+    cloudTeamName: getFlagValue('--cloud-team-name'),
+    cloudTeamPlan: getFlagValue('--cloud-team-plan'),
   }).catch((err) => {
     console.error('  ❌ Install failed:', err.message);
     process.exit(1);

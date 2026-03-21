@@ -1,6 +1,6 @@
 {
   "name": "@robbiesrobotics/alice-agents",
-  "version": "1.4.5",
+  "version": "1.4.6",
   "description": "A.L.I.C.E. — 28 AI agents for OpenClaw. One conversation, one team.",
   "bin": {
     "alice-agents": "bin/alice-install.mjs"
@@ -23,15 +23,17 @@
     "tools/",
     "snapshots/",
     "templates/agents-starter.json",
+    "templates/agents-pro.json",
     "templates/mission-control-bridge/",
     "templates/skills/",
     "templates/workspaces/",
-    "SELF-HEALING-SPEC.md",
     "README.md"
   ],
   "scripts": {
     "test": "node --test test/*.test.mjs",
-    "test:check": "node --check lib/*.mjs bin/*.mjs"
+    "test:check": "node --check lib/*.mjs bin/*.mjs",
+    "release:check": "node lib/release-guard.mjs",
+    "prepublishOnly": "npm test && npm run test:check && npm run release:check"
   },
   "publishConfig": {
     "access": "public"

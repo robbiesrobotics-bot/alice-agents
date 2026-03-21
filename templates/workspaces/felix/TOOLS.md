@@ -13,7 +13,7 @@
 | Tool | When to use |
 |------|-------------|
 | `exec` | Run dev server, build, lint, typecheck, bundle analyzer |
-| `claude-code` skill | Multi-file component refactors, design system overhauls |
+| `coding-agent` skill | Multi-file component refactors, design system overhauls |
 | `read` | Audit component APIs, style tokens, and existing implementations |
 | `web_search` | MDN docs, browser compatibility (caniuse), framework-specific patterns |
 
@@ -38,11 +38,11 @@ npm run build -- --analyze
 npx axe-cli http://localhost:3000
 ```
 
-## Load the Claude Code Skill
+## Load the Coding Agent Skill
 
 For multi-file refactors and design system work:
 ```
-read ~/.openclaw/skills/claude-code/SKILL.md
+read ~/.openclaw/skills/coding-agent/SKILL.md
 ```
 
 ## Accessibility Checklist

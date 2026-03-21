@@ -12,8 +12,8 @@ npx @robbiesrobotics/alice-agents --doctor
 - Whether OpenClaw (or NemoClaw) is detected on the system
 - Which agents are installed and active
 - License tier validation (Starter or Pro)
+- Docker accessibility when Docker is installed
 - Any missing agent files or broken configuration
-- Runtime version compatibility
 
 Always run `--doctor` first before trying other fixes. It tells you exactly what's wrong.
 
@@ -51,7 +51,7 @@ Always run `--doctor` first before trying other fixes. It tells you exactly what
 - Typo in the key → Re-run the installer and carefully re-enter the key. Keys are case-sensitive.
 - Key was already used on too many machines → Contact support if you believe this is an error.
 - Key is for a different product → Make sure you purchased A.L.I.C.E. Pro (not a different product from Robbiesrobotics).
-- Network issue during validation → Ensure you have internet access during install. License validation requires a brief network call.
+- Network issue during validation → Ensure you have internet access during install. The installer can store a short grace period, but `--doctor` will keep flagging the license until validation completes.
 
 If the key still fails after verifying the above, email support with your key and purchase email.
 

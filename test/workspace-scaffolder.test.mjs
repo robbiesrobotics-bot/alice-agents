@@ -18,9 +18,13 @@ mkdirSync(TEMP_OPENCLAW, { recursive: true });
 const originalHome = process.env.HOME;
 process.env.HOME = TEMP_HOME;
 
-const { scaffoldWorkspace } = await import('../lib/workspace-scaffolder.mjs');
+const { scaffoldWorkspace, scaffoldSkills } = await import('../lib/workspace-scaffolder.mjs');
 
 process.env.HOME = originalHome;
+
+after(() => {
+  rmSync(TEMP_HOME, { recursive: true, force: true });
+});
 
 // ---- Mock agent matching agents-starter.json shape ----
 const mockAgent = {
@@ -45,10 +49,6 @@ const mockUserInfo = {
 
 describe('scaffoldWorkspace', () => {
   let workspaceDir;
-
-  after(() => {
-    rmSync(TEMP_HOME, { recursive: true, force: true });
-  });
 
   test('creates the workspace directory', () => {
     const result = scaffoldWorkspace(mockAgent, mockUserInfo, 1);
@@ -102,5 +102,40 @@ describe('scaffoldWorkspace', () => {
       scaffoldWorkspace(mockAgent, mockUserInfo, 1);
       scaffoldWorkspace(mockAgent, mockUserInfo, 1);
     });
+  });
+});
+
+describe('scaffoldSkills', () => {
+  test('writes a provider-aware coding-agent skill', () => {
+    const preference = scaffoldSkills({
+      skillId: 'coding-agent',
+      skillPath: '~/.openclaw/skills/coding-agent/SKILL.md',
+      preferredTool: 'codex',
+      fallbackTool: 'claude',
+      preferred: {
+        id: 'codex',
+        name: 'Codex',
+        cli: 'codex',
+        skillHeading: 'Codex',
+        primaryExample: `codex exec --full-auto -C /path/to/project 'Task'`,
+        reviewExample: `codex review --base main 'Review'`,
+      },
+      fallback: {
+        id: 'claude',
+        name: 'Claude Code',
+        cli: 'claude',
+        skillHeading: 'Claude Code',
+        primaryExample: `claude --permission-mode bypassPermissions --print 'Task'`,
+        reviewExample: `claude --permission-mode bypassPermissions --print 'Review'`,
+      },
+      available: { codex: true, claude: false },
+      selectionReason: 'detected openai as the default OpenClaw provider',
+      provider: 'openai',
+      override: 'auto',
+    });
+
+    const skillPath = join(TEMP_OPENCLAW, 'skills', 'coding-agent', 'SKILL.md');
+    assert.equal(preference.preferred.name, 'Codex');
+    assert.ok(existsSync(skillPath), 'coding-agent skill should be written');
   });
 });

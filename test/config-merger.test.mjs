@@ -169,4 +169,24 @@ describe('mergeConfig compatibility guard', () => {
     assert.equal(updated.agents.list[0].model, undefined);
     assert.equal(updated.agents.list[0].default, true);
   });
+
+  test('preserves existing non-A.L.I.C.E. agentToAgent allow entries when merging', () => {
+    writeConfig({
+      agents: {
+        defaults: {},
+        list: [],
+      },
+      tools: {
+        agentToAgent: {
+          enabled: true,
+          allow: ['custom-agent'],
+        },
+      },
+    });
+
+    mergeConfig({ agents, mode: 'merge', preset: 'detected' });
+    const updated = JSON.parse(readFileSync(CONFIG_PATH, 'utf8'));
+
+    assert.deepEqual(updated.tools.agentToAgent.allow.sort(), ['custom-agent', 'olivia']);
+  });
 });

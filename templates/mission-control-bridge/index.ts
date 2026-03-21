@@ -26,6 +26,7 @@ interface RuntimeNodeRegistrationPayload {
   nodeId: string;
   installId: string;
   nodeName: string;
+  teamId?: string;
   sourceNode: string;
   connectionMode: "relay";
   gatewayUrl: string;
@@ -106,6 +107,10 @@ const WORKER_TOKEN = getString(
   getString(cloudConfig.workerToken, INGEST_TOKEN),
 );
 const SOURCE_NODE = getString(process.env.MC_SOURCE_NODE, getString(cloudConfig.sourceNode, "openclaw-local"));
+const TEAM_ID = getString(process.env.MC_TEAM_ID, getString(cloudConfig.teamId));
+const TEAM_SLUG = getString(process.env.MC_TEAM_SLUG, getString(cloudConfig.teamSlug));
+const TEAM_NAME = getString(process.env.MC_TEAM_NAME, getString(cloudConfig.teamName));
+const TEAM_PLAN = getString(process.env.MC_TEAM_PLAN, getString(cloudConfig.teamPlan));
 const INSTALL_ID = getString(process.env.MC_INSTALL_ID, SOURCE_NODE);
 const NODE_ID = getString(process.env.MC_NODE_ID, SOURCE_NODE);
 const GATEWAY_URL = normalizeUrl(getString(process.env.MC_GATEWAY_URL, DEFAULT_GATEWAY_URL));
@@ -162,6 +167,7 @@ function buildNodeRegistrationPayload(): RuntimeNodeRegistrationPayload {
     nodeId: NODE_ID,
     installId: INSTALL_ID,
     nodeName: SOURCE_NODE,
+    ...(TEAM_ID ? { teamId: TEAM_ID } : {}),
     sourceNode: SOURCE_NODE,
     connectionMode: "relay",
     gatewayUrl: GATEWAY_URL,
@@ -176,6 +182,9 @@ function buildNodeRegistrationPayload(): RuntimeNodeRegistrationPayload {
     metadata: {
       dashboardUrl: DASHBOARD_URL,
       pluginId: "mission-control-bridge",
+      ...(TEAM_SLUG ? { teamSlug: TEAM_SLUG } : {}),
+      ...(TEAM_NAME ? { teamName: TEAM_NAME } : {}),
+      ...(TEAM_PLAN ? { teamPlan: TEAM_PLAN } : {}),
     },
   };
 }
@@ -199,6 +208,7 @@ async function heartbeatNode(logger: { warn(message: string): void }): Promise<v
   if (!WORKER_TOKEN) return;
   const payload = {
     nodeId: NODE_ID,
+    ...(TEAM_ID ? { teamId: TEAM_ID } : {}),
     status: "online",
     runtimeVersion: process.version,
     platform: process.platform,
@@ -210,6 +220,9 @@ async function heartbeatNode(logger: { warn(message: string): void }): Promise<v
     },
     metadata: {
       dashboardUrl: DASHBOARD_URL,
+      ...(TEAM_SLUG ? { teamSlug: TEAM_SLUG } : {}),
+      ...(TEAM_NAME ? { teamName: TEAM_NAME } : {}),
+      ...(TEAM_PLAN ? { teamPlan: TEAM_PLAN } : {}),
     },
   };
   try {
@@ -225,6 +238,10 @@ async function heartbeatNode(logger: { warn(message: string): void }): Promise<v
     const res = await postJson(ADMIN_HEARTBEAT_URL, WORKER_TOKEN, {
       instanceId: NODE_ID,
       nodeName: SOURCE_NODE,
+      ...(TEAM_ID ? { teamId: TEAM_ID } : {}),
+      ...(TEAM_SLUG ? { teamSlug: TEAM_SLUG } : {}),
+      ...(TEAM_NAME ? { teamName: TEAM_NAME } : {}),
+      ...(TEAM_PLAN ? { teamPlan: TEAM_PLAN } : {}),
       tailscaleIp: getString(process.env.TAILSCALE_IP),
       deployedVersion: getString(process.env.MC_DEPLOYED_VERSION),
       runtimeVersion: process.version,
@@ -449,6 +466,7 @@ function handleModelUsage(evt: Extract<DiagnosticEventPayload, { type: "model.us
     payload: {
       session_id: evt.sessionId ?? evt.sessionKey ?? nextId("sess"),
       agent_id: agentId,
+      ...(TEAM_ID ? { teamId: TEAM_ID } : {}),
       model: evt.model ?? "unknown",
       channel: evt.channel ?? "unknown",
       total_tokens: totalTokens,
@@ -492,6 +510,7 @@ function handleMessageProcessed(evt: Extract<DiagnosticEventPayload, { type: "me
     payload: {
       session_id: evt.sessionId ?? evt.sessionKey ?? nextId("sess"),
       agent_id: agentId,
+      ...(TEAM_ID ? { teamId: TEAM_ID } : {}),
       channel: evt.channel ?? "unknown",
       status: evt.outcome === "error" ? "failed" : "completed",
       duration_ms: evt.durationMs ?? 0,
@@ -525,6 +544,7 @@ function handleSessionState(evt: Extract<DiagnosticEventPayload, { type: "sessio
     payload: {
       session_id: evt.sessionId ?? evt.sessionKey ?? nextId("sess"),
       agent_id: agentId,
+      ...(TEAM_ID ? { teamId: TEAM_ID } : {}),
       state: evt.state,
       prev_state: evt.prevState ?? null,
     },
@@ -595,6 +615,7 @@ const plugin = {
             payload: {
               node_name: SOURCE_NODE,
               node_id: NODE_ID,
+              ...(TEAM_ID ? { teamId: TEAM_ID } : {}),
               install_id: INSTALL_ID,
               platform: process.platform,
               node_version: process.version,

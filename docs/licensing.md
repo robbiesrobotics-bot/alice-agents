@@ -50,10 +50,10 @@ Enter your Pro license key (press Enter to skip for Starter):
 Or if you're re-installing and want to skip prompts:
 
 ```bash
-npx @robbiesrobotics/alice-agents --yes
+npx @robbiesrobotics/alice-agents --yes --tier pro --license-key YOUR_KEY
 ```
 
-Then enter the key when the prompt appears. The installer validates the key and unlocks all 28 Pro agents.
+The installer validates the key and unlocks all 28 Pro agents. If the validation service is temporarily unavailable, the installer stores a short grace period and asks you to re-run validation later.
 
 ---
 
@@ -92,4 +92,4 @@ Starter users can upgrade at any time. Purchase Pro, receive the license key by 
 npx @robbiesrobotics/alice-agents
 ```
 
-Enter your key when prompted. The upgrade is immediate — no reinstall required for existing files.
+Enter your key when prompted, or pass `--yes --tier pro --license-key YOUR_KEY` for automation. The upgrade is immediate — no reinstall required for existing files.

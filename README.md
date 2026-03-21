@@ -22,6 +22,7 @@ That's it. The installer detects your runtime (NemoClaw or OpenClaw) and sets ev
 - installs the `mission-control-bridge` plugin into your OpenClaw home
 - writes a portable local Mission Control config at `~/.openclaw/.alice-mission-control.json`
 - enables the bridge in `openclaw.json` so your runtime can forward live telemetry to Mission Control
+- installs a bundled `coding-agent` skill that prefers Codex for OpenAI defaults and Claude Code for Anthropic defaults
 
 An orchestrator (A.L.I.C.E., also addressable as Alice or Olivia) backed by specialist agents across every domain:
 
@@ -79,11 +80,14 @@ When you install, the installer will **auto-detect your configured model** and l
 # Interactive install
 npx @robbiesrobotics/alice-agents
 
-# Non-interactive with defaults (detected model if available, otherwise Sonnet; Starter tier)
+# Non-interactive with defaults (detected model if available, otherwise Sonnet; Starter tier unless --tier pro)
 npx @robbiesrobotics/alice-agents --yes
 
 # Non-interactive Pro install with Mission Control Cloud enabled
-npx @robbiesrobotics/alice-agents --cloud --cloud-token YOUR_TOKEN
+npx @robbiesrobotics/alice-agents --yes --tier pro --license-key YOUR_KEY --cloud --cloud-token YOUR_TOKEN
+
+# Force the coding tool preference for this install
+npx @robbiesrobotics/alice-agents --yes --coding-tool codex
 
 # Show help
 npx @robbiesrobotics/alice-agents --help
@@ -100,7 +104,7 @@ npx @robbiesrobotics/alice-agents --help
 If you're a Pro user with the cloud add-on, the installer can configure your local runtime for Mission Control in the same pass.
 
 - Interactive install: choose `Pro`, validate your license, then enable the Mission Control Cloud add-on when prompted
-- Non-interactive install: pass `--cloud`
+- Non-interactive install: pass `--tier pro --license-key YOUR_KEY --cloud`
 - Optional flags:
   - `--cloud-token <token>` — access or ingest token for authenticated telemetry
   - `--cloud-dashboard-url <url>` — defaults to `https://alice.av3.ai`
@@ -126,6 +130,18 @@ npx @robbiesrobotics/alice-agents --uninstall
 ```
 
 Removes A.L.I.C.E. agents from `openclaw.json` while preserving any non-ALICE agents. Creates a backup before making changes.
+
+## Maintainer Release Guard
+
+Maintainer publishes are now gated.
+
+- `npm publish` runs `prepublishOnly`
+- that hook runs tests, syntax checks, and `npm run release:check`
+- publish is blocked unless the package version has a matching git tag on `HEAD`
+- publish is blocked unless `landing/content/changelog.md` contains the matching version entry
+- publish is blocked unless `releases/vX.Y.Z.md` exists and is marked `Status: approved`
+
+Use `releases/TEMPLATE.md` as the starting point for each release brief.
 
 ## How It Works
 

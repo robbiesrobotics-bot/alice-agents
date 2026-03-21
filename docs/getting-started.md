@@ -19,13 +19,20 @@ npx @robbiesrobotics/alice-agents
 The installer will:
 1. Detect your OpenClaw/NemoClaw runtime
 2. Install the A.L.I.C.E. agent files into your workspace
-3. Prompt for a license key if you have a Pro license (press Enter to skip for Starter)
-4. Confirm which agents are active
+3. Prompt for a license key if you have a Pro license (or accept `--license-key` in automation)
+4. Install the bundled `coding-agent` skill with a provider-aware preference
+5. Confirm which agents are active
 
 To skip all prompts and accept defaults:
 
 ```bash
 npx @robbiesrobotics/alice-agents --yes
+```
+
+To install Pro non-interactively:
+
+```bash
+npx @robbiesrobotics/alice-agents --yes --tier pro --license-key YOUR_KEY
 ```
 
 ---
@@ -63,6 +70,7 @@ This will:
 - Confirm OpenClaw is detected
 - List all installed agents and their status
 - Validate your license tier (Starter or Pro)
+- Check Docker accessibility when Docker is installed
 - Flag any missing files or configuration issues
 
 You can also ask Olivia directly in a session:
@@ -99,6 +107,9 @@ This removes agent files but does not affect OpenClaw itself. Your OpenClaw setu
 | Flag | What It Does |
 |------|--------------|
 | `--yes` | Accept all defaults, skip prompts |
+| `--tier` | Force Starter or Pro during install |
+| `--license-key` | Provide a Pro license key for automation |
+| `--coding-tool` | Override the bundled coding-agent preference |
 | `--update` | Update to the latest version |
 | `--uninstall` | Remove A.L.I.C.E. agents |
 | `--doctor` | Run health check and diagnostics |

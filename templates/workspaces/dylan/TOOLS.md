@@ -2,11 +2,11 @@
 
 ## Domain: Full-Stack Software Engineering
 
-## Primary Tool: Claude Code
+## Primary Tool: Coding Agent
 
-**For any non-trivial multi-file coding task, use the `claude-code` skill.**
+**For any non-trivial multi-file coding task, use the `coding-agent` skill.**
 
-Load it with: `read ~/.openclaw/skills/claude-code/SKILL.md`
+Load it with: `read ~/.openclaw/skills/coding-agent/SKILL.md`
 
 Pattern — foreground (tasks < 5min):
 ```
@@ -20,7 +20,7 @@ exec workdir=/path/to/project background=true command="claude --permission-mode 
 
 - Always set `workdir` to the project root
 - Use `max` effort for complex multi-file refactors
-- Review Claude Code's output before reporting to A.L.I.C.E.
+- Review the coding agent's output before reporting to A.L.I.C.E.
 
 ## Other Tools
 
