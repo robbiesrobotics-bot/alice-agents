@@ -2,7 +2,7 @@
 
 **Adaptive Learning & Intelligent Coordination Engine**
 
-One conversation. One orchestrator. Ten starter agents — with 18 more in Pro. A.L.I.C.E. turns your agent runtime into a full AI team — talk to A.L.I.C.E. (or just Alice), and she routes your request to the right expert.
+One conversation. One orchestrator. Ten starter agents — with 21 more in Pro. A.L.I.C.E. turns your agent runtime into a full AI team — talk to A.L.I.C.E. (or just Alice), and she routes your request to the right expert.
 
 **NemoClaw compatible** — A.L.I.C.E. v1.2.7+ runs natively on [NVIDIA NemoClaw](https://nvidia.com/nemoclaw), the secure open-source agent runtime. Agents execute inside the OpenShell sandbox for enterprise-grade security.
 
@@ -16,7 +16,7 @@ That's it. The installer detects your runtime (NemoClaw or OpenClaw) and sets ev
 
 ## What You Get
 
-**Starter** includes 10 agents. **Pro** unlocks 18 more — [sign up at getalice.av3.ai](https://getalice.av3.ai/signup?plan=pro)
+**Starter** includes 10 agents. **Pro** unlocks 21 more — [sign up at getalice.av3.ai](https://getalice.av3.ai/signup?plan=pro)
 
 **Mission Control Cloud** is available as a Pro add-on. If enabled during install, the package now:
 - installs the `mission-control-bridge` plugin into your OpenClaw home
@@ -56,6 +56,8 @@ An orchestrator (A.L.I.C.E., also addressable as Alice or Olivia) backed by spec
 | **Logan** | Legal | ⚖️ | Pro |
 | **Eva** | Executive Assistant | 📌 | Pro |
 | **Parker** | Project Management | 📅 | Pro |
+| **Aria** | Autonomous Research | 🔬 | Pro |
+| **Nate** | n8n Automation | 🔧 | Pro |
 
 ## Model Flexibility
 
