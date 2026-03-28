@@ -50,10 +50,34 @@ function runCommand(cmd, args) {
   });
 }
 
+/** Fetch JSON helper — replaces `got` with native fetch (Node 18+) */
+async function fetchJson(url, options = {}) {
+  const { method = 'GET', json, headers = {}, timeoutMs = 15000 } = options;
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), timeoutMs);
+  try {
+    const fetchOpts = {
+      method,
+      headers: { ...headers },
+      signal: controller.signal,
+    };
+    if (json !== undefined) {
+      fetchOpts.headers['Content-Type'] = 'application/json';
+      fetchOpts.body = JSON.stringify(json);
+    }
+    const res = await fetch(url, fetchOpts);
+    const text = await res.text();
+    let data;
+    try { data = JSON.parse(text); } catch (_) { data = text; }
+    return { ok: res.ok, status: res.status, data };
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
 // ── Login ──────────────────────────────────────────────────────────────────────
 async function login(args) {
   const open = (await import('open')).default;
-  const got = (await import('got')).default;
 
   // Non-interactive mode: use token from env
   if (NON_INTERACTIVE) {
@@ -63,15 +87,15 @@ async function login(args) {
       process.exit(1);
     }
     try {
-      const res = await got(`${process.env.ALICE_SUPABASE_URL || 'https://xxxgvtwnlbtdgmlgccee.supabase.co'}/auth/v1/user`, {
-        headers: { Authorization: `Bearer ${token}` },
-        throwHttpErrors: false,
-      }).json();
+      const supabaseUrl = process.env.ALICE_SUPABASE_URL || 'https://xxxgvtwnlbtdgmlgccee.supabase.co';
+      const { ok, data } = await fetchJson(`${supabaseUrl}/auth/v1/user`, {
+        headers: { Authorization: `Bearer ${token}`, apikey: token },
+      });
       const config = loadConfig();
       config.supabaseToken = token;
-      config.user = res;
+      config.user = data;
       saveConfig(config);
-      console.log('✅  Logged in as', res.email || res.user_metadata?.user_name || 'unknown');
+      console.log('✅  Logged in as', data.email || data.user_metadata?.user_name || 'unknown');
       return;
     } catch (err) {
       console.error('❌  Token validation failed:', err.message);
@@ -80,15 +104,13 @@ async function login(args) {
   }
 
   console.log('🔐  A.L.I.C.E. Cloud login');
-  console.log('   Opening browser for Supabase OAuth…');
+  console.log('   Opening browser for login…');
 
-  const supabaseUrl = process.env.ALICE_SUPABASE_URL || 'https://xxxgvtwnlbtdgmlgccee.supabase.co';
-  const redirectUri = `${API_BASE}/auth/callback`;
-  const oauthUrl = `${supabaseUrl}/auth/v1/authorize?provider=github&redirect_to=${encodeURIComponent(redirectUri)}`;
-
-  await open(oauthUrl);
-  console.log('   Browser opened. Complete login in your browser.');
-  console.log('   After login, paste your Supabase access token here:');
+  const loginUrl = `${API_BASE.replace('/api/cloud', '')}/login?cli=1`;
+  try { await open(loginUrl); } catch (_) {
+    console.log(`   Could not open browser. Visit: ${loginUrl}`);
+  }
+  console.log('   After login, copy the access token and paste it here:');
   process.stdout.write('   > ');
 
   return new Promise((resolve, reject) => {
@@ -99,15 +121,15 @@ async function login(args) {
       token = token.trim();
       if (!token) { reject(new Error('No token provided')); return; }
       try {
-        const res = await got(`${supabaseUrl}/auth/v1/user`, {
-          headers: { Authorization: `Bearer ${token}` },
-          throwHttpErrors: false,
-        }).json();
+        const supabaseUrl = process.env.ALICE_SUPABASE_URL || 'https://xxxgvtwnlbtdgmlgccee.supabase.co';
+        const { ok, data } = await fetchJson(`${supabaseUrl}/auth/v1/user`, {
+          headers: { Authorization: `Bearer ${token}`, apikey: token },
+        });
         const config = loadConfig();
         config.supabaseToken = token;
-        config.user = res;
+        config.user = data;
         saveConfig(config);
-        console.log('   ✅ Logged in as', res.email || res.user_metadata?.user_name || 'unknown');
+        console.log('   ✅ Logged in as', data.email || data.user_metadata?.user_name || 'unknown');
         resolve();
       } catch (err) {
         reject(new Error('Token validation failed: ' + err.message));
@@ -118,11 +140,10 @@ async function login(args) {
 
 // ── Register ───────────────────────────────────────────────────────────────────
 async function detectGatewayUrl() {
-  const got = (await import('got')).default;
   const candidates = ['https://localhost:18789', 'http://localhost:18789'];
   for (const url of candidates) {
     try {
-      await got.get(url, { throwHttpErrors: true, timeout: { request: 2000 }, retry: { limit: 0 } });
+      const { ok } = await fetchJson(url, { timeoutMs: 2000 });
       return url;
     } catch (_) {}
   }
@@ -144,7 +165,6 @@ async function getOpenClawVersion() {
 }
 
 async function register(args) {
-  const got = (await import('got')).default;
   const config = loadConfig();
 
   if (!config.supabaseToken) {
@@ -165,11 +185,12 @@ async function register(args) {
   let lastError;
   for (let attempt = 1; attempt <= 3; attempt++) {
     try {
-      const response = await got.post(`${API_BASE}/register`, {
+      const { ok, status, data } = await fetchJson(`${API_BASE}/register`, {
+        method: 'POST',
         json: { gatewayUrl, gatewayToken, hostname, version },
         headers: { Authorization: `Bearer ${config.supabaseToken}` },
-        throwHttpErrors: true,
-      }).json();
+      });
+      if (!ok) throw new Error(`HTTP ${status}: ${typeof data === 'string' ? data : JSON.stringify(data)}`);
       config.registration = { gatewayUrl, hostname, version, registeredAt: new Date().toISOString() };
       saveConfig(config);
       console.log('   ✅ Gateway registered!');
@@ -187,7 +208,6 @@ async function register(args) {
 
 // ── Status ─────────────────────────────────────────────────────────────────────
 async function status(args) {
-  const got = (await import('got')).default;
   const config = loadConfig();
 
   if (!config.supabaseToken) {
@@ -196,12 +216,16 @@ async function status(args) {
   }
 
   try {
-    const data = await got.get(`${API_BASE}/status`, {
+    const { ok, status: httpStatus, data } = await fetchJson(`${API_BASE}/status`, {
       headers: { Authorization: `Bearer ${config.supabaseToken}` },
-      throwHttpErrors: false,
-    }).json();
+    });
 
-    if (!data.registered) {
+    if (httpStatus === 401) {
+      console.error('❌  Session expired. Run `alice-cloud login` again.');
+      process.exit(1);
+    }
+
+    if (!ok || !data.registered) {
       console.log('⚪  No gateway registered.');
       console.log('   Run `alice-cloud register` to connect your gateway.');
       return;
@@ -214,18 +238,13 @@ async function status(args) {
     console.log(`   Last heartbeat: ${data.lastHeartbeat ? new Date(data.lastHeartbeat).toLocaleString() : 'Never'}`);
     console.log(`   Version      : ${data.version}`);
   } catch (err) {
-    if (err.response?.statusCode === 401) {
-      console.error('❌  Session expired. Run `alice-cloud login` again.');
-    } else {
-      console.error('❌  Status check failed:', err.message);
-    }
+    console.error('❌  Status check failed:', err.message);
     process.exit(1);
   }
 }
 
 // ── Unregister ─────────────────────────────────────────────────────────────────
 async function unregister(args) {
-  const got = (await import('got')).default;
   const config = loadConfig();
 
   if (!config.supabaseToken) {
@@ -235,35 +254,33 @@ async function unregister(args) {
 
   console.log('🗑️  Unregistering gateway…');
   try {
-    await got.delete(`${API_BASE}/status`, {
+    const { ok, status } = await fetchJson(`${API_BASE}/status`, {
+      method: 'DELETE',
       headers: { Authorization: `Bearer ${config.supabaseToken}` },
-      throwHttpErrors: false,
     });
-    delete config.registration;
-    saveConfig(config);
-    console.log('   ✅ Gateway unregistered.');
-  } catch (err) {
-    if (err.response?.statusCode === 404) {
+    if (status === 404) {
       console.log('   ℹ️  No gateway was registered.');
     } else {
-      console.error('❌  Unregister failed:', err.message);
-      process.exit(1);
+      delete config.registration;
+      saveConfig(config);
+      console.log('   ✅ Gateway unregistered.');
     }
+  } catch (err) {
+    console.error('❌  Unregister failed:', err.message);
+    process.exit(1);
   }
 }
 
 // ── Watch (daemon) ─────────────────────────────────────────────────────────────
 async function checkGatewayUp(gatewayUrl) {
-  const got = (await import('got')).default;
   try {
-    await got.get(gatewayUrl, { throwHttpErrors: true, timeout: { request: 3000 }, retry: { limit: 0 } });
+    const { ok } = await fetchJson(gatewayUrl, { timeoutMs: 3000 });
     return true;
   } catch (_) {}
   return false;
 }
 
 async function startHeartbeatLoop(config) {
-  const got = (await import('got')).default;
   const gatewayUrl = config.registration?.gatewayUrl || 'https://localhost:18789';
 
   async function heartbeat() {
@@ -273,10 +290,11 @@ async function startHeartbeatLoop(config) {
         console.log('[watch] Gateway down, attempting restart…');
         try { await runCommand('openclaw', ['gateway', 'start']); await sleep(3000); } catch (_) {}
       }
-      await got.post(`${API_BASE}/heartbeat`, {
+      await fetchJson(`${API_BASE}/heartbeat`, {
+        method: 'POST',
         json: { hostname: os.hostname(), connected: await checkGatewayUp(gatewayUrl), timestamp: new Date().toISOString() },
         headers: { Authorization: `Bearer ${config.supabaseToken}` },
-        throwHttpErrors: false, timeout: { request: 10000 },
+        timeoutMs: 10000,
       });
       console.log(`[${new Date().toLocaleTimeString()}] heartbeat sent (gateway: ${isUp ? 'up' : 'down'})`);
     } catch (err) {
@@ -312,7 +330,6 @@ async function watch(args) {
 }
 
 // ── Programmatic API exports ───────────────────────────────────────────────────
-// Allow ESM callers to import these via createRequire or spawn as child process.
 module.exports = {
   login,
   register,
@@ -328,13 +345,12 @@ module.exports = {
 };
 
 // ── CLI dispatcher ─────────────────────────────────────────────────────────────
-// Only run as CLI when this file is the main module (not when required/imported)
 if (require.main === module) {
   const commands = { login, register, status, unregister, watch };
   const cmd = process.argv[2];
 
   if (!cmd) {
-    console.log(`alice-cloud v1.0.1 — A.L.I.C.E. | Control Cloud CLI
+    console.log(`alice-cloud v1.1.0 — A.L.I.C.E. | Control Cloud CLI
 
 Usage: alice-cloud <command> [options]
 
