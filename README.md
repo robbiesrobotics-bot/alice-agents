@@ -18,10 +18,10 @@ That's it. The installer detects your runtime (NemoClaw or OpenClaw) and sets ev
 
 **Starter** includes 10 agents. **Pro** unlocks 21 more — [sign up at getalice.av3.ai](https://getalice.av3.ai/signup?plan=pro)
 
-**Mission Control Cloud** is available as a Pro add-on. If enabled during install, the package now:
+**A.L.I.C.E. | Control Cloud** is available as a Pro add-on. If enabled during install, the package now:
 - installs the `mission-control-bridge` plugin into your OpenClaw home
-- writes a portable local Mission Control config at `~/.openclaw/.alice-mission-control.json`
-- enables the bridge in `openclaw.json` so your runtime can forward live telemetry to Mission Control
+- writes a portable local A.L.I.C.E. | Control config at `~/.openclaw/.alice-mission-control.json`
+- enables the bridge in `openclaw.json` so your runtime can forward live telemetry to A.L.I.C.E. | Control
 - installs a bundled `coding-agent` skill that prefers Codex for OpenAI defaults and Claude Code for Anthropic defaults
 
 An orchestrator (A.L.I.C.E., also addressable as Alice or Olivia) backed by specialist agents across every domain:
@@ -85,7 +85,7 @@ npx @robbiesrobotics/alice-agents
 # Non-interactive with defaults (detected model if available, otherwise Sonnet; Starter tier unless --tier pro)
 npx @robbiesrobotics/alice-agents --yes
 
-# Non-interactive Pro install with Mission Control Cloud enabled
+# Non-interactive Pro install with A.L.I.C.E. | Control Cloud enabled
 npx @robbiesrobotics/alice-agents --yes --tier pro --license-key YOUR_KEY --cloud --cloud-token YOUR_TOKEN
 
 # Force the coding tool preference for this install
@@ -101,11 +101,11 @@ npx @robbiesrobotics/alice-agents --help
 - **Merge** — Adds A.L.I.C.E. agents alongside your existing agents
 - **Upgrade** — Updates product files (SOUL.md, AGENTS.md, etc.) without touching user customizations
 
-### Mission Control Cloud
+### A.L.I.C.E. | Control Cloud
 
-If you're a Pro user with the cloud add-on, the installer can configure your local runtime for Mission Control in the same pass.
+If you're a Pro user with the cloud add-on, the installer can configure your local runtime for A.L.I.C.E. | Control in the same pass.
 
-- Interactive install: choose `Pro`, validate your license, then enable the Mission Control Cloud add-on when prompted
+- Interactive install: choose `Pro`, validate your license, then enable the A.L.I.C.E. | Control Cloud add-on when prompted
 - Non-interactive install: pass `--tier pro --license-key YOUR_KEY --cloud`
 - Optional flags:
   - `--cloud-token <token>` — access or ingest token for authenticated telemetry

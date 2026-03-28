@@ -32,7 +32,7 @@ if (flags.has('--help') || flags.has('-h')) {
     npx @robbiesrobotics/alice-agents --uninstall  Remove A.L.I.C.E. agents from config
     npx @robbiesrobotics/alice-agents --doctor     Run diagnostics on your A.L.I.C.E. install
     npx @robbiesrobotics/alice-agents --skills     Manage skills (install, remove, browse)
-    npx @robbiesrobotics/alice-agents --cloud      Enable Mission Control Cloud during install
+    npx @robbiesrobotics/alice-agents --cloud      Enable A.L.I.C.E. | Control Cloud during install
     npx @robbiesrobotics/alice-agents --version    Show version
     npx @robbiesrobotics/alice-agents --help       Show this help
 
@@ -41,18 +41,18 @@ if (flags.has('--help') || flags.has('-h')) {
     --update      Non-interactive upgrade (alias for --yes with upgrade mode)
     --uninstall   Remove A.L.I.C.E. agents (preserves non-ALICE agents)
     --doctor      Run diagnostics and check install health
-    --cloud       Enable Mission Control Cloud setup during install
-    --no-cloud    Skip Mission Control Cloud setup during install
+    --cloud       Enable A.L.I.C.E. | Control Cloud setup during install
+    --no-cloud    Skip A.L.I.C.E. | Control Cloud setup during install
     --tier <starter|pro>           Force the install tier
     --license-key <key>            Provide a Pro license key for automation
     --coding-tool <auto|claude|codex>  Override the preferred coding CLI
-    --cloud-token <token>           Mission Control ingest/access token
-    --cloud-dashboard-url <url>     Mission Control dashboard URL
-    --cloud-ingest-url <url>        Mission Control ingest endpoint
-    --cloud-team-id <id>            Mission Control team UUID for hosted linkage
-    --cloud-team-slug <slug>        Mission Control team slug
-    --cloud-team-name <name>        Mission Control team display name
-    --cloud-team-plan <plan>        Mission Control team plan
+    --cloud-token <token>           A.L.I.C.E. | Control ingest/access token
+    --cloud-dashboard-url <url>     A.L.I.C.E. | Control dashboard URL
+    --cloud-ingest-url <url>        A.L.I.C.E. | Control ingest endpoint
+    --cloud-team-id <id>            A.L.I.C.E. | Control team UUID
+    --cloud-team-slug <slug>        A.L.I.C.E. | Control team slug
+    --cloud-team-name <name>        A.L.I.C.E. | Control team name
+    --cloud-team-plan <plan>        A.L.I.C.E. | Control team plan
     --version     Print package version
   `);
   process.exit(0);
