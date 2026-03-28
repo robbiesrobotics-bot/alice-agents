@@ -311,12 +311,30 @@ async function watch(args) {
   await startHeartbeatLoop(config);
 }
 
-// ── CLI dispatcher ─────────────────────────────────────────────────────────────
-const commands = { login, register, status, unregister, watch };
-const cmd = process.argv[2];
+// ── Programmatic API exports ───────────────────────────────────────────────────
+// Allow ESM callers to import these via createRequire or spawn as child process.
+module.exports = {
+  login,
+  register,
+  status,
+  unregister,
+  watch,
+  loadConfig,
+  saveConfig,
+  detectGatewayUrl,
+  readGatewayToken,
+  API_BASE,
+  CONFIG_FILE,
+};
 
-if (!cmd) {
-  console.log(`alice-cloud v1.0.1 — A.L.I.C.E. | Control Cloud CLI
+// ── CLI dispatcher ─────────────────────────────────────────────────────────────
+// Only run as CLI when this file is the main module (not when required/imported)
+if (require.main === module) {
+  const commands = { login, register, status, unregister, watch };
+  const cmd = process.argv[2];
+
+  if (!cmd) {
+    console.log(`alice-cloud v1.0.1 — A.L.I.C.E. | Control Cloud CLI
 
 Usage: alice-cloud <command> [options]
 
@@ -335,16 +353,17 @@ Environment:
   ALICE_SUPABASE_URL     Supabase project URL (default: xxx project)
 
 Run 'alice-cloud <command> --help' for more options.`);
-  process.exit(0);
-}
+    process.exit(0);
+  }
 
-const handler = commands[cmd];
-if (!handler) {
-  console.error(`Unknown command: ${cmd}`);
-  process.exit(1);
-}
+  const handler = commands[cmd];
+  if (!handler) {
+    console.error(`Unknown command: ${cmd}`);
+    process.exit(1);
+  }
 
-handler(process.argv.slice(3)).catch((err) => {
-  console.error('Error:', err.message);
-  process.exit(1);
-});
+  handler(process.argv.slice(3)).catch((err) => {
+    console.error('Error:', err.message);
+    process.exit(1);
+  });
+}
