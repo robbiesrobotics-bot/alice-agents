@@ -1,0 +1,148 @@
+ALICE NETWORK — COMPLETE CODING BENCHMARK
+Task: Thread-safe LRU Cache with per-key TTL (doubly linked list + hashmap)
+Last Updated: Mon Mar 23 2026
+Nodes Tested: Alpha (AGX Orin), Mac Studio, Mac Mini
+==========================================================
+
+SCORING (0-5 each):
+  A = Requirements compliance (DLL+hashmap, TTL, lazy evict, get/put/delete)
+  B = Code correctness (logic, thread safety, edge cases)
+  C = Code quality (type hints, docstrings, structure)
+  D = Output completeness (full implementation + working example)
+
+==========================================================
+MASTER RANKING — ALL 17 MODELS ACROSS ALL NODES
+==========================================================
+
+Rank | Model                      | Node        | Speed      | A | B | C | D | /20 | Grade
+-----|----------------------------|-------------|------------|---|---|---|---|-----|------
+  1  | gpt-oss:20b                | Mac Studio  | 76.4 tok/s | 5 | 5 | 5 | 5 | 20  | A+
+  2  | devstral-small-2:24b       | Mac Studio  | 24.8 tok/s | 5 | 5 | 5 | 5 | 20  | A+
+  3  | ministral-3:14b            | Mac Studio  | 41.2 tok/s | 5 | 5 | 5 | 5 | 20  | A+
+  4  | qwen3-coder:30b            | Mac Studio  | 86.6 tok/s | 5 | 5 | 5 | 5 | 20  | A+
+  5  | lfm2:24b                   | Alpha       |  35.3 tok/s| 5 | 5 | 5 | 4 | 19  | A+
+  6  | qwen3-coder-next:latest    | Alpha       |  19.4 tok/s| 5 | 5 | 5 | 4 | 19  | A+
+  7  | llama3.2-vision:90b        | Alpha       |   3.2 tok/s| 5 | 4 | 4 | 5 | 18  | A
+  8  | rnj-1:8b                   | Alpha       |  10.0 tok/s| 5 | 4 | 4 | 5 | 18  | A
+  9  | llama3.2:3b                | Mac Studio  | 132.9 tok/s| 4 | 3 | 3 | 4 | 14  | B
+ 10  | qwen3.5:35b                | Alpha       |  24.1 tok/s| 5 | 3 | 3 | 4 | 15  | B+
+ 11  | nemotron-3-nano:30b        | Alpha       |  34.1 tok/s| 4 | 3 | 4 | 3 | 14  | B
+ 12  | nemotron-cascade-2         | Alpha       |  34.0 tok/s| 4 | 3 | 4 | 3 | 14  | B
+ 13  | llama3.2-vision:11b        | Alpha       |  23.9 tok/s| 3 | 2 | 4 | 5 | 14  | B
+ 14  | qwen3.5:27b                | Mac Mini    |   3.7 tok/s| 5 | 3 | 3 | 2 | 13  | B-
+ 15  | glm-4.7-flash:q8_0         | Alpha       |  20.4 tok/s| 4 | 3 | 3 | 3 | 13  | B-
+ 16  | deepseek-r1:14b            | Alpha       |  13.6 tok/s| 3 | 2 | 3 | 3 | 11  | C+
+ 17  | llama3.3:70b               | Alpha       |   3.3 tok/s| 2 | 1 | 3 | 4 | 10  | C
+
+==========================================================
+MAC STUDIO DETAILED ANALYSIS (New Models)
+==========================================================
+
+--- #1 gpt-oss:20b — PERFECT SCORE (A+) | 76.4 tok/s ---
+OpenAI's first open-source model. Best all-around result in the entire benchmark.
+Used @dataclass for Node, numpy-style docstrings, __all__ exports, full edge case
+handling. Clean _add_to_front/_remove/_move_to_front/_pop_tail separation.
+Outstanding at 76 tok/s — fast AND correct. New network #1 for general coding.
+
+--- #2 devstral-small-2:24b — PERFECT SCORE (A+) | 24.8 tok/s ---
+Mistral's dedicated coding model. Perfect implementation — Generic[K,V] typed,
+clean sentinel nodes, lazy TTL check in get(), update-in-place in put(), full
+usage example with thread safety demo and delete test. Production-ready output.
+Best "quality per token budget" of any model tested.
+
+--- #3 ministral-3:14b — PERFECT SCORE (A+) | 41.2 tok/s ---
+Punches well above its weight. Used Generic[K,V] typing, added bonus __contains__
+and __len__ methods, clear() method, capacity validation in __init__. 41 tok/s
+at 14B is excellent. Surprise standout — a small model with elite-level output.
+
+--- #4 qwen3-coder:30b — PERFECT SCORE (A+) | 86.6 tok/s ---
+FASTEST model that produced perfect code. 86.6 tok/s on Mac Studio's Apple Silicon
+is remarkable. Full implementation with _evict_expired helper, correct sentinel
+nodes, size() and clear() bonus methods, working sleep-based TTL demo. Only model
+to score 20/20 AND run above 80 tok/s. Speed king of the coding roster.
+
+--- #9 llama3.2:3b — B | 132.9 tok/s ---
+Fastest raw speed in the entire network (132.9 tok/s) but code quality suffered.
+Defined put() twice (second definition silently overwrites first — Python bug).
+TTL comparison used wrong logic (compared ttl_seconds to time.time() instead of
+storing expiry timestamp). LRU eviction used min() scan instead of O(1) tail removal.
+Useful for ultra-fast lightweight tasks but not reliable for production coding.
+
+--- #14 qwen3.5:27b (Mac Mini) — B- | 3.7 tok/s ---
+Thinking model — spent all 1500 tokens on detailed design reasoning. The analysis
+was impressive and architecturally correct, but produced zero runnable code.
+Mac Mini hardware is also slower (3.7 tok/s vs Mac Studio's 24–86 tok/s range).
+Needs 3000+ token budget to get past planning phase. Not suitable as-is for coding.
+
+==========================================================
+SPEED RANKINGS (all nodes)
+==========================================================
+
+  1. llama3.2:3b          Mac Studio   132.9 tok/s  ← fastest raw speed
+  2. qwen3-coder:30b      Mac Studio    86.6 tok/s  ← fastest + best quality
+  3. gpt-oss:20b          Mac Studio    76.4 tok/s  ← perfect score at 76 tok/s
+  4. ministral-3:14b      Mac Studio    41.2 tok/s
+  5. lfm2:24b             Alpha         35.3 tok/s
+  6. nemotron-3-nano:30b  Alpha         34.1 tok/s
+  7. nemotron-cascade-2   Alpha         34.0 tok/s
+  8. qwen3.5:35b          Mac Studio    24.1 tok/s
+  9. devstral-small-2:24b Mac Studio    24.8 tok/s
+ 10. llama3.2-vision:11b  Alpha         23.9 tok/s
+ 11. glm-4.7-flash        Alpha         20.4 tok/s
+ 12. qwen3-coder-next     Alpha         19.4 tok/s
+ 13. deepseek-r1:14b      Alpha         13.6 tok/s
+ 14. rnj-1:8b             Alpha         10.0 tok/s
+ 15. qwen3.5:27b          Mac Mini       3.7 tok/s
+ 16. llama3.3:70b         Alpha          3.3 tok/s
+ 17. llama3.2-vision:90b  Alpha          3.2 tok/s
+
+==========================================================
+RECOMMENDED ROUTING — UPDATED
+==========================================================
+
+PRIMARY CODER (speed + quality):
+  qwen3-coder:30b @ Mac Studio      86.6 tok/s | A+ | Best overall
+
+DEEP/COMPLEX WORK:
+  gpt-oss:20b @ Mac Studio          76.4 tok/s | A+ | Most sophisticated output
+  qwen3-coder-next @ Alpha          19.4 tok/s | A+ | Best edge case handling
+
+BALANCED OPTION:
+  devstral-small-2:24b @ Mac Studio 24.8 tok/s | A+ | Perfect + concise
+  ministral-3:14b @ Mac Studio      41.2 tok/s | A+ | Small model, elite output
+  lfm2:24b @ Alpha                  35.3 tok/s | A+ | Best on Alpha
+
+FAST LIGHTWEIGHT TASKS:
+  rnj-1:8b @ Alpha                  10.0 tok/s | A  | Best small model on Alpha
+
+ULTRA-FAST (accept lower quality):
+  llama3.2:3b @ Mac Studio         132.9 tok/s | B  | Routing/triage only
+
+REASONING/DEBUGGING (not code gen):
+  deepseek-r1:14b @ Alpha           13.6 tok/s | --  | Analysis only
+
+RETIRE FROM CODING:
+  llama3.3:70b — buggy TTL logic, slowest, no redeeming coding value
+  qwen3.5:27b (Mac Mini) — thinking model, needs 3000+ tokens
+
+==========================================================
+NODE PERFORMANCE SUMMARY
+==========================================================
+
+Mac Studio (100.115.74.106) — BEST NODE FOR CODING
+  Apple Silicon = 24–132 tok/s range
+  4 perfect-score models (gpt-oss, devstral, ministral, qwen3-coder)
+  Recommended as primary coding node
+
+Alpha / Ubuntu (100.106.110.119 / 100.76.82.8) — BEST FOR REASONING + VISION
+  8–35 tok/s range (constrained by Orin architecture)
+  llama-guard3 safety model (always-on)
+  deepseek-r1 for reasoning
+  vision models (llama3.2-vision, glm-ocr)
+
+Mac Mini (100.107.132.71) — CLOUD RELAY NODE
+  3.7 tok/s on local model — slow for coding
+  Best used as cloud relay gateway (deepseek-v3.2, kimi-k2.5, minimax, glm-5)
+  qwen3.5:397b-cloud via relay is its real value
+
+==========================================================

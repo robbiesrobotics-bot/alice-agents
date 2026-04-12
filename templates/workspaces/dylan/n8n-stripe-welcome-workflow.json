@@ -1,0 +1,123 @@
+{
+  "name": "A.L.I.C.E. — Stripe Welcome Email",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "stripe-checkout-completed",
+        "responseMode": "onReceived",
+        "options": { "rawBody": false }
+      },
+      "id": "stripe-webhook-trigger",
+      "name": "Stripe Checkout Completed Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [250, 300],
+      "webhookId": "stripe-welcome-webhook"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Parse incoming webhook payload from stripe-webhook-handler.py\nconst body = $input.item.json;\n\nconst licenseKey = body.license_key;\nconst email = body.email;\nconst plan = body.plan || 'pro';\nconst ingestToken = body.ingest_token || '';\nconst workerToken = body.worker_token || '';\nconst aliceCloudToken = body.alice_cloud_token || ingestToken;\nconst purchasedAt = body.purchased_at || new Date().toISOString();\n\n// Build activation command\nconst activationCmd = ingestToken\n  ? `npx @robbiesrobotics/alice-agents --license ${licenseKey} --cloud --cloud-token ${ingestToken} --cloud-worker-token ${workerToken}`\n  : `npx @robbiesrobotics/alice-agents --license ${licenseKey}`;\n\nreturn {\n  json: {\n    licenseKey,\n    email,\n    plan,\n    ingestToken,\n    workerToken,\n    aliceCloudToken,\n    activationCmd,\n    purchasedAt,\n    hasTokens: Boolean(ingestToken),\n  }\n};"
+      },
+      "id": "parse-payload",
+      "name": "Parse Payload",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [480, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": { "fallbackOutputs": [] },
+          "conditions": [
+            {
+              "id": "has-email",
+              "leftValue": "={{ $json.email }}",
+              "rightValue": "",
+              "operator": { "type": "string", "operation": "isNotEmpty" }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "check-email",
+      "name": "Validate Email",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [710, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://api.resend.com/emails",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "Authorization", "value": "Bearer {{ $env.RESEND_API_KEY }}" },
+            { "name": "Content-Type", "value": "application/json" }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            { "name": "from", "value": "A.L.I.C.E. <hello@av3.ai>" },
+            { "name": "to", "value": "={{ $json.email }}" },
+            { "name": "subject", "value": "Your A.L.I.C.E. Pro License Key" },
+            { "name": "html", "value": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"UTF-8\"/>\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"/>\n  <title>Welcome to A.L.I.C.E. — Robbie's Robotics</title>\n  <style>\n    body { margin: 0; padding: 0; background-color: #0f0f14; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: #e2e8f0; }\n    .wrapper { max-width: 620px; margin: 0 auto; padding: 40px 20px; }\n    .logo { text-align: center; margin-bottom: 32px; }\n    .logo-text { font-size: 22px; font-weight: 700; color: #a78bfa; letter-spacing: 0.05em; }\n    .card { background: #1a1a2e; border: 1px solid #2d2d4e; border-radius: 12px; padding: 36px 40px; margin-bottom: 24px; }\n    h1 { font-size: 28px; font-weight: 700; color: #f1f5f9; margin: 0 0 8px 0; }\n    .subtitle { color: #94a3b8; font-size: 16px; margin-bottom: 28px; }\n    .divider { border: none; border-top: 1px solid #2d2d4e; margin: 28px 0; }\n    h2 { font-size: 16px; font-weight: 600; color: #a78bfa; text-transform: uppercase; letter-spacing: 0.08em; margin: 0 0 16px 0; }\n    .credential-box { background: #0f0f1a; border: 1px solid #3730a3; border-radius: 8px; padding: 16px 20px; margin-bottom: 12px; }\n    .credential-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: #64748b; margin-bottom: 4px; }\n    .credential-value { font-family: 'Courier New', Courier, monospace; font-size: 15px; color: #e2e8f0; word-break: break-all; }\n    .step-list { list-style: none; padding: 0; margin: 0; }\n    .step-list li { display: flex; align-items: flex-start; gap: 14px; padding: 12px 0; border-bottom: 1px solid #1e1e38; }\n    .step-list li:last-child { border-bottom: none; }\n    .step-num { background: #4f46e5; color: #fff; border-radius: 50%; width: 26px; height: 26px; min-width: 26px; font-size: 13px; font-weight: 700; text-align: center; line-height: 26px; }\n    .step-title { font-weight: 600; font-size: 15px; color: #f1f5f9; margin-bottom: 4px; }\n    .step-desc { font-size: 13px; color: #94a3b8; line-height: 1.5; }\n    code { background: #0f0f1a; border: 1px solid #2d2d4e; border-radius: 4px; padding: 1px 6px; font-family: monospace; font-size: 12px; color: #a78bfa; }\n    .btn { display: inline-block; background: #4f46e5; color: #fff; text-decoration: none; padding: 14px 28px; border-radius: 8px; font-weight: 600; font-size: 15px; }\n    .btn-outline { display: inline-block; border: 1px solid #4f46e5; color: #a78bfa; text-decoration: none; padding: 12px 24px; border-radius: 8px; font-weight: 600; font-size: 14px; }\n    .cta-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 20px; }\n    .support-card { background: #0f0f1a; border: 1px solid #2d2d4e; border-radius: 8px; padding: 20px 24px; margin-bottom: 24px; }\n    .support-card p { margin: 0; font-size: 14px; color: #94a3b8; line-height: 1.8; }\n    .support-card a { color: #a78bfa; text-decoration: none; }\n    .footer { text-align: center; font-size: 12px; color: #475569; padding-top: 8px; }\n    .footer a { color: #64748b; text-decoration: none; }\n    .badge { display: inline-block; background: #14532d; color: #4ade80; font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.06em; margin-left: 8px; vertical-align: middle; }\n  </style>\n</head>\n<body>\n  <div class=\"wrapper\">\n    <div class=\"logo\"><div class=\"logo-text\">🤖 A.L.I.C.E.</div></div>\n    <div class=\"card\">\n      <h1>You're in. Welcome aboard. <span class=\"badge\">Active</span></h1>\n      <p class=\"subtitle\">Your A.L.I.C.E. subscription is live. Below is everything you need to get started.</p>\n      <hr class=\"divider\"/>\n      <h2>Your License Key</h2>\n      <div class=\"credential-box\">\n        <div class=\"credential-label\">License Key</div>\n        <div class=\"credential-value\">{{ $json.licenseKey }}</div>\n      </div>\n      <hr class=\"divider\"/>\n      <h2>Cloud Tokens</h2>\n      <div class=\"credential-box\">\n        <div class=\"credential-label\">A.L.I.C.E. Cloud Token</div>\n        <div class=\"credential-value\">{{ $json.aliceCloudToken }}</div>\n      </div>\n      <hr class=\"divider\"/>\n      <h2>Quickstart — 3 Steps</h2>\n      <ul class=\"step-list\">\n        <li><div class=\"step-num\">1</div><div><div class=\"step-title\">Install OpenClaw</div><div class=\"step-desc\"><code>npm install -g openclaw</code> then <code>openclaw setup</code></div></div></li>\n        <li><div class=\"step-num\">2</div><div><div class=\"step-title\">Activate A.L.I.C.E.</div><div class=\"step-desc\"><code>{{ $json.activationCmd }}</code></div></div></li>\n        <li><div class=\"step-num\">3</div><div><div class=\"step-title\">First task</div><div class=\"step-desc\">Message Alice: <code>review my open PRs and summarize blockers</code></div></div></li>\n      </ul>\n      <div class=\"cta-row\">\n        <a class=\"btn\" href=\"https://getalice.av3.ai/quickstart\">Quickstart Guide →</a>\n        <a class=\"btn-outline\" href=\"https://getalice.av3.ai/dashboard\">Dashboard</a>\n      </div>\n    </div>\n    <div class=\"support-card\">\n      <h2>Need Help?</h2>\n      <p>📧 <a href=\"mailto:rob@robbiesrobotics.com\">rob@robbiesrobotics.com</a><br/>📅 <a href=\"https://cal.com/robbiesrobotics\">Book onboarding call</a><br/>📖 <a href=\"https://getalice.av3.ai/docs\">Docs</a></p>\n    </div>\n    <div class=\"footer\"><p>Robbie's Robotics · <a href=\"https://getalice.av3.ai\">getalice.av3.ai</a></p></div>\n  </div>\n</body>\n</html>" }
+          ]
+        },
+        "options": {
+          "retryOnFail": true,
+          "maxTries": 3,
+          "waitBetweenTries": 2000
+        }
+      },
+      "id": "send-welcome-email",
+      "name": "Send Welcome Email",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [940, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Log success for observability\nconst item = $input.item.json;\nconsole.log('Welcome email sent to:', item.email, '| License:', item.licenseKey);\nreturn [{ json: { sent: true, email: item.email, licenseKey: item.licenseKey } }];"
+      },
+      "id": "log-success",
+      "name": "Log Success",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1160, 300]
+    }
+  ],
+  "connections": {
+    "Stripe Checkout Completed Webhook": {
+      "main": [
+        [{ "node": "Parse Payload", "type": "main", "index": 0 }]
+      ]
+    },
+    "Parse Payload": {
+      "main": [
+        [{ "node": "Validate Email", "type": "main", "index": 0 }]
+      ]
+    },
+    "Validate Email": {
+      "main": [
+        [{ "node": "Send Welcome Email", "type": "main", "index": 0 }],
+        []
+      ]
+    },
+    "Send Welcome Email": {
+      "main": [
+        [{ "node": "Log Success", "type": "main", "index": 0 }]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": ""
+  }
+}

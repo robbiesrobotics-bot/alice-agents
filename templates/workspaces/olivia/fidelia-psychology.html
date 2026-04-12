@@ -1,0 +1,1594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fidelia Psychology — <span data-i18n="footer.tagline">Steady ground for growing minds.</span></title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Nunito:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* =====================
+       RESET & CUSTOM PROPS
+       ===================== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --primary:        #4E8B7A;
+      --primary-mid:    #5F9E8C;
+      --primary-dark:   #3A7265;   /* Avery: accessible eucalyptus for text */
+      --amber:          #D4895A;
+      --amber-text:     #9E5C28;   /* Avery: accessible amber for text */
+      --amber-light:    #E0A47C;
+      --periwinkle:     #8A9EC4;
+      --periwinkle-text:#4A6396;   /* Avery: accessible periwinkle for text */
+      --periwinkle-bg:  #EEF1F8;
+      --bg:             #F7F4EF;
+      --bg-warm:        #EDE7DA;
+      --bg-dark:        #2C3B38;
+      --bg-darkest:     #1A2624;
+      --white:          #FEFCF8;
+      --text:           #2C2C30;
+      --text-mid:       #4A4A50;
+      --text-light:     #6A6A72;
+    }
+
+    html { scroll-behavior: smooth; font-size: 16px; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Nunito', sans-serif;
+      font-weight: 400;
+      line-height: 1.72;        /* Nadia */
+      font-size: 1.0625rem;     /* Nadia */
+      overflow-x: hidden;
+    }
+
+    /* Linen-grain texture overlay */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 9998;
+      opacity: 0.028;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 300px 300px;
+    }
+
+    /* Avery: text selection */
+    ::selection { background: rgba(78,139,122,0.2); color: #2C2C30; }
+
+    /* Avery: focus styles */
+    :focus-visible {
+      outline: 3px solid #3A7265;
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+    :focus:not(:focus-visible) { outline: none; }
+
+    /* ============
+       SKIP LINK (Avery)
+       ============ */
+    .skip-link {
+      position: absolute;
+      top: -100%;
+      left: 1rem;
+      padding: 0.75rem 1.5rem;
+      background: #2C2C30;
+      color: #F7F4EF;
+      font-family: 'Nunito', sans-serif;
+      font-size: 1rem;
+      border-radius: 0 0 8px 8px;
+      text-decoration: none;
+      z-index: 9999;
+      transition: top 0.2s;
+    }
+    .skip-link:focus { top: 0; }
+
+    /* ============
+       TYPOGRAPHY
+       ============ */
+    h1, h2, h3, h4 {
+      font-family: 'Cormorant Garamond', serif;
+      line-height: 1.18;        /* Nadia */
+      font-weight: 500;
+    }
+
+    h2 { margin-bottom: 1rem; } /* Nadia */
+
+    .label {
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--primary-dark);  /* Avery: accessible color */
+      display: block;
+      margin-bottom: 0.65rem;
+    }
+
+    /* ============
+       LAYOUT
+       ============ */
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 2rem; }
+
+    section { padding: 4rem 2rem; }  /* Nadia: standardized */
+
+    /* ============
+       SECTION ORNAMENT (Nadia)
+       ============ */
+    .section-ornament {
+      text-align: center;
+      color: var(--primary);
+      opacity: 0.3;
+      font-size: 1rem;
+      letter-spacing: 0.5em;
+      padding: 1rem 0;
+      user-select: none;
+    }
+
+    /* ============
+       BUTTONS (Nadia: padding, letter-spacing, weight)
+       ============ */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.75rem 1.75rem;      /* Nadia */
+      border-radius: 100px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;              /* Nadia */
+      letter-spacing: 0.02em;        /* Nadia */
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.22s ease, box-shadow 0.22s ease, background 0.22s ease, color 0.22s ease;
+    }
+    .btn-primary {
+      background: var(--primary-dark);   /* Avery: darkened for contrast */
+      color: var(--white);
+      box-shadow: 0 4px 22px rgba(58,114,101,0.28);
+    }
+    .btn-primary:hover {
+      background: #2e5c50;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 32px rgba(58,114,101,0.38);
+    }
+    .btn-amber {
+      background: var(--amber-text);     /* Avery: darkened amber for contrast */
+      color: var(--white);
+      box-shadow: 0 4px 22px rgba(158,92,40,0.28);
+    }
+    .btn-amber:hover {
+      background: #844d22;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 32px rgba(158,92,40,0.38);
+    }
+    .btn-ghost {
+      background: transparent;
+      color: var(--primary-dark);
+      border: 2px solid rgba(58,114,101,0.45);
+    }
+    .btn-ghost:hover {
+      background: var(--primary-dark);
+      color: var(--white);
+      border-color: var(--primary-dark);
+      transform: translateY(-2px);
+    }
+
+    /* ============
+       LANGUAGE TOGGLE (Uma + Nadia)
+       ============ */
+    .lang-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 0;
+      border: 1.5px solid rgba(212,137,90,0.45);
+      border-radius: 20px;
+      overflow: hidden;
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .lang-toggle a {
+      padding: 0.3rem 0.65rem;
+      border: none;
+      background: transparent;
+      color: var(--amber-text);     /* Avery: accessible color */
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+    .lang-toggle .active {
+      background-color: var(--amber-text);
+      color: #fff;
+    }
+    .lang-toggle .divider {
+      width: 1px;
+      height: 1.25rem;
+      background: rgba(212,137,90,0.35);
+      flex-shrink: 0;
+    }
+    .lang-toggle a:hover:not(.active) {
+      background: rgba(212,137,90,0.1);
+    }
+
+    /* ============
+       NAV
+       ============ */
+    nav {
+      position: fixed;
+      inset: 0 0 auto;
+      z-index: 200;
+      padding: 1.1rem 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(247,244,239,0.88);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(78,139,122,0.1);
+    }
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+    }
+    .nav-brand {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem;
+      font-weight: 500;
+      color: var(--primary-dark);
+      text-decoration: none;
+      letter-spacing: 0.03em;
+    }
+    .nav-links {
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 2.25rem;
+    }
+    .nav-links a {
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-light);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--primary-dark); }
+    .nav-links .nav-pill {
+      padding: 0.5rem 1.2rem;
+      background: var(--primary-dark);
+      color: var(--white) !important;
+      border-radius: 100px;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .nav-links .nav-pill:hover {
+      background: #2e5c50;
+      transform: translateY(-1px);
+    }
+
+    /* ============
+       HERO
+       ============ */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 0;
+      background: linear-gradient(155deg, var(--bg) 55%, #EAE2D6 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 8rem 2rem 5rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+      width: 100%;
+    }
+    .hero-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--primary-dark);
+      margin-bottom: 1.1rem;
+    }
+    .hero-eyebrow span { display: block; width: 2.2rem; height: 1.5px; background: var(--primary-dark); border-radius: 2px; }
+    .hero-h1 {
+      font-size: clamp(2.6rem, 5.5vw, 4.5rem);
+      font-weight: 400;
+      color: var(--text);
+      margin-bottom: 1.1rem;
+      line-height: 1.12;            /* Nadia */
+      letter-spacing: -0.01em;      /* Nadia */
+    }
+    .hero-tagline {
+      font-size: clamp(1.05rem, 2vw, 1.2rem);
+      color: var(--text-mid);
+      font-weight: 300;
+      margin-bottom: 1.75rem;
+      line-height: 1.7;
+      max-width: 460px;
+    }
+
+    /* Uma: bilingual welcome block */
+    .hero-bilingual {
+      display: grid;
+      grid-template-columns: 1fr 1px 1fr;
+      gap: 1.25rem;
+      align-items: start;
+      margin: 1.5rem 0 2rem;
+      padding: 1.25rem 0;
+      border-top: 1px solid rgba(78,139,122,0.14);
+      border-bottom: 1px solid rgba(78,139,122,0.14);
+    }
+    .hero-bilingual-col {
+      font-size: 0.92rem;
+      color: var(--text-mid);
+      line-height: 1.72;
+      font-style: italic;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.05rem;
+    }
+    .hero-bilingual-divider {
+      width: 1px;
+      background: rgba(78,139,122,0.22);
+      align-self: stretch;
+      min-height: 60px;
+    }
+
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; }
+    .hero-note {
+      font-size: 0.82rem;
+      color: var(--text-light);
+      margin-top: 1.25rem;
+    }
+    .hero-note em {
+      font-style: italic;
+      color: var(--primary-dark);
+    }
+
+    /* Hero illustration column */
+    .hero-art {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 480px;
+    }
+    .hero-art-rings {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+    }
+    .hero-art-botanical { position: relative; z-index: 2; }
+
+    /* Floating accent blobs */
+    .blob { position: absolute; border-radius: 50%; pointer-events: none; }
+
+    /* ============
+       ABOUT
+       ============ */
+    #about {
+      background: var(--white);
+      position: relative;
+      overflow: hidden;
+    }
+    #about::before {
+      content: '';
+      position: absolute;
+      top: -3.5rem;
+      left: -2%;
+      width: 104%;
+      height: 7rem;
+      background: var(--bg);
+      border-radius: 0 0 60% 60% / 0 0 100% 100%;
+    }
+    .about-inner {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+    .about-photo-col {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .about-circle {
+      width: 280px;
+      height: 280px;
+      border-radius: 50%;
+      overflow: hidden;
+      background: linear-gradient(145deg, #CBE8E1, #AECFC8, #96BDB7);
+      box-shadow: 0 24px 60px rgba(78,139,122,0.22);
+      position: relative;
+      z-index: 2;
+    }
+    .about-rings {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 1;
+    }
+    .about-text .section-title { font-size: clamp(2rem, 4vw, 2.8rem); margin-bottom: 1.2rem; }
+    .about-text p {
+      color: var(--text-mid);
+      line-height: 1.85;
+      margin-bottom: 1rem;
+    }
+    .about-text p.lead {
+      font-size: 1.15rem;
+      color: var(--text);
+      font-weight: 500;
+      margin-bottom: 1.25rem;
+    }
+    /* Uma: bilingual aside in about */
+    .about-spanish-aside {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.08rem;
+      font-style: italic;
+      color: var(--primary-dark);
+      border-left: 2.5px solid rgba(78,139,122,0.3);
+      padding: 0.5rem 0 0.5rem 1rem;
+      margin: 1.25rem 0;
+      line-height: 1.65;
+    }
+
+    /* ============
+       SERVICES
+       ============ */
+    #services {
+      background: var(--bg);
+      position: relative;
+    }
+    .services-head { text-align: center; margin-bottom: 3.5rem; }
+    .services-head .section-title { font-size: clamp(2rem, 4vw, 2.8rem); margin-bottom: 0.75rem; }
+    .services-head p { color: var(--text-light); max-width: 500px; margin: 0 auto; }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.75rem;
+    }
+    .card {
+      background: var(--white);
+      border-radius: 2rem;
+      padding: 2.4rem 2rem 2.25rem;   /* Nadia: padding-bottom min 2.25rem */
+      display: flex;
+      flex-direction: column;
+      gap: 1.1rem;
+      border: 1px solid rgba(78,139,122,0.07);
+      transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 3.5px;
+      background: linear-gradient(90deg, var(--primary-dark), var(--periwinkle-text));
+      transform: scaleX(0);
+      transform-origin: left center;
+      transition: transform 0.4s ease;
+      border-radius: 0 0 2rem 2rem;
+    }
+    .card:hover { transform: translateY(-7px); box-shadow: 0 20px 52px rgba(44,44,48,0.09); border-color: rgba(78,139,122,0.18); }
+    .card:hover::after { transform: scaleX(1); }
+
+    .card-icon {
+      width: 62px; height: 62px;
+      border-radius: 50%;
+      background: linear-gradient(140deg, #E8F4F1, #D0EBE4);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .card h3 { font-size: 1.42rem; font-weight: 500; }
+    .card p {
+      font-size: 0.9375rem;   /* Nadia */
+      line-height: 1.65;      /* Nadia */
+      color: var(--text-light);
+      flex: 1;
+    }
+    .card-link {
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: var(--primary-dark);   /* Avery: accessible */
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      letter-spacing: 0.04em;
+      transition: gap 0.2s;
+    }
+    .card-link:hover { gap: 0.65rem; }
+
+    /* ============
+       APPROACH / PULL QUOTE
+       ============ */
+    #approach {
+      background: var(--periwinkle-bg);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .approach-inner {
+      max-width: 780px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
+    }
+    .approach-ornament {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 9rem;
+      line-height: 0.5;
+      color: var(--periwinkle);
+      opacity: 0.22;
+      user-select: none;
+      position: absolute;
+      top: 0; left: -1rem;
+      aria-hidden: true;
+    }
+    blockquote.pull {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.55rem, 3.2vw, 2.2rem);
+      font-weight: 400;
+      font-style: italic;
+      color: var(--text);
+      line-height: 1.55;
+      margin-bottom: 2rem;
+      position: relative;
+    }
+    .approach-rule {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.1rem;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--periwinkle-text);    /* Avery */
+      margin-bottom: 0;
+    }
+    .approach-rule::before, .approach-rule::after {
+      content: '';
+      display: block;
+      width: 3.5rem;
+      height: 1px;
+      background: var(--periwinkle-text);
+      opacity: 0.45;
+    }
+    .approach-ring {
+      position: absolute;
+      border-radius: 50%;
+      border: 1px solid rgba(138,158,196,0.2);
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    /* ============
+       PILLARS
+       ============ */
+    #pillars { background: var(--white); }
+    .pillars-head { text-align: center; margin-bottom: 3.25rem; }
+    .pillars-head .section-title { font-size: clamp(2rem, 4vw, 2.8rem); }
+    .pillars-head p { color: var(--text-light); max-width: 520px; margin: 0 auto; }
+
+    .pillars-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.1rem;
+    }
+    .pillar {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 1.35rem 1.4rem;
+      background: var(--bg);
+      border-radius: 1.35rem;
+      border: 1px solid rgba(78,139,122,0.08);
+      transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+    }
+    .pillar:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 34px rgba(78,139,122,0.09);
+      background: #EDF5F2;
+    }
+    .pillar-icon {
+      width: 42px; height: 42px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .pillar-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.18rem;
+      font-weight: 500;
+      color: var(--text);
+      line-height: 1.15;
+    }
+    /* Uma: Spanish pillar sub-label */
+    .pillar-name-es {
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--primary-dark);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-top: 0.1rem;
+      display: block;
+    }
+    .pillar-desc {
+      font-size: 0.8rem;
+      color: var(--text-light);
+      line-height: 1.55;
+      margin-top: 0.25rem;
+    }
+
+    /* ============
+       CONTACT
+       ============ */
+    #contact {
+      background: linear-gradient(155deg, #2C3B38 0%, #1F2E2B 100%);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .contact-inner {
+      max-width: 620px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
+    }
+    #contact .label { color: rgba(255,255,255,0.45); }
+    #contact .section-title { color: var(--white); font-size: clamp(2rem, 4vw, 2.8rem); margin-bottom: 1.25rem; }
+    .contact-body {
+      font-size: 1rem;
+      color: rgba(255,255,255,0.62);
+      line-height: 1.82;
+      margin-bottom: 2.5rem;
+    }
+    .contact-form {
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      gap: 1.1rem;
+      margin-bottom: 2rem;
+    }
+    .form-group { display: flex; flex-direction: column; gap: 0.35rem; }
+    .form-group label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+    }
+    .form-group input,
+    .form-group textarea {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 0.75rem;
+      padding: 0.75rem 1rem;
+      color: var(--white);
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.95rem;
+      transition: border-color 0.2s, background 0.2s;
+      width: 100%;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-color: rgba(78,139,122,0.55);
+      background: rgba(255,255,255,0.1);
+      outline: 3px solid #3A7265;
+      outline-offset: 2px;
+    }
+    .form-group textarea { resize: vertical; min-height: 110px; }
+    .form-feedback {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.45);
+      margin-top: -0.25rem;
+    }
+    .contact-note {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.25);
+      margin-top: 1.5rem;
+      letter-spacing: 0.04em;
+    }
+    .contact-blob {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(78,139,122,0.07);
+    }
+
+    /* ============
+       FOOTER
+       ============ */
+    footer {
+      background: var(--bg-darkest);
+      padding: 2.75rem 2rem 2.25rem;
+      text-align: center;
+      border-top: 1px solid rgba(255,255,255,0.04);
+    }
+    .footer-mark { margin-bottom: 1rem; }
+    .footer-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem;
+      font-weight: 400;
+      color: rgba(255,255,255,0.65);
+      letter-spacing: 0.06em;
+      margin-bottom: 0.3rem;
+    }
+    .footer-tag {
+      font-size: 0.82rem;
+      font-style: italic;
+      color: rgba(255,255,255,0.32);
+      letter-spacing: 0.06em;
+    }
+    .footer-bilingual {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.22);
+      margin-top: 0.75rem;
+      letter-spacing: 0.03em;
+    }
+    .footer-copy {
+      margin-top: 1.5rem;
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.14);
+      letter-spacing: 0.05em;
+    }
+
+    /* ============
+       RESPONSIVE (Nadia + original)
+       ============ */
+    @media (max-width: 960px) {
+      .hero-inner { grid-template-columns: 1fr; text-align: center; gap: 2rem; }
+      .hero-eyebrow { justify-content: center; }
+      .hero-tagline { margin-left: auto; margin-right: auto; }
+      .hero-actions { justify-content: center; }
+      .hero-note { text-align: center; }
+      .hero-bilingual { grid-template-columns: 1fr; gap: 0.75rem; }
+      .hero-bilingual-divider { display: none; }
+      .hero-art { min-height: 320px; }
+      .about-inner { grid-template-columns: 1fr; text-align: center; gap: 3rem; }
+      .about-photo-col { justify-content: center; }
+      .about-spanish-aside { text-align: left; }
+      .services-grid { grid-template-columns: 1fr; max-width: 460px; margin: 0 auto; }
+      .pillars-grid { grid-template-columns: 1fr 1fr; }
+      .nav-links { display: none; }
+    }
+
+    @media (max-width: 768px) {
+      /* Nadia: mobile rules */
+      body { font-size: 1rem; }
+      section { padding-block: 2.75rem; }
+      .btn {
+        width: 100%;
+        min-height: 48px;
+        justify-content: center;
+      }
+      .hero-actions { flex-direction: column; }
+    }
+
+    @media (max-width: 640px) {
+      .pillars-grid { grid-template-columns: 1fr; }
+      .about-circle { width: 220px; height: 220px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Skip link (Avery) -->
+<a href="#main-content" class="skip-link">Skip to main content</a>
+
+<!-- ═══════════════════════════════════════
+     HEADER / NAV (Avery: role=banner)
+═══════════════════════════════════════ -->
+<header role="banner">
+  <nav aria-label="Main navigation">
+    <div class="nav-left">
+      <a href="#hero" class="nav-brand">Fidelia Psychology</a>
+      <!-- Uma: language toggle pill -->
+      <div class="lang-toggle" aria-label="Language selector / Selector de idioma">
+        <a href="#" class="active" lang="en" aria-label="English version" onclick="setLang('en'); return false;">En</a>
+        <span class="divider" aria-hidden="true"></span>
+        <a href="#" lang="es" aria-label="Versión en español" onclick="setLang('es'); return false;">Es</a>
+      </div>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#about" data-i18n="nav.about">About</a></li>
+      <li><a href="#services" data-i18n="nav.services">Services</a></li>
+      <li><a href="#approach" data-i18n="nav.approach">Approach</a></li>
+      <li><a href="#pillars" data-i18n="nav.values">Our Values</a></li>
+      <li><a href="#contact" class="nav-pill" data-i18n="nav.contact">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main id="main-content">
+
+<!-- ═══════════════════════════════════════
+     HERO
+═══════════════════════════════════════ -->
+<section id="hero" aria-labelledby="hero-h1">
+
+  <!-- Floating accent blobs -->
+  <div class="blob" style="width:320px;height:320px;top:-80px;right:-60px;background:rgba(212,137,90,0.07);" aria-hidden="true"></div>
+  <div class="blob" style="width:200px;height:200px;bottom:10%;left:-60px;background:rgba(138,158,196,0.09);" aria-hidden="true"></div>
+  <div class="blob" style="width:100px;height:100px;top:25%;left:40%;background:rgba(78,139,122,0.06);" aria-hidden="true"></div>
+
+  <div class="hero-inner">
+    <!-- LEFT: copy -->
+    <div class="hero-content">
+      <!-- Felix: eyebrow -->
+      <p class="hero-eyebrow"><span aria-hidden="true"></span> A place for every child to grow</p>
+
+      <!-- Felix: H1 -->
+      <h1 class="hero-h1" id="hero-h1" data-i18n="hero.h1">Where every child finds their footing.</h1>
+
+      <!-- Felix: subheadline -->
+      <p class="hero-tagline" data-i18n="hero.tagline">Gentle, personalized support for children and their families. We're here when you're ready.</p>
+
+      <!-- Uma: bilingual welcome block -->
+      <div class="hero-bilingual" aria-label="Bilingual welcome / Bienvenida bilingüe">
+        <div class="hero-bilingual-col" lang="en">
+          Every child deserves to feel seen, supported, and safe. We're here for your family — in the language you think in, the language you dream in, and the one you reach for when words are hardest to find.
+        </div>
+        <div class="hero-bilingual-divider" aria-hidden="true"></div>
+        <div class="hero-bilingual-col" lang="es">
+          Cada niño merece sentirse visto, acompañado y seguro. Estamos aquí para su familia — en el idioma con que piensa, con que sueña, y con el que busca palabras cuando más las necesita.
+        </div>
+      </div>
+
+      <!-- Felix: CTA -->
+      <div class="hero-actions">
+        <a href="#contact" class="btn btn-primary" data-i18n="hero.cta.primary">Schedule a Conversation</a>
+        <a href="#about" class="btn btn-ghost" data-i18n="hero.cta.ghost">Learn More</a>
+      </div>
+
+      <!-- Felix: note + Spanish -->
+      <p class="hero-note">
+        All sessions are confidential and private.<br>
+        <em lang="es">Servicios disponibles en español.</em>
+      </p>
+    </div>
+
+    <!-- RIGHT: botanical illustration -->
+    <div class="hero-art" aria-hidden="true">
+      <!-- Concentric rings -->
+      <div class="hero-art-rings">
+        <svg width="460" height="460" viewBox="0 0 460 460" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+          <circle cx="230" cy="230" r="90"  stroke="#4E8B7A" stroke-width="1"   opacity="0.14"/>
+          <circle cx="230" cy="230" r="145" stroke="#4E8B7A" stroke-width="0.8" opacity="0.09"/>
+          <circle cx="230" cy="230" r="195" stroke="#4E8B7A" stroke-width="0.7" opacity="0.06"/>
+          <circle cx="230" cy="230" r="225" stroke="#4E8B7A" stroke-width="0.5" opacity="0.04"/>
+        </svg>
+      </div>
+
+      <!-- Avery: hero botanical with title/desc -->
+      <div class="hero-art-botanical">
+        <svg width="320" height="440" viewBox="0 0 320 440" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="hero-svg-title hero-svg-desc">
+          <title id="hero-svg-title">Botanical illustration</title>
+          <desc id="hero-svg-desc">Delicate eucalyptus branches suggesting growth, calm, and care.</desc>
+
+          <!-- Main stem -->
+          <path d="M160 415 C158 370 155 330 158 280 C161 235 160 185 158 140 C156 100 158 65 157 30"
+                stroke="#4E8B7A" stroke-width="2" stroke-linecap="round" fill="none"/>
+
+          <!-- Leaves -->
+          <path d="M159 295 C134 278 100 262 88 238 C104 252 137 268 159 295Z"
+                stroke="#4E8B7A" stroke-width="1.5" fill="rgba(78,139,122,0.09)" stroke-linecap="round"/>
+          <path d="M159 295 C148 278 130 265 118 252" stroke="#4E8B7A" stroke-width="0.7" stroke-linecap="round" fill="none" opacity="0.4"/>
+          <path d="M159 270 C188 252 222 234 236 208 C218 226 186 244 159 270Z"
+                stroke="#4E8B7A" stroke-width="1.5" fill="rgba(78,139,122,0.09)" stroke-linecap="round"/>
+          <path d="M159 270 C172 254 190 242 202 228" stroke="#4E8B7A" stroke-width="0.7" stroke-linecap="round" fill="none" opacity="0.4"/>
+          <path d="M158 220 C136 205 110 195 102 175 C116 188 140 200 158 220Z"
+                stroke="#4E8B7A" stroke-width="1.3" fill="rgba(78,139,122,0.07)" stroke-linecap="round"/>
+          <path d="M159 202 C182 186 208 176 216 156 C202 170 180 183 159 202Z"
+                stroke="#4E8B7A" stroke-width="1.3" fill="rgba(78,139,122,0.07)" stroke-linecap="round"/>
+          <path d="M158 155 C140 142 120 134 114 118 C124 130 143 139 158 155Z"
+                stroke="#4E8B7A" stroke-width="1.2" fill="rgba(78,139,122,0.07)" stroke-linecap="round"/>
+          <path d="M158 142 C176 128 196 120 202 104 C192 116 175 126 158 142Z"
+                stroke="#4E8B7A" stroke-width="1.2" fill="rgba(78,139,122,0.07)" stroke-linecap="round"/>
+          <path d="M157 100 C144 90 130 84 127 72 C133 81 146 88 157 100Z"
+                stroke="#4E8B7A" stroke-width="1" fill="rgba(78,139,122,0.06)" stroke-linecap="round"/>
+          <path d="M158 90 C170 80 184 74 188 62 C183 71 171 78 158 90Z"
+                stroke="#4E8B7A" stroke-width="1" fill="rgba(78,139,122,0.06)" stroke-linecap="round"/>
+
+          <!-- Side branches -->
+          <path d="M159 330 C182 318 210 308 230 294" stroke="#4E8B7A" stroke-width="1.2" stroke-linecap="round" fill="none" opacity="0.65"/>
+          <path d="M230 294 C242 284 256 277 262 263 C252 273 241 281 230 294Z"
+                stroke="#4E8B7A" stroke-width="1" fill="rgba(78,139,122,0.07)" stroke-linecap="round"/>
+          <path d="M159 310 C138 300 114 292 98 279" stroke="#4E8B7A" stroke-width="1.2" stroke-linecap="round" fill="none" opacity="0.65"/>
+          <path d="M98 279 C86 271 72 265 66 252 C76 261 87 268 98 279Z"
+                stroke="#4E8B7A" stroke-width="1" fill="rgba(78,139,122,0.07)" stroke-linecap="round"/>
+
+          <!-- Root system -->
+          <path d="M158 415 C142 424 122 429 106 422" stroke="#4E8B7A" stroke-width="1.3" stroke-linecap="round" fill="none" opacity="0.38"/>
+          <path d="M158 415 C174 426 196 431 212 425" stroke="#4E8B7A" stroke-width="1.3" stroke-linecap="round" fill="none" opacity="0.38"/>
+          <path d="M158 415 C152 430 150 438 148 444" stroke="#4E8B7A" stroke-width="1" stroke-linecap="round" fill="none" opacity="0.25"/>
+          <path d="M158 415 C164 431 167 439 170 445" stroke="#4E8B7A" stroke-width="1" stroke-linecap="round" fill="none" opacity="0.25"/>
+          <path d="M106 422 C94 428 82 430 76 426" stroke="#4E8B7A" stroke-width="0.8" stroke-linecap="round" fill="none" opacity="0.22"/>
+          <path d="M212 425 C224 431 236 432 244 427" stroke="#4E8B7A" stroke-width="0.8" stroke-linecap="round" fill="none" opacity="0.22"/>
+
+          <!-- Apex blossom -->
+          <circle cx="157" cy="28" r="18" stroke="#D4895A" stroke-width="1.5" fill="rgba(212,137,90,0.1)"/>
+          <circle cx="157" cy="28" r="10" stroke="#D4895A" stroke-width="1.2" fill="rgba(212,137,90,0.18)"/>
+          <circle cx="157" cy="28" r="4" fill="#D4895A" opacity="0.5"/>
+
+          <!-- Accent dots -->
+          <circle cx="88"  cy="238" r="3.5" fill="rgba(212,137,90,0.4)"/>
+          <circle cx="236" cy="208" r="3.5" fill="rgba(212,137,90,0.4)"/>
+          <circle cx="114" cy="118" r="3"   fill="rgba(138,158,196,0.55)"/>
+          <circle cx="202" cy="104" r="3"   fill="rgba(138,158,196,0.55)"/>
+          <circle cx="262" cy="263" r="3"   fill="rgba(138,158,196,0.45)"/>
+          <circle cx="66"  cy="252" r="3"   fill="rgba(138,158,196,0.45)"/>
+          <circle cx="127" cy="72"  r="2.5" fill="rgba(212,137,90,0.3)"/>
+          <circle cx="188" cy="62"  r="2.5" fill="rgba(212,137,90,0.3)"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Nadia: section ornament -->
+<div class="section-ornament" aria-hidden="true">• • •</div>
+
+<!-- ═══════════════════════════════════════
+     ABOUT
+═══════════════════════════════════════ -->
+<section id="about" aria-labelledby="about-h2">
+
+  <!-- Subtle botanical in far corner -->
+  <svg style="position:absolute;right:2%;top:18%;opacity:0.07;" width="120" height="200" viewBox="0 0 120 200" fill="none" aria-hidden="true" focusable="false">
+    <path d="M60 195 C60 155 58 120 60 75 C62 50 60 25 59 5" stroke="#4E8B7A" stroke-width="2" stroke-linecap="round" fill="none"/>
+    <path d="M60 130 C40 118 18 108 12 90 C24 104 44 114 60 130Z" stroke="#4E8B7A" stroke-width="1.5" fill="rgba(78,139,122,0.12)" stroke-linecap="round"/>
+    <path d="M60 100 C80 88 102 78 108 60 C96 74 78 84 60 100Z" stroke="#4E8B7A" stroke-width="1.5" fill="rgba(78,139,122,0.12)" stroke-linecap="round"/>
+    <circle cx="59" cy="5" r="10" stroke="#4E8B7A" stroke-width="1.5" fill="rgba(78,139,122,0.1)"/>
+  </svg>
+
+  <div class="container">
+    <div class="about-inner">
+
+      <!-- Photo column -->
+      <div class="about-photo-col">
+        <div class="about-rings" aria-hidden="true">
+          <svg width="380" height="380" viewBox="0 0 380 380" fill="none" aria-hidden="true" focusable="false">
+            <circle cx="190" cy="190" r="148" stroke="#4E8B7A" stroke-width="1.2" opacity="0.14"/>
+            <circle cx="190" cy="190" r="170" stroke="#4E8B7A" stroke-width="0.8" opacity="0.08"/>
+            <circle cx="190" cy="190" r="188" stroke="#4E8B7A" stroke-width="0.5" opacity="0.05"/>
+          </svg>
+        </div>
+        <div class="about-circle">
+          <svg width="280" height="280" viewBox="0 0 280 280" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Photo placeholder — botanical illustration">
+            <ellipse cx="140" cy="200" rx="110" ry="80" fill="rgba(78,139,122,0.14)"/>
+            <ellipse cx="140" cy="225" rx="85"  ry="55" fill="rgba(78,139,122,0.11)"/>
+            <path d="M140 260 C140 225 138 195 140 155 C142 130 140 105 139 80"
+                  stroke="#4E8B7A" stroke-width="1.6" stroke-linecap="round" fill="none" opacity="0.55"/>
+            <path d="M140 205 C124 194 106 186 100 170 C110 180 128 190 140 205Z"
+                  stroke="#4E8B7A" stroke-width="1.2" fill="rgba(78,139,122,0.12)" stroke-linecap="round" opacity="0.8"/>
+            <path d="M140 182 C156 171 174 163 180 147 C170 158 154 168 140 182Z"
+                  stroke="#4E8B7A" stroke-width="1.2" fill="rgba(78,139,122,0.12)" stroke-linecap="round" opacity="0.8"/>
+            <circle cx="139" cy="78" r="13" stroke="#D4895A" stroke-width="1.4" fill="rgba(212,137,90,0.14)" opacity="0.85"/>
+            <circle cx="139" cy="78" r="6.5" fill="rgba(212,137,90,0.28)"/>
+            <text x="140" y="274" text-anchor="middle" font-family="'Nunito', sans-serif" font-size="9" fill="rgba(78,139,122,0.4)" letter-spacing="3" font-weight="600">YOUR PHOTO</text>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Text column -->
+      <div class="about-text">
+        <!-- Felix: About copy -->
+        <span class="label">About</span>
+        <h2 class="section-title" id="about-h2">A practice built on<br><em style="color:var(--primary-dark)">knowing the whole child.</em></h2>
+        <p class="lead">We believe every child makes sense — when you take the time to really listen.</p>
+        <p>We work with children and adolescents navigating anxiety, attention challenges, school stress, and the everyday weight of growing up. Our approach is gentle and research-informed, guided by nine values that shape every session. We meet each child where they are — not where we expect them to be.</p>
+        <p>We serve families of many backgrounds, and Dr. [Name] works fluently in both English and Spanish. If your family feels most at home in Spanish, you'll find that here too. Whatever you're carrying when you walk in, you don't have to explain yourself twice.</p>
+
+        <!-- Uma: Spanish aside -->
+        <p class="about-spanish-aside" lang="es">
+          "Hablamos su idioma — y no solo el español. Entendemos la familia, la comunidad, y el corazón detrás de cada historia."
+        </p>
+
+        <a href="#contact" class="btn btn-primary" style="align-self:flex-start;display:inline-flex;">Schedule a Conversation</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Nadia: section ornament -->
+<div class="section-ornament" aria-hidden="true">• • •</div>
+
+<!-- ═══════════════════════════════════════
+     SERVICES
+═══════════════════════════════════════ -->
+<section id="services" aria-labelledby="services-h2">
+  <div class="container">
+    <div class="services-head">
+      <span class="label">What We Offer</span>
+      <!-- Felix: services heading -->
+      <h2 class="section-title" id="services-h2">Three ways we can help.</h2>
+      <p>Simple, focused services — shaped around your child, not a checklist.</p>
+    </div>
+
+    <div class="services-grid">
+
+      <!-- Card 1: Individual Therapy -->
+      <div class="card">
+        <div class="card-icon">
+          <svg width="30" height="30" viewBox="0 0 30 30" fill="none" aria-hidden="true" focusable="false">
+            <path d="M15 27 C15 19 13 11 15 3 C22 3 28 9 26 17 C24 23 20 27 15 27Z"
+                  stroke="#3A7265" stroke-width="1.6" fill="rgba(78,139,122,0.1)" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M15 27 C15 19 17.5 12 20 8" stroke="#3A7265" stroke-width="0.9" stroke-linecap="round" fill="none" opacity="0.45"/>
+            <path d="M15 21 C17.5 19 20.5 18 22 16" stroke="#3A7265" stroke-width="0.7" stroke-linecap="round" fill="none" opacity="0.35"/>
+          </svg>
+        </div>
+        <h3 data-i18n="svc1.title">Individual Therapy</h3>
+        <!-- Felix: card 1 copy -->
+        <p data-i18n="svc1.body">A private, steady space just for your child. We work through anxiety, big feelings, school stress, and whatever else they're carrying — at a pace that's right for them.</p>
+        <a href="#contact" class="card-link">Learn more <span aria-hidden="true">→</span></a>
+      </div>
+
+      <!-- Card 2: School Consultation -->
+      <div class="card">
+        <div class="card-icon">
+          <svg width="30" height="30" viewBox="0 0 30 30" fill="none" aria-hidden="true" focusable="false">
+            <circle cx="15" cy="15" r="3.8" stroke="#3A7265" stroke-width="1.5" fill="rgba(78,139,122,0.1)"/>
+            <line x1="15" y1="11.2" x2="15"   y2="4.5"  stroke="#3A7265" stroke-width="1.2" stroke-linecap="round"/>
+            <line x1="15" y1="18.8" x2="15"   y2="25.5" stroke="#3A7265" stroke-width="1.2" stroke-linecap="round"/>
+            <line x1="11.8" y1="13.2" x2="6.5" y2="9.5" stroke="#3A7265" stroke-width="1.2" stroke-linecap="round"/>
+            <line x1="18.2" y1="16.8" x2="23.5" y2="20.5" stroke="#3A7265" stroke-width="1.2" stroke-linecap="round"/>
+            <line x1="11.8" y1="16.8" x2="6.5" y2="20.5" stroke="#3A7265" stroke-width="1.2" stroke-linecap="round"/>
+            <line x1="18.2" y1="13.2" x2="23.5" y2="9.5" stroke="#3A7265" stroke-width="1.2" stroke-linecap="round"/>
+            <circle cx="15"   cy="4"  r="2" stroke="#3A7265" stroke-width="1" fill="rgba(138,158,196,0.25)"/>
+            <circle cx="15"   cy="26" r="2" stroke="#3A7265" stroke-width="1" fill="rgba(138,158,196,0.25)"/>
+            <circle cx="5.5"  cy="9"  r="2" stroke="#3A7265" stroke-width="1" fill="rgba(138,158,196,0.25)"/>
+            <circle cx="24.5" cy="21" r="2" stroke="#3A7265" stroke-width="1" fill="rgba(138,158,196,0.25)"/>
+            <circle cx="5.5"  cy="21" r="2" stroke="#3A7265" stroke-width="1" fill="rgba(138,158,196,0.25)"/>
+            <circle cx="24.5" cy="9"  r="2" stroke="#3A7265" stroke-width="1" fill="rgba(138,158,196,0.25)"/>
+          </svg>
+        </div>
+        <h3 data-i18n="svc2.title">School Consultation</h3>
+        <!-- Felix: card 2 copy -->
+        <p data-i18n="svc2.body">When home and school feel like two different worlds, we help build a bridge. We work with teachers and school teams so your child is supported wherever they spend their day.</p>
+        <a href="#contact" class="card-link">Learn more <span aria-hidden="true">→</span></a>
+      </div>
+
+      <!-- Card 3: Family Support -->
+      <div class="card">
+        <div class="card-icon">
+          <svg width="30" height="30" viewBox="0 0 30 30" fill="none" aria-hidden="true" focusable="false">
+            <circle cx="15" cy="15" r="4"    stroke="#3A7265" stroke-width="1.6" fill="rgba(78,139,122,0.18)"/>
+            <circle cx="15" cy="15" r="8.5"  stroke="#3A7265" stroke-width="1.2" fill="none" stroke-dasharray="2.5 2.2"/>
+            <circle cx="15" cy="15" r="13"   stroke="#3A7265" stroke-width="0.9" fill="none" opacity="0.38"/>
+            <circle cx="15"   cy="6.5"  r="1.6" fill="#9E5C28" opacity="0.65"/>
+            <circle cx="22.4" cy="19.5" r="1.6" fill="#9E5C28" opacity="0.65"/>
+            <circle cx="7.6"  cy="19.5" r="1.6" fill="#9E5C28" opacity="0.65"/>
+          </svg>
+        </div>
+        <h3 data-i18n="svc3.title">Family Support</h3>
+        <!-- Felix: card 3 copy -->
+        <p data-i18n="svc3.body">When a child is struggling, the whole family feels it. We work with parents and caregivers too — giving you the tools and perspective to move through it together.</p>
+        <a href="#contact" class="card-link">Learn more <span aria-hidden="true">→</span></a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Nadia: section ornament -->
+<div class="section-ornament" aria-hidden="true">• • •</div>
+
+<!-- ═══════════════════════════════════════
+     APPROACH / PULL QUOTE
+═══════════════════════════════════════ -->
+<section id="approach" aria-labelledby="approach-label">
+
+  <!-- Background rings -->
+  <div class="approach-ring" style="width:500px;height:500px;" aria-hidden="true"></div>
+  <div class="approach-ring" style="width:700px;height:700px;opacity:0.55;" aria-hidden="true"></div>
+  <div class="approach-ring" style="width:900px;height:900px;opacity:0.3;" aria-hidden="true"></div>
+
+  <!-- Botanical accents -->
+  <svg style="position:absolute;left:4%;top:8%;opacity:0.2;" width="70" height="150" viewBox="0 0 70 150" fill="none" aria-hidden="true" focusable="false">
+    <path d="M35 145 C35 112 33 84 35 50 C37 30 35 12 34 2" stroke="#8A9EC4" stroke-width="1.6" stroke-linecap="round" fill="none"/>
+    <path d="M35 100 C22 90 8 82 5 68 C13 78 26 87 35 100Z"  stroke="#8A9EC4" stroke-width="1.3" fill="rgba(138,158,196,0.15)" stroke-linecap="round"/>
+    <path d="M35 78 C48 68 62 60 65 46 C58 57 46 66 35 78Z"  stroke="#8A9EC4" stroke-width="1.3" fill="rgba(138,158,196,0.15)" stroke-linecap="round"/>
+    <path d="M34 52 C24 44 14 38 11 26 C18 36 26 42 34 52Z"  stroke="#8A9EC4" stroke-width="1.1" fill="rgba(138,158,196,0.12)" stroke-linecap="round"/>
+    <circle cx="34" cy="2" r="8" stroke="#8A9EC4" stroke-width="1.3" fill="rgba(138,158,196,0.15)"/>
+    <circle cx="34" cy="2" r="3.5" fill="rgba(138,158,196,0.3)"/>
+  </svg>
+  <svg style="position:absolute;right:4%;bottom:8%;opacity:0.2;transform:scaleX(-1) rotate(10deg);" width="70" height="150" viewBox="0 0 70 150" fill="none" aria-hidden="true" focusable="false">
+    <path d="M35 145 C35 112 33 84 35 50 C37 30 35 12 34 2" stroke="#8A9EC4" stroke-width="1.6" stroke-linecap="round" fill="none"/>
+    <path d="M35 100 C22 90 8 82 5 68 C13 78 26 87 35 100Z"  stroke="#8A9EC4" stroke-width="1.3" fill="rgba(138,158,196,0.15)" stroke-linecap="round"/>
+    <path d="M35 78 C48 68 62 60 65 46 C58 57 46 66 35 78Z"  stroke="#8A9EC4" stroke-width="1.3" fill="rgba(138,158,196,0.15)" stroke-linecap="round"/>
+    <circle cx="34" cy="2" r="8" stroke="#8A9EC4" stroke-width="1.3" fill="rgba(138,158,196,0.15)"/>
+  </svg>
+
+  <div class="approach-inner container">
+    <div style="position:relative;">
+      <span class="approach-ornament" aria-hidden="true">"</span>
+
+      <!-- Felix: pull quote -->
+      <blockquote class="pull" aria-labelledby="approach-label">
+        <span data-i18n="approach.quote">"We don't rush what takes time. We just stay — patient, present, and steady — until the ground feels solid again."</span>
+      </blockquote>
+
+      <p class="approach-rule" id="approach-label">The Fidelia Approach</p>
+    </div>
+  </div>
+</section>
+
+<!-- Nadia: section ornament -->
+<div class="section-ornament" aria-hidden="true">• • •</div>
+
+<!-- ═══════════════════════════════════════
+     PILLARS
+═══════════════════════════════════════ -->
+<section id="pillars" aria-labelledby="pillars-h2">
+  <div class="container">
+    <div class="pillars-head">
+      <!-- Felix: pillars label + heading + intro -->
+      <span class="label">Our Foundation</span>
+      <h2 class="section-title" id="pillars-h2">Nine ways we show up for you.</h2>
+      <p>These are the values that guide every session, every conversation, every relationship we build.</p>
+    </div>
+
+    <div class="pillars-grid">
+
+      <!-- Love / Amor -->
+      <div class="pillar">
+        <div class="pillar-icon" style="background:rgba(212,137,90,0.14);">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true" focusable="false">
+            <path d="M11 18 C11 18 3 13.2 3 7.8 C3 5.2 5 3.5 7.5 3.5 C9 3.5 10.2 4.2 11 5.2 C11.8 4.2 13 3.5 14.5 3.5 C17 3.5 19 5.2 19 7.8 C19 13.2 11 18 11 18Z" stroke="#9E5C28" stroke-width="1.5" fill="rgba(212,137,90,0.12)" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="pillar-text">
+          <div class="pillar-name">Love</div>
+          <!-- Uma: Spanish label -->
+          <span class="pillar-name-es" lang="es">Amor</span>
+          <!-- Felix: pillar description -->
+          <div class="pillar-desc" data-i18n="pillar.love.body">Every child who walks through our door is a person worth knowing, not a problem to fix.</div>
+        </div>
+      </div>
+
+      <!-- Joy / Alegría -->
+      <div class="pillar">
+        <div class="pillar-icon" style="background:rgba(138,158,196,0.16);">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true" focusable="false">
+            <circle cx="11" cy="11" r="7.5" stroke="#4A6396" stroke-width="1.5" fill="rgba(138,158,196,0.1)"/>
+            <path d="M7.5 13 C8.5 14.8 10 15.8 11 15.8 C12 15.8 13.5 14.8 14.5 13" stroke="#4A6396" stroke-width="1.3" stroke-linecap="round" fill="none"/>
+            <circle cx="8.5"  cy="9.5" r="1.1" fill="#4A6396" opacity="0.7"/>
+            <circle cx="13.5" cy="9.5" r="1.1" fill="#4A6396" opacity="0.7"/>
+          </svg>
+        </div>
+        <div class="pillar-text">
+          <div class="pillar-name">Joy</div>
+          <span class="pillar-name-es" lang="es">Alegría</span>
+          <div class="pillar-desc" data-i18n="pillar.joy.body">We notice the small wins and celebrate them. Even the hard work can hold moments of lightness.</div>
+        </div>
+      </div>
+
+      <!-- Peace / Paz -->
+      <div class="pillar">
+        <div class="pillar-icon" style="background:rgba(78,139,122,0.13);">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true" focusable="false">
+            <circle cx="11" cy="11" r="7.5" stroke="#3A7265" stroke-width="1.5" fill="rgba(78,139,122,0.08)"/>
+            <line x1="11" y1="3.5" x2="11" y2="18.5" stroke="#3A7265" stroke-width="1.2" stroke-linecap="round"/>
+            <line x1="11" y1="11" x2="4.5"  y2="15"  stroke="#3A7265" stroke-width="1.2" stroke-linecap="round"/>
+            <line x1="11" y1="11" x2="17.5" y2="15"  stroke="#3A7265" stroke-width="1.2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="pillar-text">
+          <div class="pillar-name">Peace</div>
+          <span class="pillar-name-es" lang="es">Paz</span>
+          <div class="pillar-desc" data-i18n="pillar.peace.body">Our sessions are slow, quiet, and free from pressure. A calm place in a busy world.</div>
+        </div>
+      </div>
+
+      <!-- Patience / Paciencia -->
+      <div class="pillar">
+        <div class="pillar-icon" style="background:rgba(212,137,90,0.14);">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true" focusable="false">
+            <circle cx="11" cy="11" r="7.5" stroke="#9E5C28" stroke-width="1.4" fill="rgba(212,137,90,0.1)"/>
+            <path d="M11 5.5 L11 11 L14.5 13.5" stroke="#9E5C28" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          </svg>
+        </div>
+        <div class="pillar-text">
+          <div class="pillar-name">Patience</div>
+          <span class="pillar-name-es" lang="es">Paciencia</span>
+          <div class="pillar-desc" data-i18n="pillar.patience.body">We don't rush healing. We hold the pace each child needs, for as long as it takes.</div>
+        </div>
+      </div>
+
+      <!-- Kindness / Bondad -->
+      <div class="pillar">
+        <div class="pillar-icon" style="background:rgba(138,158,196,0.16);">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true" focusable="false">
+            <path d="M8.5 18 C7 17 5 15 5 12 L5 7.5 C5 7 5.5 6.5 6 6.5 C6.5 6.5 7 7 7 7.5" stroke="#4A6396" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            <path d="M7 11 L7 5.5 C7 5 7.5 4.5 8 4.5 C8.5 4.5 9 5 9 5.5 L9 10" stroke="#4A6396" stroke-width="1.3" stroke-linecap="round" fill="none"/>
+            <path d="M9 10 L9 5.5 C9 5 9.5 4.5 10 4.5 C10.5 4.5 11 5 11 5.5 L11 10" stroke="#4A6396" stroke-width="1.3" stroke-linecap="round" fill="none"/>
+            <path d="M11 10 L11 6 C11 5.5 11.5 5 12 5 C12.5 5 13 5.5 13 6 L13 12" stroke="#4A6396" stroke-width="1.3" stroke-linecap="round" fill="none"/>
+            <path d="M13 12 C14 12 16 13 16 15 C16 17 14.5 18 13 18 L8.5 18" stroke="#4A6396" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          </svg>
+        </div>
+        <div class="pillar-text">
+          <div class="pillar-name">Kindness</div>
+          <span class="pillar-name-es" lang="es">Bondad</span>
+          <div class="pillar-desc" data-i18n="pillar.kindness.body">Warmth isn't something we turn on for sessions. It's just how we are with your family, always.</div>
+        </div>
+      </div>
+
+      <!-- Goodness / El Bien -->
+      <div class="pillar">
+        <div class="pillar-icon" style="background:rgba(78,139,122,0.13);">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true" focusable="false">
+            <path d="M11 19 C11 13 9 7 11 3 C16 3 19.5 7 18 13 C17 17 14 19 11 19Z" stroke="#3A7265" stroke-width="1.5" fill="rgba(78,139,122,0.12)" stroke-linecap="round"/>
+            <path d="M11 19 C12 14 14 9 16 6" stroke="#3A7265" stroke-width="0.9" stroke-linecap="round" fill="none" opacity="0.4"/>
+            <circle cx="8" cy="8.5" r="1.2" fill="#9E5C28" opacity="0.5"/>
+          </svg>
+        </div>
+        <div class="pillar-text">
+          <div class="pillar-name">Goodness</div>
+          <span class="pillar-name-es" lang="es">El Bien</span>
+          <div class="pillar-desc" data-i18n="pillar.goodness.body">We're honest about what we know and what we don't. Your child's wellbeing is the only guide.</div>
+        </div>
+      </div>
+
+      <!-- Faithfulness / Fidelidad -->
+      <div class="pillar">
+        <div class="pillar-icon" style="background:rgba(212,137,90,0.14);">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true" focusable="false">
+            <circle cx="11" cy="7" r="3.5" stroke="#9E5C28" stroke-width="1.4" fill="rgba(212,137,90,0.12)"/>
+            <line x1="11" y1="10.5" x2="11" y2="17" stroke="#9E5C28" stroke-width="1.4" stroke-linecap="round"/>
+            <path d="M7 14 C8.2 15.8 9.8 17 11 17 C12.2 17 13.8 15.8 15 14" stroke="#9E5C28" stroke-width="1.3" stroke-linecap="round" fill="none"/>
+          </svg>
+        </div>
+        <div class="pillar-text">
+          <div class="pillar-name">Faithfulness</div>
+          <span class="pillar-name-es" lang="es">Fidelidad</span>
+          <div class="pillar-desc" data-i18n="pillar.faithfulness.body">We show up — through the setbacks, the slow climbs, the hard weeks. Every time.</div>
+        </div>
+      </div>
+
+      <!-- Gentleness / Ternura -->
+      <div class="pillar">
+        <div class="pillar-icon" style="background:rgba(138,158,196,0.16);">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true" focusable="false">
+            <path d="M6 18 C9 15 12 12 14 6 C17 6 19 8 18 12 C17 15 14 17 11 18 C9.5 18.5 7.5 18.5 6 18Z" stroke="#4A6396" stroke-width="1.4" fill="rgba(138,158,196,0.12)" stroke-linejoin="round"/>
+            <path d="M6 18 C8 16 10 14 12 10" stroke="#4A6396" stroke-width="1" stroke-linecap="round" fill="none" opacity="0.5"/>
+          </svg>
+        </div>
+        <div class="pillar-text">
+          <div class="pillar-name">Gentleness</div>
+          <span class="pillar-name-es" lang="es">Ternura</span>
+          <div class="pillar-desc" data-i18n="pillar.gentleness.body">Hard things get talked about here. We hold those moments carefully, and never push harder than a child is ready for.</div>
+        </div>
+      </div>
+
+      <!-- Self-Control / Templanza -->
+      <div class="pillar">
+        <div class="pillar-icon" style="background:rgba(78,139,122,0.13);">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true" focusable="false">
+            <path d="M11 4 C7 4 4 7.1 4 11" stroke="#3A7265" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+            <path d="M11 4 C15 4 18 7.1 18 11" stroke="#3A7265" stroke-width="1.5" stroke-linecap="round" fill="none" opacity="0.5"/>
+            <circle cx="11" cy="11" r="3.5" stroke="#3A7265" stroke-width="1.4" fill="rgba(78,139,122,0.12)"/>
+            <line x1="11" y1="14.5" x2="11" y2="18.5" stroke="#3A7265" stroke-width="1.3" stroke-linecap="round"/>
+            <line x1="8.5" y1="18.5" x2="13.5" y2="18.5" stroke="#3A7265" stroke-width="1.3" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="pillar-text">
+          <div class="pillar-name">Self-Control</div>
+          <span class="pillar-name-es" lang="es">Templanza</span>
+          <div class="pillar-desc" data-i18n="pillar.selfcontrol.body">We help children build steadiness from the inside out — skills they'll carry long after our work together is done.</div>
+        </div>
+      </div>
+
+    </div><!-- /pillars-grid -->
+  </div><!-- /container -->
+</section>
+
+<!-- Nadia: section ornament -->
+<div class="section-ornament" aria-hidden="true">• • •</div>
+
+<!-- ═══════════════════════════════════════
+     CONTACT
+═══════════════════════════════════════ -->
+<section id="contact" aria-labelledby="contact-h2">
+
+  <div class="contact-blob" style="width:350px;height:350px;top:-80px;right:-80px;" aria-hidden="true"></div>
+  <div class="contact-blob" style="width:200px;height:200px;bottom:-50px;left:-40px;background:rgba(138,158,196,0.06);" aria-hidden="true"></div>
+
+  <svg style="position:absolute;left:5%;bottom:12%;opacity:0.12;" width="80" height="160" viewBox="0 0 80 160" fill="none" aria-hidden="true" focusable="false">
+    <path d="M40 155 C40 120 38 88 40 52 C42 32 40 14 39 2" stroke="white" stroke-width="2" stroke-linecap="round" fill="none"/>
+    <path d="M40 110 C25 98 8 88 5 72 C14 84 28 94 40 110Z" stroke="white" stroke-width="1.5" fill="rgba(255,255,255,0.08)" stroke-linecap="round"/>
+    <path d="M40 85 C55 73 72 63 75 47 C66 60 54 70 40 85Z" stroke="white" stroke-width="1.5" fill="rgba(255,255,255,0.08)" stroke-linecap="round"/>
+    <path d="M39 58 C27 48 14 40 11 26 C18 36 28 44 39 58Z" stroke="white" stroke-width="1.2" fill="rgba(255,255,255,0.07)" stroke-linecap="round"/>
+    <circle cx="39" cy="2" r="11" stroke="white" stroke-width="1.5" fill="rgba(255,255,255,0.08)"/>
+    <circle cx="39" cy="2" r="5"  fill="rgba(255,255,255,0.14)"/>
+  </svg>
+
+  <div class="contact-inner container">
+    <span class="label">Get In Touch</span>
+    <!-- Felix: contact heading + copy -->
+    <h2 class="section-title" id="contact-h2" data-i18n="contact.h2">Let's talk.</h2>
+    <p class="contact-body" data-i18n="contact.body">
+      You don't have to have everything figured out. Just reach out — we'll take it from there. We respond within one business day.
+    </p>
+
+    <!-- Avery: contact form with labels, aria-required, live feedback -->
+    <form class="contact-form" action="#" method="post" novalidate aria-label="Contact form">
+      <div class="form-group">
+        <label for="contact-name">Your Name <span aria-hidden="true">*</span></label>
+        <input type="text" id="contact-name" name="name" placeholder="First and last name" aria-required="true" autocomplete="name">
+      </div>
+      <div class="form-group">
+        <label for="contact-email">Email Address <span aria-hidden="true">*</span></label>
+        <input type="email" id="contact-email" name="email" placeholder="you@example.com" aria-required="true" autocomplete="email">
+      </div>
+      <div class="form-group">
+        <label for="contact-phone">Phone Number <span style="font-weight:400;text-transform:none;letter-spacing:0;">(optional)</span></label>
+        <input type="tel" id="contact-phone" name="phone" placeholder="(555) 000-0000" autocomplete="tel">
+      </div>
+      <div class="form-group">
+        <label for="contact-message">How can we help? <span aria-hidden="true">*</span></label>
+        <textarea id="contact-message" name="message" placeholder="Tell us a little about your family and what you're looking for — no pressure to have everything figured out." aria-required="true"></textarea>
+      </div>
+      <!-- Avery: live status feedback -->
+      <div role="status" aria-live="polite" class="form-feedback" id="form-status"></div>
+      <!-- Felix: CTA -->
+      <button type="submit" class="btn btn-amber" style="align-self:flex-start;">
+        Send a Message
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true" style="margin-left:2px;"><path d="M2 7h10M8 3l4 4-4 4" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </form>
+
+    <p class="contact-note">We respond within one business day &nbsp;·&nbsp; All initial consultations are free &amp; confidential</p>
+  </div>
+</section>
+
+</main><!-- /main#main-content -->
+
+
+<!-- ═══════════════════════════════════════
+     FOOTER (Avery: role=contentinfo)
+═══════════════════════════════════════ -->
+<footer role="contentinfo">
+  <div class="footer-mark" aria-hidden="true">
+    <svg width="32" height="52" viewBox="0 0 32 52" fill="none" aria-hidden="true" focusable="false" style="display:block;margin:0 auto 0.9rem;">
+      <path d="M16 50 C16 38 15 28 16 16 C17 9 16 3 15 0" stroke="rgba(255,255,255,0.22)" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+      <path d="M16 35 C10 30 3 26 2 19 C7 24 12 28 16 35Z" stroke="rgba(255,255,255,0.18)" stroke-width="1.1" fill="rgba(255,255,255,0.05)" stroke-linecap="round"/>
+      <path d="M16 25 C22 20 29 16 30 9 C25 14 20 20 16 25Z" stroke="rgba(255,255,255,0.18)" stroke-width="1.1" fill="rgba(255,255,255,0.05)" stroke-linecap="round"/>
+      <circle cx="15" cy="0" r="5" stroke="rgba(255,255,255,0.2)" stroke-width="1.2" fill="rgba(255,255,255,0.07)"/>
+    </svg>
+  </div>
+  <p class="footer-name">Fidelia Psychology</p>
+  <!-- Morgan: footer tagline -->
+  <p class="footer-tag">Steady ground for growing minds.</p>
+  <!-- Morgan + Uma: bilingual note -->
+  <p class="footer-bilingual">
+    Fidelia Psychology proudly offers services in English and Spanish.
+    · <span lang="es">Servicios disponibles en inglés y español.</span>
+  </p>
+
+  <!-- Avery: address tag for contact details -->
+  <address style="font-style:normal;margin-top:1rem;">
+    <a href="mailto:hello@fideliapsychology.com" style="color:rgba(255,255,255,0.28);font-size:0.78rem;text-decoration:none;">hello@fideliapsychology.com</a>
+  </address>
+
+  <p class="footer-copy">&copy; 2025 Fidelia Psychology &nbsp;·&nbsp; All rights reserved &nbsp;·&nbsp; Placeholder — name to be confirmed</p>
+</footer>
+
+<script>
+// ─── Fidelia Psychology — Bilingual Toggle ───────────────────────────────────
+// Translations keyed by data-i18n attribute on elements.
+// Usage: <element data-i18n="key"> English text </element>
+// Spanish overrides are defined in TRANSLATIONS.es below.
+
+const TRANSLATIONS = {
+  en: {
+    // Nav
+    "nav.about":    "About",
+    "nav.services": "Services",
+    "nav.approach": "Approach",
+    "nav.values":   "Our Values",
+    "nav.contact":  "Contact",
+    "nav.cta":      "Schedule a Consultation",
+
+    // Hero
+    "hero.eyebrow":     "A place for every child to grow",
+    "hero.h1":          "Where every child finds their footing.",
+    "hero.tagline":     "Gentle, personalized support for children and their families. We're here when you're ready.",
+    "hero.cta.primary": "Schedule a Conversation",
+    "hero.cta.ghost":   "Learn More",
+    "hero.note":        "All sessions are confidential and private.",
+    "hero.note.es":     "Servicios disponibles en español.",
+
+    // Bilingual welcome block
+    "hero.bilingual.en": "Every child deserves to feel seen, supported, and safe. We're here for your family — in the language you think in, the language you dream in, and the one you reach for when words are hardest to find.",
+    "hero.bilingual.es": "Cada niño merece sentirse visto, acompañado y seguro. Estamos aquí para su familia — en el idioma con que piensa, con que sueña, y con el que busca palabras cuando más las necesita.",
+
+    // About
+    "about.label":  "About",
+    "about.h2":     "A practice built on knowing the whole child.",
+    "about.lead":   "We believe every child makes sense — when you take the time to really listen.",
+    "about.p1":     "We work with children and adolescents navigating anxiety, attention challenges, school stress, and the everyday weight of growing up. Our approach is gentle and research-informed, guided by nine values that shape every session. We meet each child where they are — not where we expect them to be.",
+    "about.p2":     "We serve families of many backgrounds, and Dr. [Name] works fluently in both English and Spanish. If your family feels most at home in Spanish, you'll find that here too. Whatever you're carrying when you walk in, you don't have to explain yourself twice.",
+    "about.aside":  "\"Hablamos su idioma — y no solo el español. Entendemos la familia, la comunidad, y el corazón detrás de cada historia.\"",
+
+    // Services
+    "services.label":  "What We Offer",
+    "services.h2":     "Three ways we can help.",
+    "services.intro":  "Simple, focused services — shaped around your child, not a checklist.",
+    "svc1.title": "Individual Therapy",
+    "svc1.body":  "A private, steady space just for your child. We work through anxiety, big feelings, school stress, and whatever else they're carrying — at a pace that's right for them.",
+    "svc2.title": "School Consultation",
+    "svc2.body":  "When home and school feel like two different worlds, we help build a bridge. We work with teachers and school teams so your child is supported wherever they spend their day.",
+    "svc3.title": "Family Support",
+    "svc3.body":  "When a child is struggling, the whole family feels it. We work with parents and caregivers too — giving you the tools and perspective to move through it together.",
+
+    // Approach
+    "approach.quote": "\"We don't rush what takes time. We just stay — patient, present, and steady — until the ground feels solid again.\"",
+
+    // Pillars
+    "pillars.label": "Our Foundation",
+    "pillars.h2":    "Nine ways we show up for you.",
+    "pillars.intro": "These are the values that guide every session, every conversation, every relationship we build.",
+    "pillar.love.body":        "Every child who walks through our door is a person worth knowing, not a problem to fix.",
+    "pillar.joy.body":         "We notice the small wins and celebrate them. Even the hard work can hold moments of lightness.",
+    "pillar.peace.body":       "Our sessions are slow, quiet, and free from pressure. A calm place in a busy world.",
+    "pillar.patience.body":    "We don't rush healing. We hold the pace each child needs, for as long as it takes.",
+    "pillar.kindness.body":    "Warmth isn't something we turn on for sessions. It's just how we are with your family, always.",
+    "pillar.goodness.body":    "We're honest about what we know and what we don't. Your child's wellbeing is the only guide.",
+    "pillar.faithfulness.body":"We show up — through the setbacks, the slow climbs, the hard weeks. Every time.",
+    "pillar.gentleness.body":  "Hard things get talked about here. We hold those moments carefully, and never push harder than a child is ready for.",
+    "pillar.selfcontrol.body": "We help children build steadiness from the inside out — skills they'll carry long after our work together is done.",
+
+    // Contact
+    "contact.h2":   "Let's talk.",
+    "contact.body": "You don't have to have everything figured out. Just reach out — we'll take it from there. We respond within one business day.",
+    "contact.cta":  "Send a Message",
+    "contact.name.label":    "Full Name",
+    "contact.email.label":   "Email Address",
+    "contact.message.label": "Message",
+
+    // Footer
+    "footer.tagline":   "Steady ground for growing minds.",
+    "footer.bilingual": "Fidelia Psychology proudly offers services in English and Spanish. · Servicios disponibles en inglés y español.",
+  },
+
+  es: {
+    // Nav
+    "nav.about":    "Nosotros",
+    "nav.services": "Servicios",
+    "nav.approach": "Enfoque",
+    "nav.values":   "Nuestros Valores",
+    "nav.contact":  "Contacto",
+    "nav.cta":      "Agendar una Consulta",
+
+    // Hero
+    "hero.eyebrow":     "Práctica Privada de Psicología · Atención para Niños y Familias",
+    "hero.h1":          "Aquí tiene su lugar.",
+    "hero.tagline":     "Fidelia Psychology ofrece apoyo personalizado y cálido para niños y familias — de donde vengan, lo que carguen, en el idioma que más se sientan en casa.",
+    "hero.cta.primary": "Conversemos",
+    "hero.cta.ghost":   "Conózcanos",
+    "hero.note":        "Todas las sesiones son confidenciales. Atendemos familias con o sin seguro médico.",
+    "hero.note.es":     "Servicios disponibles en inglés y español.",
+
+    // Bilingual welcome block (in ES mode, show Spanish prominently)
+    "hero.bilingual.en": "Every child deserves to feel seen, supported, and safe. We're here for your family — in the language you think in, the language you dream in, and the one you reach for when words are hardest to find.",
+    "hero.bilingual.es": "Cada niño merece sentirse visto, acompañado y seguro. Estamos aquí para su familia — en el idioma con que piensa, con que sueña, y con el que busca palabras cuando más las necesita.",
+
+    // About
+    "about.label":  "Nuestra Práctica",
+    "about.h2":     "Con raíces en el cuidado. Abiertos a todos.",
+    "about.lead":   "Fidelia Psychology nació de una convicción simple: que cada niño, en cada familia, merece sentirse comprendido.",
+    "about.p1":     "Trabajamos con niños y adolescentes que enfrentan ansiedad, dificultades de atención, estrés escolar y las presiones cotidianas de crecer. Nuestro enfoque es gentil y basado en evidencia — guiado por nueve valores fundamentales que orientan cada sesión, cada conversación y cada relación que construimos con las familias. No creemos en soluciones de talla única.",
+    "about.p2":     "Nuestra práctica atiende a familias de todos los orígenes — culturas, idiomas, estructuras e historias distintas. La Dra. [Nombre] conduce sesiones tanto en inglés como en español, porque el apoyo real significa acompañarle en el idioma donde se siente más usted mismo. Si está comenzando a hacerse preguntas o lleva tiempo buscando el lugar indicado, aquí encontrará un espacio cálido y sin prisas.",
+    "about.aside":  "\"Hablamos su idioma — y no solo el español. Entendemos la familia, la comunidad, y el corazón detrás de cada historia.\"",
+
+    // Services
+    "services.label":  "Lo Que Ofrecemos",
+    "services.h2":     "Apoyo a la medida de su familia.",
+    "services.intro":  "Cada niño es diferente. Cada familia es diferente. Nuestros servicios se adaptan a ustedes.",
+    "svc1.title": "Terapia Individual",
+    "svc1.body":  "Para niños y adolescentes que necesitan un espacio completamente propio. Trabajamos la ansiedad, la regulación emocional, la identidad, la presión escolar y más — con enfoques adaptados a la edad, personalidad y necesidades de cada niño. El progreso se ve diferente en cada caso, y seguimos su ritmo.",
+    "svc2.title": "Consultoría Escolar",
+    "svc2.body":  "Tendemos puentes entre el hogar y la escuela. Trabajamos con maestros, orientadores y administradores para crear entornos donde los niños puedan aprender y prosperar. Ya sea que un niño necesite adaptaciones, un plan de comportamiento o simplemente una mejor comprensión por parte de los adultos a su alrededor — ayudamos a traducir lo clínico en lo práctico.",
+    "svc3.title": "Apoyo Familiar",
+    "svc3.body":  "Las familias son sistemas, y cuando una parte sufre, todos lo sienten. Ofrecemos orientación y sesiones para padres y cuidadores que navegan los desafíos de sus hijos — brindando herramientas, lenguaje y perspectiva para que toda la familia avance junta.",
+
+    // Approach
+    "approach.quote": "\"El crecimiento no ocurre según un horario. Nuestro trabajo es aparecer — con paciencia, con presencia y con la profunda convicción de que cada niño ya lleva consigo todo lo que necesita para florecer.\"",
+
+    // Pillars
+    "pillars.label": "Sobre Lo Que Nos Sostenemos",
+    "pillars.h2":    "Nueve valores. Una práctica.",
+    "pillars.intro": "Estos no son ideales que colgamos en una pared — son los principios que dan forma a cada interacción, cada sesión y cada relación en Fidelia.",
+    "pillar.love.body":        "Nos acercamos a cada niño y familia con cuidado genuino — no como casos a resolver, sino como personas que merecen ser conocidas.",
+    "pillar.joy.body":         "Celebramos el progreso en todas sus formas, desde los pequeños avances hasta los grandes, y hacemos espacio para la ligereza incluso en las temporadas difíciles.",
+    "pillar.peace.body":       "Nuestras sesiones son tranquilas, sin prisa y libres de juicio — un ancla silenciosa en lo que a veces puede sentirse como un mundo muy ruidoso.",
+    "pillar.patience.body":    "No aceleramos la sanación. Confiamos en el proceso, mantenemos el ritmo que cada niño necesita y nunca avanzamos más rápido de lo que es correcto.",
+    "pillar.kindness.body":    "Cada familia recibe calidez — desde el primer contacto hasta la última sesión — porque cómo tratamos a las personas es inseparable de la ayuda que ofrecemos.",
+    "pillar.goodness.body":    "Actuamos con integridad: honestos sobre lo que sabemos, transparentes sobre lo que no, y siempre guiados por lo que es genuinamente mejor para su hijo.",
+    "pillar.faithfulness.body":"Nos presentamos, consistentemente, para cada familia con la que trabajamos — a través de los tramos difíciles, los retrocesos y las subidas lentas.",
+    "pillar.gentleness.body":  "Las conversaciones difíciles suceden aquí. Las sostenemos con cuidado, sin forzar nunca, y siempre honrando el ritmo y la comodidad del niño frente a nosotros.",
+    "pillar.selfcontrol.body": "Modelamos la estabilidad emocional, enseñamos habilidades de regulación que duran toda la vida y ayudamos a los niños a construir los recursos internos para navegar lo que venga.",
+
+    // Contact
+    "contact.h2":   "¿Listo para dar el primer paso?",
+    "contact.body": "Comunicarse es la parte más difícil — todo lo que sigue lo hacemos fácil. Complete el formulario o envíenos un mensaje, y nos pondremos en contacto dentro de un día hábil para encontrar un horario que funcione para su familia.",
+    "contact.cta":  "Escríbanos",
+    "contact.name.label":    "Nombre Completo",
+    "contact.email.label":   "Correo Electrónico",
+    "contact.message.label": "Mensaje",
+
+    // Footer
+    "footer.tagline":   "Terreno firme para mentes en crecimiento.",
+    "footer.bilingual": "Fidelia Psychology ofrece servicios en inglés y español. · Fidelia Psychology offers services in English and Spanish.",
+  }
+};
+
+// ─── Apply translations to the DOM ──────────────────────────────────────────
+function applyTranslations(lang) {
+  const t = TRANSLATIONS[lang];
+  if (!t) return;
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.dataset.i18n;
+    if (t[key] !== undefined) el.innerHTML = t[key];
+  });
+  // Update html lang attribute
+  document.documentElement.lang = lang;
+  // Update bilingual block emphasis
+  const enCol = document.querySelector('.hero-bilingual-col[lang="en"]');
+  const esCol = document.querySelector('.hero-bilingual-col[lang="es"]');
+  if (enCol && esCol) {
+    enCol.style.opacity = lang === 'en' ? '1' : '0.55';
+    esCol.style.opacity = lang === 'es' ? '1' : '0.55';
+    enCol.style.fontStyle = lang === 'en' ? 'italic' : 'normal';
+    esCol.style.fontStyle = lang === 'es' ? 'italic' : 'normal';
+  }
+}
+
+// ─── Toggle handler ──────────────────────────────────────────────────────────
+function setLang(lang) {
+  // Update active state on toggle pills
+  document.querySelectorAll('.lang-toggle a').forEach(a => {
+    a.classList.toggle('active', a.getAttribute('lang') === lang);
+  });
+  applyTranslations(lang);
+  // Persist choice
+  try { localStorage.setItem('fidelia-lang', lang); } catch(e) {}
+}
+
+// ─── Init on load ────────────────────────────────────────────────────────────
+(function init() {
+  // Restore saved preference or default to 'en'
+  let saved = 'en';
+  try { saved = localStorage.getItem('fidelia-lang') || 'en'; } catch(e) {}
+  setLang(saved);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,164 @@
+You are building two features for the KidSpark LAUNCHPAD app (Next.js + TypeScript + Tailwind). Work directory: /Users/aliceclaw/.openclaw/workspace-olivia/kidspark/app
+
+IMPORTANT RULES:
+- Work ONLY in /Users/aliceclaw/.openclaw/workspace-olivia/kidspark/app
+- Do NOT run npm install or any destructive commands
+- Run "npx tsc --noEmit" to verify no type errors at the end
+- Keep code clean and production-quality
+
+## BRAND CONTEXT
+LAUNCHPAD brand has dark blue space theme:
+- brand.colors.background = "#0C1445" (dark navy)
+- brand.colors.surface = "#1E2761"
+- brand.colors.surfaceAlt = "#2A3580"
+- brand.colors.foreground = "#F8FAFC"
+- brand.colors.muted = "#B0B8C4"
+- brand.colors.primary = "#DC2626" (red)
+- brand.colors.secondary = "#F59E0B" (gold)
+- fontFamily heading = "Orbitron"
+- fontFamily mono = "JetBrains Mono"
+
+useBrand() returns BrandConfig with brand.colors.
+
+## FEATURE 1: Virtual Lab Simulations
+
+### Create: src/lib/simulations/index.ts
+Export all simulation components.
+
+### Create: src/lib/simulations/GasMoleculeSim.tsx
+A React component with HTML5 Canvas showing gas molecules in a container.
+
+Controls:
+- Temperature slider (100K to 800K) — molecules move faster as temp increases
+- Volume slider (controls container size, range 0.5 to 1.5 multiplier) — container visually shrinks/grows
+- Pressure display (calculated as P ∝ T/V, show in arbitrary "atm" units)
+- Reset button
+
+Canvas:
+- Draw molecules (colored circles) bouncing off container walls
+- Container walls drawn as a rectangle that changes size based on volume slider
+- Molecule color shifts from blue (cold) to red (hot) based on temperature
+- requestAnimationFrame animation loop
+
+The component receives { colors } prop where colors is the Colors interface:
+interface Colors {
+  navy: string;
+  surface: string;
+  surfaceAlt: string;
+  fg: string;
+  muted: string;
+  red: string;
+  gold: string;
+}
+
+### Create: src/lib/simulations/PlantGrowthSim.tsx
+A React component with HTML5 Canvas showing a plant growing in soil.
+
+Controls:
+- Sunlight slider (0-100%)
+- Water slider (0-100%)
+- Soil nutrients slider (0-100%)
+
+Canvas:
+- Draw soil at bottom (brown rectangle)
+- Draw a plant that visually grows/shrinks based on conditions
+- Plant health = (sunlight * 0.4 + water * 0.4 + nutrients * 0.2), show as percentage
+- Show a "health meter" bar
+- If both sunlight AND water are > 30%, plant grows. If either is < 20%, plant wilts/dies back
+- Animated with requestAnimationFrame
+
+Tooltip: "Plants need both sunlight AND water to grow!"
+
+### Create: src/lib/simulations/SolarSystemExplorer.tsx
+A React component with HTML5 Canvas showing sun + planets.
+
+Canvas:
+- Sun at center with radial gradient glow
+- 6 planets orbiting (Mercury, Venus, Earth, Mars, Jupiter, Saturn) with correct relative distances and colors
+- Speed slider (0.5x to 5x)
+- Click on a planet to show facts in a small overlay panel
+- Planet facts (hardcoded):
+  - Mercury: "Closest to the Sun, 88 Earth days to orbit"
+  - Venus: "Hottest planet, 225 Earth days to orbit"
+  - Earth: "Our home, 365 days to orbit"
+  - Mars: "The red planet, 687 days to orbit"
+  - Jupiter: "Largest planet, 12 Earth years to orbit"
+  - Saturn: "Has beautiful rings, 29 Earth years to orbit"
+- Animated with requestAnimationFrame
+
+## Integrate into: src/app/kid/science/simulations/page.tsx
+
+The page already has 6 simulations. Add a new tab called "Virtual Labs" (in addition to "Simulations").
+
+Use a state like const [tab, setTab] = useState<"sims" | "vlab">("sims")
+
+When Virtual Labs tab is active, show 3 cards for:
+1. Gas Molecule Lab
+2. Plant Growth Lab
+3. Solar System Explorer
+
+Clicking a card opens a modal with the enhanced simulation.
+
+Add "Ask Sidekick about this" button below each simulation in the modal. When clicked, navigate to /kid/tutor with a prefill question stored in sessionStorage key "tutor_prefill":
+- Gas: "Can you explain how gas molecules behave when temperature changes?"
+- Plant: "Why do plants need both sunlight and water to grow?"
+- Solar: "How do planets stay in orbit around the Sun?"
+
+Use useRouter from next/navigation for navigation.
+
+## FEATURE 2: Sidekick Voice Mode
+
+### Create: src/app/api/voice/process/route.ts
+POST endpoint that accepts multipart/form-data with an audio file field "audio".
+
+Mock implementation:
+- Accept the audio file
+- Log "Processing voice..."
+- Return JSON: { transcript: "That is a great question about science!", audioUrl: null, mock: true }
+- Add comments explaining real Orin integration:
+  // TODO: Real Orin voice pipeline:
+  // 1. POST audio to Orin STT endpoint (Whisper on Orin at 100.106.110.119)
+  // 2. Get transcript back
+  // 3. Send transcript to LLM (already handled by /api/tutor/ask)
+  // 4. Send LLM response to Orin TTS (e.g. XTTS or Coqui on Orin)
+  // 5. Return audio stream to client
+
+### Create: src/components/VoiceModeButton.tsx
+A button component for the tutor page voice mode.
+
+States:
+- idle: show mic icon (Microphone from lucide-react)
+- recording: pulsing red mic with "Listening..." text
+- processing: spinner with "Thinking..." text  
+- playing: speaker animation with "Sidekick says..." text
+- error: show error message with fallback text
+
+Implementation:
+- Use MediaRecorder API to record audio
+- On click to stop recording, send to /api/voice/process
+- Show transcript when available
+- Play audio if audioUrl is returned (use HTMLAudioElement)
+- Handle errors gracefully
+
+Props:
+- onTranscriptReady?: (text: string) => void
+- disabled?: boolean
+
+### Integrate into: src/app/kid/tutor/page.tsx
+Add the VoiceModeButton to the chat input area next to the Send button.
+
+When voice mode produces a transcript, call the onTranscriptReady callback which sets input and optionally auto-sends.
+
+## VERIFICATION
+After all changes:
+1. Run: cd /Users/aliceclaw/.openclaw/workspace-olivia/kidspark/app && npx tsc --noEmit
+2. Must pass with no errors
+3. Make sure all imports are correct
+
+## Code style
+- Use "use client" directive on all new components
+- Use React hooks properly (useState, useRef, useEffect, useCallback)
+- Use requestAnimationFrame for canvas animation
+- Use brand colors via useBrand() hook
+- Mobile-friendly (touch-friendly slider sizes, min 44px tap targets)
+- Keep the existing page structure intact, only add new code

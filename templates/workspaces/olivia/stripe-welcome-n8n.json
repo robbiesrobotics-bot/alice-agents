@@ -1,0 +1,103 @@
+{
+  "name": "Stripe Welcome Email",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "stripe-welcome",
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "id": "stripe-webhook-trigger",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [0, 0],
+      "webhookId": "stripe-welcome"
+    },
+    {
+      "parameters": {
+        "functionCode": "const body = $input.item.json;\nconst event = body.object || body;\n\nconst email = event.customer_details?.email || event.email;\nconst plan = event.metadata?.plan || 'pro';\nconst customerId = typeof event.customer === 'string' ? event.customer : event.customer?.id;\n\nreturn {\n  json: {\n    email,\n    plan,\n    customerId,\n    sessionId: event.id,\n    success: !!email\n  }\n};"
+      },
+      "id": "parse-stripe-event",
+      "name": "Parse Stripe Event",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 2,
+      "position": [220, 0]
+    },
+    {
+      "parameters": {
+        "from": "={{ $json.email }}",
+        "to": "={{ $json.email }}",
+        "subject": "Welcome to A.L.I.C.E. – Your account is ready",
+        "text": "=Hi there,\n\nYour A.L.I.C.E. account is now active! 🎉\n\nPlan: {{ $json.plan }}\nCustomer ID: {{ $json.customerId }}\n\nGet started: https://admin.av3.ai\n\n– The A.L.I.C.E. Team",
+        "options": {
+          "allowUnauthorized": false
+        }
+      },
+      "id": "send-welcome-email",
+      "name": "Send Welcome Email",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 4,
+      "position": [440, 0]
+    },
+    {
+      "parameters": {
+        "expression": "={{ $json.success }}",
+        "options": {}
+      },
+      "id": "check-email-exists",
+      "name": "Email exists?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [440, -150]
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "url": "={{ $env.MC_API_URL }}/api/queue/license\",\n    \"body\": \"={\n  \"customerId\": \"{{ $json.customerId }}\",\n  \"plan\": \"{{ $json.plan }}\",\n  \"source\": \"stripe-webhook\"\n}",
+        "options": {
+          "timeout": 10000
+        }
+      },
+      "id": "trigger-license-creation",
+      "name": "Trigger License Creation",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [660, -150]
+    },
+    {
+      "parameters": {
+        "functionCode": "return [{json: {ok: true, msg: 'Stripe welcome flow complete'}}];"
+      },
+      "id": "done",
+      "name": "Done",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 2,
+      "position": [880, 0]
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [[{"node": "Parse Stripe Event", "type": "main", "index": 0}]]
+    },
+    "Parse Stripe Event": {
+      "main": [[{"node": "Email exists?", "type": "main", "index": 0}]]
+    },
+    "Email exists?": {
+      "main": [
+        [{"node": "Send Welcome Email", "type": "main", "index": 0}],
+        []
+      ]
+    },
+    "Send Welcome Email": {
+      "main": [[{"node": "Trigger License Creation", "type": "main", "index": 0}]]
+    },
+    "Trigger License Creation": {
+      "main": [[{"node": "Done", "type": "main", "index": 0}]]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

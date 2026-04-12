@@ -1,0 +1,55 @@
+#!/usr/bin/env bash
+# claude_code — OpenClaw skill: delegate coding tasks to Claude Code CLI
+#
+# Usage:
+#   claude_code <task> [workdir] [effort]
+#
+# Arguments:
+#   task    — (required) Description of the coding task
+#   workdir — (optional) Working directory, defaults to current directory
+#   effort  — (optional) low|medium|high|max, defaults to high
+#
+# Environment:
+#   CLAUDE_CODE_MAX_BUDGET      — Max USD per invocation (default: 2.00)
+#   CLAUDE_CODE_PERMISSION_MODE — auto|acceptEdits|bypassPermissions (default: auto)
+#
+# This skill runs Claude Code in non-interactive print mode (-p) so it
+# executes autonomously and returns results without user interaction.
+set -euo pipefail
+
+TASK="${1:?Error: task description is required. Usage: claude_code <task> [workdir] [effort]}"
+WORKDIR="${2:-.}"
+EFFORT="${3:-high}"
+MAX_BUDGET="${CLAUDE_CODE_MAX_BUDGET:-2.00}"
+PERM_MODE="${CLAUDE_CODE_PERMISSION_MODE:-auto}"
+
+# Resolve workdir to absolute path
+WORKDIR="$(cd "$WORKDIR" 2>/dev/null && pwd)" || {
+  echo "Error: working directory '$2' does not exist."
+  exit 1
+}
+
+# Locate claude binary
+CLAUDE_BIN="${CLAUDE_CODE_BIN:-claude}"
+if ! command -v "$CLAUDE_BIN" &>/dev/null; then
+  # Check common install locations
+  for candidate in "$HOME/.local/bin/claude" "/usr/local/bin/claude"; do
+    if [ -x "$candidate" ]; then
+      CLAUDE_BIN="$candidate"
+      break
+    fi
+  done
+  if ! command -v "$CLAUDE_BIN" &>/dev/null && [ ! -x "$CLAUDE_BIN" ]; then
+    echo "Error: claude CLI not found. Install Claude Code: https://docs.anthropic.com/en/docs/claude-code"
+    exit 1
+  fi
+fi
+
+# Run Claude Code in non-interactive print mode
+exec "$CLAUDE_BIN" -p "$TASK" \
+  --output-format text \
+  --permission-mode "$PERM_MODE" \
+  --effort "$EFFORT" \
+  --max-budget-usd "$MAX_BUDGET" \
+  --no-session-persistence \
+  2>&1

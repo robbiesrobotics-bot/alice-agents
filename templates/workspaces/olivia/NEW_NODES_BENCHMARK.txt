@@ -1,0 +1,947 @@
+NEW NODES CODING BENCHMARK — Mon Mar 23 06:57:19 EDT 2026
+Task: Thread-safe LRU Cache with per-key TTL
+Nodes: Mac Studio (100.115.74.106) + Mac Mini (100.107.132.71)
+==========================================
+
+==========================================
+MODEL: mac-studio/llama3.2:3b
+==========================================
+LOAD: 7.8s | TOKENS: 860 | DURATION: 6.5s | SPEED: 132.9 tok/s
+
+import threading
+import time
+
+class Node:
+    """Node in the doubly linked list."""
+    def __init__(self, key, value, ttl_seconds):
+        self.key = key
+        self.value = value
+        self.ttl_seconds = ttl_seconds
+        self.prev = None
+        self.next = None
+
+class LRUCache:
+    """Thread-safe LRU cache with per-key TTL expiration."""
+    def __init__(self, capacity: int):
+        """Initialize the LRU cache with given capacity."""
+        self.capacity = capacity
+        self.size = 0
+        self.map = {}
+        self.lock = threading.Lock()
+        self.head = Node(0, None, 0)
+        self.tail = Node(0, None, 0)
+        self.head.next = self.tail
+        self.tail.prev = self.head
+
+    def _remove(self, node: Node):
+        """Remove a node from the doubly linked list."""
+        prev_node = node.prev
+        next_node = node.next
+        prev_node.next = next_node
+        next_node.prev = prev_node
+
+    def _add(self, node: Node):
+        """Add a node to the doubly linked list."""
+        prev_node = self.tail.prev
+        prev_node.next = node
+        node.prev = prev_node
+        node.next = self.tail
+        self.tail.prev = node
+
+    def _get(self, key: str) -> str:
+        """Get the value for a given key."""
+        with self.lock:
+            if key not in self.map:
+                return None
+            node = self.map[key]
+            if node.ttl_seconds <= time.time():
+                self._remove(node)
+                if self.size == self.capacity:
+                    lru_key = min(self.map, key=lambda k: self.map[k].ttl_seconds)
+                    del self.map[lru_key]
+                    self._remove(self.map[lru_key])
+                self._remove(node)
+                del self.map[key]
+                self.size -= 1
+            else:
+                node.ttl_seconds = time.time() + node.ttl_seconds
+                self._add(node)
+                self.size += 1
+            return node.value
+
+    def put(self, key: str, value: str, ttl_seconds: int):
+        """Put a value for a given key with a TTL."""
+        with self.lock:
+            if key in self.map:
+                self._remove(self.map[key])
+                del self.map[key]
+            self.map[key] = Node(key, value, ttl_seconds)
+            self._add(self.map[key])
+            self.size += 1
+            if self.size > self.capacity:
+                lru_key = min(self.map, key=lambda k: self.map[k].ttl_seconds)
+                del self.map[lru_key]
+                self._remove(self.map[lru_key])
+                self.size -= 1
+
+    def delete(self, key: str):
+        """Delete a key."""
+        with self.lock:
+            if key not in self.map:
+                return
+            self._remove(self.map[key])
+            del self.map[key]
+            self.size -= 1
+
+    def get(self, key: str) -> str:
+        """Get the value for a given key."""
+        return self._get(key)
+
+    def put(self, key: str, value: str, ttl_seconds: int):
+        """Put a value for a given key with a TTL."""
+        return self.put(key, value, ttl_seconds)
+
+    def delete(self, key: str):
+        """Delete a key."""
+        return self.delete(key)
+
+# Usage example
+if __name__ == "__main__":
+    cache = LRUCache(2)
+
+    def put_and_get(cache: LRUCache, key: str, value: str, ttl_seconds: int):
+        cache.put(key, value, ttl_seconds)
+        time.sleep(1)  # Simulate a delay
+        print(cache.get(key))
+
+    threads = []
+    for i in range(3):
+        thread = threading.Thread(target=put_and_get, args=(cache, f"key{i}", f"value{i}", 2))
+        thread.start()
+        threads.append(thread)
+
+    for thread in threads:
+        thread.join()
+
+==========================================
+MODEL: mac-studio/ministral-3:14b
+==========================================
+LOAD: 4.0s | TOKENS: 1500 | DURATION: 36.4s | SPEED: 41.2 tok/s
+
+Here's a complete, production-quality implementation of a thread-safe LRU cache with per-key TTL expiration in Python:
+
+```python
+import time
+from threading import Lock
+from typing import Any, Dict, Generic, Optional, TypeVar
+
+K = TypeVar('K')
+V = TypeVar('V')
+
+class Node(Generic[K, V]):
+    """Doubly linked list node for the LRU cache implementation."""
+    def __init__(self, key: K, value: V, expiration: float):
+        self.key = key
+        self.value = value
+        self.expiration = expiration
+        self.prev: Optional['Node[K, V]'] = None
+        self.next: Optional['Node[K, V]'] = None
+
+class LRUCacheWithTTL(Generic[K, V]):
+    """Thread-safe LRU cache with per-key TTL expiration.
+
+    This implementation uses a doubly linked list for O(1) access to most recently used items
+    and a hashmap for O(1) lookups. Each key has its own TTL (time-to-live) expiration.
+
+    Attributes:
+        capacity: Maximum number of items the cache can hold
+        _cache: Dictionary mapping keys to nodes
+        _head: Most recently used node (dummy head)
+        _tail: Least recently used node (dummy tail)
+        _lock: Threading lock for thread safety
+    """
+
+    def __init__(self, capacity: int = 128):
+        """Initialize the cache with a given capacity.
+
+        Args:
+            capacity: Maximum number of items the cache can hold
+        """
+        if capacity <= 0:
+            raise ValueError("Capacity must be positive")
+
+        self.capacity = capacity
+        self._cache: Dict[K, Node[K, V]] = {}
+        self._head = Node(None, None, 0)  # dummy head
+        self._tail = Node(None, None, 0)  # dummy tail
+        self._head.next = self._tail
+        self._tail.prev = self._head
+        self._lock = Lock()
+
+    def _remove_node(self, node: Node[K, V]) -> None:
+        """Remove a node from the linked list."""
+        prev_node = node.prev
+        next_node = node.next
+        prev_node.next = next_node
+        next_node.prev = prev_node
+
+    def _add_to_head(self, node: Node[K, V]) -> None:
+        """Add a node right after the dummy head (most recently used)."""
+        node.next = self._head.next
+        node.prev = self._head
+        self._head.next.prev = node
+        self._head.next = node
+
+    def _move_to_head(self, node: Node[K, V]) -> None:
+        """Move an existing node to the head (most recently used)."""
+        self._remove_node(node)
+        self._add_to_head(node)
+
+    def _evict_tail(self) -> None:
+        """Remove and return the tail node (least recently used)."""
+        if self._tail.prev == self._head:
+            return None
+
+        tail_node = self._tail.prev
+        self._remove_node(tail_node)
+        del self._cache[tail_node.key]
+        return tail_node
+
+    def _is_expired(self, node: Node[K, V]) -> bool:
+        """Check if a node has expired based on its TTL."""
+        return time.time() > node.expiration
+
+    def get(self, key: K) -> Optional[V]:
+        """Get a value from the cache.
+
+        Args:
+            key: The key to look up
+
+        Returns:
+            The cached value if found and not expired, None otherwise
+        """
+        with self._lock:
+            node = self._cache.get(key)
+            if node is None:
+                return None
+
+            if self._is_expired(node):
+                self._remove_node(node)
+                del self._cache[key]
+                return None
+
+            self._move_to_head(node)
+            return node.value
+
+    def put(self, key: K, value: V, ttl_seconds: float) -> None:
+        """Put a value into the cache with a TTL.
+
+        Args:
+            key: The key to store
+            value: The value to cache
+            ttl_seconds: Time-to-live in seconds
+        """
+        with self._lock:
+            # Check if key exists and is not expired
+            node = self._cache.get(key)
+            if node is not None:
+                if not self._is_expired(node):
+                    self._remove_node(node)
+                else:
+                    del self._cache[key]
+
+            # Create new node
+            expiration = time.time() + ttl_seconds
+            new_node = Node(key, value, expiration)
+            self._cache[key] = new_node
+            self._add_to_head(new_node)
+
+            # Evict if over capacity
+            if len(self._cache) > self.capacity:
+                self._evict_tail()
+
+    def delete(self, key: K) -> bool:
+        """Delete a key from the cache.
+
+        Args:
+            key: The key to remove
+
+        Returns:
+            True if the key was found and removed, False otherwise
+        """
+        with self._lock:
+            node = self._cache.get(key)
+            if node is None:
+                return False
+
+            self._remove_node(node)
+            del self._cache[key]
+            return True
+
+    def __contains__(self, key: K) -> bool:
+        """Check if a key exists in the cache and is not expired.
+
+        Args:
+            key: The key to check
+
+        Returns:
+            True if the key exists and is not expired, False otherwise
+        """
+        with self._lock:
+            node = self._cache.get(key)
+            if node is None:
+                return False
+            return not self._is_expired(node)
+
+    def __len__(self) -> int:
+        """Get the current number of items in the cache (non-expired)."""
+        with self._lock:
+            return sum(1 for node in self._cache.values() if not self._is_expired(node))
+
+    def clear(self) -> None:
+        """Clear all items from the cache."""
+        with self._lock:
+            self._cache.clear()
+            self._head.next = self._tail
+            self._tail.prev = self._head
+
+# Example usage
+if __name__ == "__main__":
+    # Create a cache with capacity of 3
+    cache = LRUCacheWithTTL[int, str](capacity=3)
+
+    # Put some items with different TTLs
+    cache.put(1, "value1", ttl_seconds=5)  # expires in 5 seconds
+    cache.put(2, "value2", ttl_seconds=10)  # expires in 10 seconds
+    cache.put(3, "value3", ttl_seconds=2)   # expires in 2 seconds
+
+    # Get items
+    print(cache.get(1))  # "value1"
+    print(cache.get(2))
+
+==========================================
+MODEL: mac-studio/gpt-oss:20b
+==========================================
+LOAD: 5.6s | TOKENS: 1500 | DURATION: 19.6s | SPEED: 76.4 tok/s
+
+```python
+#!/usr/bin/env python3
+"""
+A production‑ready, thread‑safe LRU cache with per‑key TTL support.
+
+Features
+--------
+* O(1) `get`, `put` and `delete` operations.
+* Internally uses a doubly‑linked list plus a hash map – no
+  `OrderedDict` or other high‑level helpers.
+* Thread‑safe: all public methods acquire a `threading.Lock`.
+* Expired keys are removed lazily when accessed.
+* Capacity (maximum number of entries) can be configured; when the
+  limit is reached the least‑recently used item is evicted.
+* Full type hints and detailed docstrings.
+"""
+
+from __future__ import annotations
+
+from dataclasses import dataclass
+import time
+import threading
+from typing import Any, Dict, Optional
+
+
+@dataclass
+class _Node:
+    """
+    Doubly‑linked list node used internally by :class:`LRUCache`.
+
+    Attributes
+    ----------
+    key : Any
+        The key stored in this node.
+    value : Any
+        The value stored in this node.
+    expire_at : float
+        Unix timestamp (seconds since epoch) when this entry expires.
+    prev : Optional[_Node]
+        Reference to the previous node in the list.
+    next : Optional[_Node]
+        Reference to the next node in the list.
+    """
+    key: Any
+    value: Any
+    expire_at: float
+    prev: Optional["_Node"] = None
+    next: Optional["_Node"] = None
+
+
+class LRUCache:
+    """
+    A least‑recently‑used (LRU) cache with per‑key time‑to‑live (TTL).
+
+    Parameters
+    ----------
+    capacity : int, optional
+        Maximum number of items the cache can hold.  When the limit is
+        exceeded the least‑recently used item is evicted.  If omitted,
+        the cache defaults to 128 items.
+
+    Notes
+    -----
+    All public methods are thread‑safe.  The cache stores expiration
+    timestamps in UTC seconds (`time.time()`), so TTL values should be
+    given in seconds.
+    """
+
+    def __init__(self, capacity: int = 128) -> None:
+        if capacity <= 0:
+            raise ValueError("capacity must be a positive integer")
+        self.capacity: int = capacity
+        self.cache: Dict[Any, _Node] = {}
+
+        # Dummy head and tail nodes to simplify edge cases
+        self._head: _Node = _Node(key=None, value=None, expire_at=0.0)
+        self._tail: _Node = _Node(key=None, value=None, expire_at=0.0)
+        self._head.next = self._tail
+        self._tail.prev = self._head
+
+        self._lock = threading.Lock()
+
+    # ----------------------------------------------------------------------
+    # Private helper methods (all assume the lock is held)
+    # ----------------------------------------------------------------------
+    def _add_to_front(self, node: _Node) -> None:
+        """Insert *node* immediately after the dummy head."""
+        node.next = self._head.next
+        node.prev = self._head
+        self._head.next.prev = node
+        self._head.next = node
+
+    def _remove(self, node: _Node) -> None:
+        """Remove *node* from the linked list."""
+        prev_node = node.prev
+        next_node = node.next
+        if prev_node is not None:
+            prev_node.next = next_node
+        if next_node is not None:
+            next_node.prev = prev_node
+        node.prev = node.next = None
+
+    def _move_to_front(self, node: _Node) -> None:
+        """Move an existing node to the front (most‑recently used)."""
+        self._remove(node)
+        self._add_to_front(node)
+
+    def _pop_tail(self) -> Optional[_Node]:
+        """
+        Remove and return the least‑recently used node (the one just
+
+==========================================
+MODEL: mac-studio/devstral-small-2:24b
+==========================================
+LOAD: 5.2s | TOKENS: 1500 | DURATION: 60.5s | SPEED: 24.8 tok/s
+
+Here's a thread-safe LRU cache implementation with per-key TTL expiration using a doubly linked list and hashmap:
+
+```python
+import threading
+import time
+from typing import Any, Generic, TypeVar, Optional
+
+K = TypeVar('K')
+V = TypeVar('V')
+
+class Node(Generic[K, V]):
+    """Node in the doubly linked list."""
+    def __init__(self, key: K, value: V, expiration: float) -> None:
+        self.key = key
+        self.value = value
+        self.expiration = expiration
+        self.prev: Optional['Node[K, V]'] = None
+        self.next: Optional['Node[K, V]'] = None
+
+class ThreadSafeLRUCache(Generic[K, V]):
+    """Thread-safe LRU cache with per-key TTL expiration.
+
+    Uses a doubly linked list for O(1) access to most recent items and a hashmap for O(1) lookups.
+    Expired items are lazily evicted on access.
+    """
+
+    def __init__(self, capacity: int) -> None:
+        """Initialize the cache with given capacity.
+
+        Args:
+            capacity: Maximum number of items the cache can hold.
+        """
+        if capacity <= 0:
+            raise ValueError("Capacity must be positive")
+
+        self.capacity = capacity
+        self.cache: dict[K, Node[K, V]] = {}
+        self.head: Optional[Node[K, V]] = None
+        self.tail: Optional[Node[K, V]] = None
+        self.lock = threading.Lock()
+
+    def _add_to_head(self, node: Node[K, V]) -> None:
+        """Add node to the head of the list (most recently used)."""
+        node.prev = None
+        node.next = self.head
+
+        if self.head is not None:
+            self.head.prev = node
+
+        self.head = node
+
+        if self.tail is None:
+            self.tail = node
+
+    def _remove_node(self, node: Node[K, V]) -> None:
+        """Remove node from the linked list."""
+        if node.prev is not None:
+            node.prev.next = node.next
+        else:
+            self.head = node.next
+
+        if node.next is not None:
+            node.next.prev = node.prev
+        else:
+            self.tail = node.prev
+
+    def _move_to_head(self, node: Node[K, V]) -> None:
+        """Move node to the head of the list (mark as recently used)."""
+        self._remove_node(node)
+        self._add_to_head(node)
+
+    def _pop_tail(self) -> Optional[Node[K, V]]:
+        """Remove and return the tail node (least recently used)."""
+        if self.tail is None:
+            return None
+
+        node = self.tail
+        self._remove_node(node)
+        return node
+
+    def _is_expired(self, node: Node[K, V]) -> bool:
+        """Check if node has expired based on its TTL."""
+        return time.time() > node.expiration
+
+    def get(self, key: K) -> Optional[V]:
+        """Get value for key if it exists and hasn't expired.
+
+        Args:
+            key: Key to look up in cache.
+
+        Returns:
+            Value if found and not expired, None otherwise.
+        """
+        with self.lock:
+            node = self.cache.get(key)
+            if node is None:
+                return None
+
+            if self._is_expired(node):
+                self._remove_node(node)
+                del self.cache[key]
+                return None
+
+            self._move_to_head(node)
+            return node.value
+
+    def put(self, key: K, value: V, ttl_seconds: float) -> None:
+        """Insert or update key-value pair with TTL.
+
+        Args:
+            key: Key to insert/update.
+            value: Value to store.
+            ttl_seconds: Time-to-live in seconds for this key.
+        """
+        with self.lock:
+            expiration = time.time() + ttl_seconds
+
+            if key in self.cache:
+                node = self.cache[key]
+                node.value = value
+                node.expiration = expiration
+                self._move_to_head(node)
+            else:
+                if len(self.cache) >= self.capacity:
+                    tail = self._pop_tail()
+                    if tail is not None:
+                        del self.cache[tail.key]
+
+                new_node = Node(key, value, expiration)
+                self.cache[key] = new_node
+                self._add_to_head(new_node)
+
+    def delete(self, key: K) -> bool:
+        """Remove key from cache if it exists.
+
+        Args:
+            key: Key to remove.
+
+        Returns:
+            True if key was found and removed, False otherwise.
+        """
+        with self.lock:
+            node = self.cache.get(key)
+            if node is None:
+                return False
+
+            self._remove_node(node)
+            del self.cache[key]
+            return True
+
+# Usage example
+if __name__ == "__main__":
+    cache = ThreadSafeLRUCache[str, int](capacity=2)
+
+    # Test basic operations
+    cache.put("a", 1, ttl_seconds=1)
+    cache.put("b", 2, ttl_seconds=2)
+
+    print(cache.get("a"))  # Output: 1
+    print(cache.get("b"))  # Output: 2
+
+    # Test LRU eviction
+    cache.put("c", 3, ttl_seconds=3)
+    print(cache.get("a"))  # Output: None (evicted)
+    print(cache.get("b"))  # Output: 2
+    print(cache.get("c"))  # Output: 3
+
+    # Test TTL expiration
+    time.sleep(1.5)
+    print(cache.get("b"))  # Output: None (expired)
+    print(cache.get("c"))  # Output: 3
+
+    # Test thread safety
+    def worker(key: str, value: int, ttl: float) -> None:
+        cache.put(key, value, ttl_seconds=ttl)
+        print(f"Put {key}: {cache.get(key)}")
+
+    threads = []
+    for i in range(5):
+        t = threading.Thread(target=worker, args=(f"key{i}", i, 5))
+        threads.append(t)
+        t.start()
+
+    for t in threads:
+        t.join()
+
+    # Test delete
+    print(cache.delete("key0"))  # Output: True
+    print(cache.delete("nonexistent"))  # Output: False
+```
+
+This implementation includes:
+
+1. A doubly linked list (`Node` class) to track usage order
+2. A hashmap (`cache` dict) for O(1) lookups
+3. Thread safety using `threading.Lock`
+4. Lazy expiration checking on `get()` operations
+5. Full type hints and docstrings
+6. A working usage example demonstrating:
+   - Basic put/get operations
+   - LRU eviction
+   - TTL expiration
+
+==========================================
+MODEL: mac-studio/qwen3-coder:30b
+==========================================
+LOAD: 7.3s | TOKENS: 1500 | DURATION: 17.3s | SPEED: 86.6 tok/s
+
+```python
+import threading
+import time
+from typing import Optional, Any, Dict
+
+
+class LRUCacheNode:
+    """Doubly linked list node for LRU cache."""
+    
+    def __init__(self, key: str, value: Any, ttl_seconds: Optional[int] = None):
+        self.key = key
+        self.value = value
+        self.ttl_seconds = ttl_seconds
+        self.expiration_time = time.time() + ttl_seconds if ttl_seconds is not None else None
+        self.prev = None
+        self.next = None
+
+
+class LRUCache:
+    """
+    Thread-safe LRU cache with per-key TTL expiration.
+    
+    This implementation uses a doubly linked list combined with a hash map to achieve
+    O(1) get and put operations. Keys are lazily evicted when accessed if expired.
+    """
+    
+    def __init__(self, capacity: int = 128):
+        """
+        Initialize the LRU cache with given capacity.
+        
+        Args:
+            capacity: Maximum number of items the cache can hold
+        """
+        self.capacity = capacity
+        self.cache_map: Dict[str, LRUCacheNode] = {}
+        self.head = LRUCacheNode("", None)  # Dummy head node
+        self.tail = LRUCacheNode("", None)  # Dummy tail node
+        self.head.next = self.tail
+        self.tail.prev = self.head
+        self.lock = threading.Lock()
+    
+    def _remove_node(self, node: LRUCacheNode) -> None:
+        """
+        Remove a node from the doubly linked list.
+        
+        Args:
+            node: Node to remove
+        """
+        node.prev.next = node.next
+        node.next.prev = node.prev
+    
+    def _add_to_front(self, node: LRUCacheNode) -> None:
+        """
+        Add a node to the front of the doubly linked list (most recently used).
+        
+        Args:
+            node: Node to add
+        """
+        node.next = self.head.next
+        node.prev = self.head
+        self.head.next.prev = node
+        self.head.next = node
+    
+    def _move_to_front(self, node: LRUCacheNode) -> None:
+        """
+        Move a node to the front of the list (mark as most recently used).
+        
+        Args:
+            node: Node to move
+        """
+        self._remove_node(node)
+        self._add_to_front(node)
+    
+    def _is_expired(self, node: LRUCacheNode) -> bool:
+        """
+        Check if a node is expired based on its TTL.
+        
+        Args:
+            node: Node to check
+            
+        Returns:
+            True if the node is expired, False otherwise
+        """
+        if node.expiration_time is None:
+            return False
+        return time.time() > node.expiration_time
+    
+    def _evict_expired(self) -> None:
+        """
+        Evict all expired nodes from the cache.
+        """
+        current = self.tail.prev
+        while current != self.head and self._is_expired(current):
+            self._remove_node(current)
+            del self.cache_map[current.key]
+            current = self.tail.prev
+    
+    def get(self, key: str) -> Optional[Any]:
+        """
+        Get a value from the cache by key.
+        
+        If the key is not found or has expired, returns None.
+        Also removes expired keys lazily during access.
+        
+        Args:
+            key: Key to look up
+            
+        Returns:
+            Value associated with key, or None if not found or expired
+        """
+        with self.lock:
+            if key not in self.cache_map:
+                return None
+            
+            node = self.cache_map[key]
+            
+            # Check for expiration before returning
+            if self._is_expired(node):
+                self._remove_node(node)
+                del self.cache_map[key]
+                return None
+            
+            # Move to front (most recently used)
+            self._move_to_front(node)
+            return node.value
+    
+    def put(self, key: str, value: Any, ttl_seconds: Optional[int] = None) -> None:
+        """
+        Put a key-value pair in the cache with optional TTL.
+        
+        If key already exists, updates its value and TTL.
+        Evicts least recently used items if necessary.
+        
+        Args:
+            key: Key to store
+            value: Value to store
+            ttl_seconds: Time-to-live in seconds (None means no expiration)
+        """
+        with self.lock:
+            if key in self.cache_map:
+                # Update existing node
+                node = self.cache_map[key]
+                node.value = value
+                node.ttl_seconds = ttl_seconds
+                node.expiration_time = time.time() + ttl_seconds if ttl_seconds is not None else None
+                self._move_to_front(node)
+            else:
+                # Create new node
+                new_node = LRUCacheNode(key, value, ttl_seconds)
+                
+                # Evict expired nodes before adding new one
+                self._evict_expired()
+                
+                # Check if we need to evict oldest items
+                if len(self.cache_map) >= self.capacity:
+                    # Remove least recently used (tail.prev)
+                    lru_node = self.tail.prev
+                    self._remove_node(lru_node)
+                    del self.cache_map[lru_node.key]
+                
+                # Add new node to front
+                self._add_to_front(new_node)
+                self.cache_map[key] = new_node
+    
+    def delete(self, key: str) -> bool:
+        """
+        Delete a key from the cache.
+        
+        Args:
+            key: Key to delete
+            
+        Returns:
+            True if key was found and deleted, False otherwise
+        """
+        with self.lock:
+            if key not in self.cache_map:
+                return False
+            
+            node = self.cache_map[key]
+            self._remove_node(node)
+            del self.cache_map[key]
+            return True
+    
+    def size(self) -> int:
+        """
+        Get the current number of items in the cache.
+        
+        Returns:
+            Number of items in the cache
+        """
+        with self.lock:
+            return len(self.cache_map)
+    
+    def clear(self) -> None:
+        """
+        Clear all items from the cache.
+        """
+        with self.lock:
+            self.cache_map.clear()
+            self.head.next = self.tail
+            self.tail.prev = self.head
+
+
+# Example usage
+if __name__ == "__main__":
+    # Create a cache with capacity of 3
+    cache = LRUCache(capacity=3)
+    
+    # Put some values
+    cache.put("a", 1, ttl_seconds=2)  # Expires in 2 seconds
+    cache.put("b", 2, ttl_seconds=5)  # Expires in 5 seconds
+    cache.put("c", 3)                 # No expiration
+    
+    print(f"Cache size: {cache.size()}")  # Should be 3
+    
+    # Get values
+    print(cache.get("a"))  # Should return 1
+    print(cache.get("b"))  # Should return 2
+    
+    # Wait for key "a" to expire
+    time.sleep(2.5)
+    
+    # Try accessing expired key
+    print(cache.get("a"))  # Should return None
+
+==========================================
+MODEL: mac-mini/qwen3.5:27b
+==========================================
+LOAD: 11.8s | TOKENS: 1500 | DURATION: 406.5s | SPEED: 3.7 tok/s
+
+Here's a thinking process that leads to the suggested implementation:
+
+1.  **Analyze the Request:**
+    *   **Goal:** Implement a thread-safe LRU (Least Recently Used) cache in Python.
+    *   **Specific Feature:** Per-key TTL (Time-To-Live).
+    *   **Internal Structure:** Doubly Linked List + Hash Map (Dictionary). Explicitly forbids `OrderedDict` and `functools.lru_cache`.
+    *   **Methods:** `get(key)`, `put(key, value, ttl_seconds)`, `delete(key)`.
+    *   **Concurrency:** Thread-safe using `threading.Lock`.
+    *   **Expiration Logic:** Lazy eviction (keys expire only when accessed if TTL passed). Note: This usually implies checking expiry on `get` or `put`.
+    *   **Quality:** Production-quality, full type hints, docstrings.
+    *   **Output:** Working usage example included.
+
+2.  **Design the Data Structures:**
+    *   **Node Class:** Needs to hold `key`, `value`, `expiry_time` (absolute timestamp), and pointers `prev`/`next`.
+    *   **HashMap:** A standard `dict[str, Node]` mapping keys to node objects for O(1) access.
+    *   **Doubly Linked List:** Needs head and tail sentinel nodes (dummy nodes) to simplify insertion/removal at ends.
+        *   Head: Most Recently Used (MRU).
+        *   Tail: Least Recently Used (LRU).
+    *   **Lock:** A `threading.RLock` or `threading.Lock`. Since we might be calling internal methods that hold locks, an `RLock` is often safer to prevent deadlocks if a method re-enters the lock context, though for simple cache ops `Lock` usually suffices. Let's stick to `threading.Lock` as per strict requirement, but `RLock` handles recursion better. The prompt says `threading.Lock`, so I will use `threading.Lock`. Wait, actually, if I have a method that calls another synchronized method holding the lock, I need `RLock`. However, standard cache implementations usually wrap the critical section in one block. I will use `threading.Lock` but structure code carefully to avoid recursion. Actually, `RLock` is safer for re-entrancy (e.g., if `delete` calls internal cleanup that might try to acquire). Let's stick to the prompt: "Thread-safe using threading.Lock". I'll use `threading.Lock` but be mindful of critical sections.
+
+3.  **Design the Logic:**
+    *   **Capacity:** The prompt didn't specify a max size limit, just LRU behavior + TTL. However, a cache usually implies eviction based on size. Without a max size, it's technically an "LRU dictionary with expiration". But to make it truly an LRU *Cache*, I need a `capacity` parameter in `__init__`. If I don't implement capacity, the Linked List logic for LRU is less meaningful (we only move nodes to front on access). Let's add `capacity` but default it to infinite or None. To strictly satisfy "LRU Cache", eviction based on size is crucial. I will include `max_size` in `__init__`.
+    *   **`put(key, value, ttl)`:**
+        1.  Acquire lock.
+        2.  Check if key exists.
+            *   If yes: Update node (value, expiry, move to MRU).
+            *   If no: Create new node. Insert at MRU. Increment size.
+        3.  If capacity exceeded and new node added: Evict LRU node (tail.next). Check map deletion.
+        4.  Release lock.
+    *   **`get(key)`:**
+        1.  Acquire lock.
+        2.  Check if key exists in map.
+        3.  If exists:
+            *   Check TTL (time.time() > expiry_time).
+            *   If expired: Remove node, remove from map, return None.
+            *   If not expired: Move to MRU, return value.
+        4.  Release lock.
+    *   **`delete(key)`:**
+        1.  Acquire lock.
+        2.  Check if key exists.
+        3.  Remove node from list and map.
+        4.  Release lock.
+
+4.  **Refining Expiration Logic (Lazy vs Active):**
+    *   Requirement: "Expired keys are lazily evicted on access".
+    *   This means `get(key)` checks TTL. If expired, remove it.
+    *   What about `put`? If we overwrite an existing key, we should update its TTL.
+    *   What about background cleanup? The requirement specifically says "lazy eviction on access", implying no background threads for expiration. I will follow this strictly. However, relying solely on lazy eviction means expired entries stay in memory until accessed again, which might bloat memory. A production-quality cache usually has a mechanism to handle this, but adhering to the prompt's constraint ("lazily evicted"), I will not add a background cleaner thread. I will focus on the "access" part.
+    *   Wait, if I don't check expiration in `put` (when overwriting), an old key stays expired until `get` or next access? No, `put` updates it. The issue is keys that are never accessed again after expiring. They remain in the map/list until a size eviction happens (if capacity exists) or until explicitly deleted. This is acceptable for "lazy".
+
+5.  **Drafting the Code (Mental or Scratchpad):**
+    *   `Node` class: `key`, `value`, `expire_at`, `prev`, `next`.
+    *   `_DoublyLinkedList`: Head, Tail pointers. Methods `_add_to_head(node)`, `_remove_node(node)`.
+    *   `LRUCache`: `__init__(self, capacity=...)`. `_cache` dict. `current_size`. `lock`.
+    *   Imports: `time`, `threading`, `typing` (Optional).
+
+6.  **Addressing "Production Quality":**
+    *   Type hints everywhere.
+    *   Docstrings for class and methods.
+    *   Handle `None` inputs gracefully? Key should be hashable. Value any object. TTL float/int >= 0.
+    *   Context manager for lock (`with self.lock:`).
+    *   Sentinel nodes (dummy head/tail) simplify edge cases (empty list).
+
+7.  **Potential Edge Cases:**
+    *   `ttl_seconds` = 0? Should expire immediately or act like no TTL? Usually 0 means immediate expiry or effectively "cache for a moment". Standard logic: `time.time() + ttl`. If 0, it expires immediately on next check. Let
+==========================================
+BENCHMARK COMPLETE: Mon Mar 23 07:09:03 EDT 2026
