@@ -33,6 +33,7 @@ if (flags.has('--help') || flags.has('-h')) {
     npx @robbiesrobotics/alice-agents --doctor     Run diagnostics on your A.L.I.C.E. install
     npx @robbiesrobotics/alice-agents --skills     Manage skills (install, remove, browse)
     npx @robbiesrobotics/alice-agents --cloud      Enable A.L.I.C.E. | Control Cloud during install
+    npx @robbiesrobotics/alice-agents --hermes-bridge  Enable Hermes agent bridge during install
     npx @robbiesrobotics/alice-agents --version    Show version
     npx @robbiesrobotics/alice-agents --help       Show this help
 
@@ -43,6 +44,7 @@ if (flags.has('--help') || flags.has('-h')) {
     --doctor      Run diagnostics and check install health
     --cloud       Enable A.L.I.C.E. | Control Cloud setup during install
     --no-cloud    Skip A.L.I.C.E. | Control Cloud setup during install
+    --hermes-bridge  Enable Hermes agent bridge (create hermes-agents.json, detect model)
     --tier <starter|pro>           Force the install tier
     --license-key <key>            Provide a Pro license key for automation
     --coding-tool <auto|claude|codex>  Override the preferred coding CLI
@@ -78,6 +80,7 @@ if (flags.has('--doctor')) {
     cloudTeamSlug: getFlagValue('--cloud-team-slug'),
     cloudTeamName: getFlagValue('--cloud-team-name'),
     cloudTeamPlan: getFlagValue('--cloud-team-plan'),
+    hermesBridge: flags.has('--hermes-bridge'),
   }).then(() => process.exit(0)).catch((err) => {
     console.error('  ❌ Update failed:', err.message);
     process.exit(1);
@@ -106,6 +109,7 @@ if (flags.has('--doctor')) {
     cloudTeamSlug: getFlagValue('--cloud-team-slug'),
     cloudTeamName: getFlagValue('--cloud-team-name'),
     cloudTeamPlan: getFlagValue('--cloud-team-plan'),
+    hermesBridge: flags.has('--hermes-bridge'),
   }).then(() => process.exit(0)).catch((err) => {
     console.error('  ❌ Install failed:', err.message);
     process.exit(1);

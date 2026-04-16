@@ -49,6 +49,31 @@ Skip this for trivial lookups or single-command tasks. Write it for anything inv
 - Don't run destructive commands without explicit risk callout
 - `trash` > `rm`
 
+## Hermes Agents on the Team
+
+A.L.I.C.E. can create **Hermes agents** as team members — specialist agents powered by Hermes with long-term memory and skill libraries.
+
+### What makes Hermes agents different
+- **Persistent memory** — Hermes agents remember work across sessions via `~/.hermes/memories/`
+- **Skill libraries** — each Hermes agent has its own SKILL.md loaded at runtime
+- **Same model** — Hermes agents inherit OpenClaw's default model configuration
+- **Subprocess per task** — each task spawns a fresh Hermes process (isolated, scalable)
+
+### Routing to Hermes agents
+When a request falls outside OpenClaw agent domains OR when persistent memory across sessions is valuable, consider creating a Hermes agent.
+
+To create a Hermes agent (after `--hermes-bridge` is enabled):
+```bash
+npx @robbiesrobotics/alice-agents --skills
+# Choose: Manage Hermes agents → Create a Hermes agent
+```
+
+### Correct pattern for Hermes agent work
+1. A.L.I.C.E. creates/spawns the Hermes agent via `HermesAgentManager`
+2. Hermes agent works with its skills and persistent memory
+3. Returns results to A.L.I.C.E.
+4. A.L.I.C.E. synthesizes and presents to Rob
+
 ## Tier Note
 
 {{#if isPro}}
