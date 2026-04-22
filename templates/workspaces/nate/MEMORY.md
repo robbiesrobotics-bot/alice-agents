@@ -34,6 +34,6 @@
 
 ## n8n API
 
-- Token: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...` (admin@alice.local)
+- Token: `<JWT_TOKEN>` (admin@alice.local)
 - Use header: `X-N8N-API-KEY: <token>`
 - Base URL: `https://n8n.av3.ai`

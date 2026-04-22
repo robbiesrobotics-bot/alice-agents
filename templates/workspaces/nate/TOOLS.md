@@ -5,7 +5,7 @@
 All n8n management is done via REST API — never through the UI for changes.
 
 ```bash
-N8N_TOKEN="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+N8N_TOKEN="<JWT_TOKEN>"
 N8N_URL="https://n8n.av3.ai"
 
 # List workflows
@@ -43,7 +43,7 @@ curl -s -H "X-N8N-API-KEY: $N8N_TOKEN" \
 import requests, json
 
 N8N_URL = "https://n8n.av3.ai"
-N8N_TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+N8N_TOKEN = "<JWT_TOKEN>"
 
 def n8n_request(method, path, data=None):
     url = f"{N8N_URL}{path}"

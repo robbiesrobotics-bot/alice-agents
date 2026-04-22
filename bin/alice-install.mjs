@@ -33,7 +33,8 @@ if (flags.has('--help') || flags.has('-h')) {
     npx @robbiesrobotics/alice-agents --doctor     Run diagnostics on your A.L.I.C.E. install
     npx @robbiesrobotics/alice-agents --skills     Manage skills (install, remove, browse)
     npx @robbiesrobotics/alice-agents --cloud      Enable A.L.I.C.E. | Control Cloud during install
-    npx @robbiesrobotics/alice-agents --hermes-bridge  Enable Hermes agent bridge during install
+    npx @robbiesrobotics/alice-agents --hermes-bridge  Enable Hermes agent bridge during install (OpenClaw+Hermes)
+    npx @robbiesrobotics/alice-agents --runtime <hermes|openclaw|nemoclaw>  Force runtime selection
     npx @robbiesrobotics/alice-agents --version    Show version
     npx @robbiesrobotics/alice-agents --help       Show this help
 
@@ -46,6 +47,8 @@ if (flags.has('--help') || flags.has('-h')) {
     --no-cloud    Skip A.L.I.C.E. | Control Cloud setup during install
     --hermes-bridge  Enable Hermes agent bridge (create hermes-agents.json, detect model)
     --tier <starter|pro>           Force the install tier
+    --runtime <hermes|openclaw|nemoclaw>  Force specific runtime
+    --force                        Force reinstall even if already installed
     --license-key <key>            Provide a Pro license key for automation
     --coding-tool <auto|claude|codex>  Override the preferred coding CLI
     --cloud-token <token>           A.L.I.C.E. | Control ingest/access token
@@ -60,31 +63,31 @@ if (flags.has('--help') || flags.has('-h')) {
   process.exit(0);
 }
 
+const baseOptions = {
+  tierOverride: getFlagValue('--tier'),
+  runtimeOverride: getFlagValue('--runtime'),
+  force: flags.has('--force'),
+  licenseKey: getFlagValue('--license-key'),
+  codingTool: getFlagValue('--coding-tool'),
+  cloudToken: getFlagValue('--cloud-token'),
+  cloudDashboardUrl: getFlagValue('--cloud-dashboard-url'),
+  cloudIngestUrl: getFlagValue('--cloud-ingest-url'),
+  cloudTeamId: getFlagValue('--cloud-team-id'),
+  cloudTeamSlug: getFlagValue('--cloud-team-slug'),
+  cloudTeamName: getFlagValue('--cloud-team-name'),
+  cloudTeamPlan: getFlagValue('--cloud-team-plan'),
+  hermesBridge: flags.has('--hermes-bridge'),
+};
+
 if (flags.has('--doctor')) {
   runDoctor().then((ok) => process.exit(ok ? 0 : 1)).catch((err) => {
     console.error('  ❌ Doctor failed:', err.message);
     process.exit(1);
   });
 } else if (flags.has('--update')) {
-  runInstall({
-    yes: true,
-    modeOverride: 'upgrade',
-    cloud: flags.has('--cloud') ? true : flags.has('--no-cloud') ? false : undefined,
-    tierOverride: getFlagValue('--tier'),
-    licenseKey: getFlagValue('--license-key'),
-    codingTool: getFlagValue('--coding-tool'),
-    cloudToken: getFlagValue('--cloud-token'),
-    cloudDashboardUrl: getFlagValue('--cloud-dashboard-url'),
-    cloudIngestUrl: getFlagValue('--cloud-ingest-url'),
-    cloudTeamId: getFlagValue('--cloud-team-id'),
-    cloudTeamSlug: getFlagValue('--cloud-team-slug'),
-    cloudTeamName: getFlagValue('--cloud-team-name'),
-    cloudTeamPlan: getFlagValue('--cloud-team-plan'),
-    hermesBridge: flags.has('--hermes-bridge'),
-  }).then(() => process.exit(0)).catch((err) => {
-    console.error('  ❌ Update failed:', err.message);
-    process.exit(1);
-  });
+  runInstall({ yes: true, modeOverride: 'upgrade', cloud: flags.has('--cloud') ? true : flags.has('--no-cloud') ? false : undefined, ...baseOptions })
+    .then(() => process.exit(0))
+    .catch((err) => { console.error('  ❌ Upgrade failed:', err.message); process.exit(1); });
 } else if (flags.has('--skills')) {
   runSkillsManager().then(() => process.exit(0)).catch((err) => {
     console.error(`  ✗ Skills manager failed: ${err.message}`);
@@ -96,22 +99,7 @@ if (flags.has('--doctor')) {
     process.exit(1);
   });
 } else {
-  runInstall({
-    yes: flags.has('--yes'),
-    cloud: flags.has('--cloud') ? true : flags.has('--no-cloud') ? false : undefined,
-    tierOverride: getFlagValue('--tier'),
-    licenseKey: getFlagValue('--license-key'),
-    codingTool: getFlagValue('--coding-tool'),
-    cloudToken: getFlagValue('--cloud-token'),
-    cloudDashboardUrl: getFlagValue('--cloud-dashboard-url'),
-    cloudIngestUrl: getFlagValue('--cloud-ingest-url'),
-    cloudTeamId: getFlagValue('--cloud-team-id'),
-    cloudTeamSlug: getFlagValue('--cloud-team-slug'),
-    cloudTeamName: getFlagValue('--cloud-team-name'),
-    cloudTeamPlan: getFlagValue('--cloud-team-plan'),
-    hermesBridge: flags.has('--hermes-bridge'),
-  }).then(() => process.exit(0)).catch((err) => {
-    console.error('  ❌ Install failed:', err.message);
-    process.exit(1);
-  });
+  runInstall({ yes: flags.has('--yes'), cloud: flags.has('--cloud') ? true : flags.has('--no-cloud') ? false : undefined, ...baseOptions })
+    .then(() => process.exit(0))
+    .catch((err) => { console.error('  ❌ Install failed:', err.message); process.exit(1); });
 }

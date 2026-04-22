@@ -10,8 +10,7 @@
 
 **Service Role Key:**
 ```
-eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh4eGd2dHdubGJ0ZGdtbGdjY2VlIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3NDU4MjI5MCwiZXhwIjoyMDkwMTU4MjkwfQ.TM_CPuPsuHZK6HeK_pzc5NHCT-peVr16l0qUNWufXqw
-```
+<JWT_TOKEN>```
 
 **Publishable Key:**
 ```
