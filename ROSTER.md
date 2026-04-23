@@ -340,6 +340,7 @@
 - Spins up sub-agents for parallel research on sub-topics
 - Sets up cron jobs to improve low-scored topics every 4 hours
 - Writes findings to file-based queue on Ubuntu Desktop
+- **Runs on Andre Kaparthy's AutoResearch framework** (https://github.com/karpathy/autoresearch) — this is her primary execution engine, cloned and running locally on Ubuntu Desktop at `alpha@100.106.110.119`. AutoResearch handles web search, web fetch, and research loop management. Aria polls the queue and drives the research autonomously.
 
 ---
 
@@ -350,6 +351,7 @@
 - Designs, builds, deploys, and maintains n8n workflows for the A.L.I.C.E. system
 - Works exclusively via n8n REST API for reproducibility
 - Owns the automation layer integration between all A.L.I.C.E. components
+- **Manages the local n8n Docker container** on Ubuntu Desktop (`100.106.110.119`) — this is his primary n8n instance for building and testing workflows. Responsible for container health, restarts, image updates, and backups. The cloud n8n at `n8n.av3.ai` is for production workflows.
 
 ---
 
