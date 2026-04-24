@@ -81,6 +81,8 @@ Replace single-primary routing with **named pools**. Each pool has a primary and
 | `hr` | Hannah | Clara (comms) | Onboarding, policy, feedback |
 | `integration` | Isaac | Alex (crawling), Nate (n8n) | Webhooks, API connections, n8n workflows |
 | `autonomous-research` | Aria | Rowan | Long-running research projects |
+| `construction` | MaxxiPro | AccuScope | Roofing, remodeling, construction CRM, dealer systems |
+| `travel` | Tommy | Uma (UX research), Rowan (intel) | Travel logistics, booking, itinerary research |
 
 ### 2.2 Routing Logic: Pool → Agent Selection
 
@@ -186,7 +188,9 @@ Add per-agent and pool-level fields to the `agents` section.
       "legal":       { "primary": "logan",  "backups": ["selena"],             "taskTypes": ["review", "standard"] },
       "hr":          { "primary": "hannah", "backups": ["clara"],             "taskTypes": ["standard", "quick"] },
       "design":      { "primary": "nadia",  "backups": ["felix"],              "taskTypes": ["standard", "complex"] },
-      "frontend":    { "primary": "felix",  "backups": [],                     "taskTypes": ["standard", "complex"] }
+      "frontend":    { "primary": "felix",  "backups": [],                     "taskTypes": ["standard", "complex"] },
+      "construction": { "primary": "maxxipro", "backups": ["accuscope"],        "taskTypes": ["standard", "complex"] },
+      "travel":        { "primary": "tommy",   "backups": ["uma", "rowan"],     "taskTypes": ["standard", "deep-research"] }
     },
     "routing": {
       "loadBalanceMode": "expertise-first",
@@ -227,6 +231,8 @@ Add per-agent and pool-level fields to the `agents` section.
 | hr | hannah | clara |
 | design | nadia | felix |
 | frontend | felix | |
+| construction | maxxipro | accuscope |
+| travel | tommy | uma, rowan |
 
 ## Task Type Limits
 | Type | Max Concurrent | Timeout |
@@ -295,7 +301,7 @@ Olivia needs three new internal capabilities:
 - **Research pool** (currently just Rowan) gains Uma for UX research + Aria for deep autonomous work
 - **Integration pool** (currently unused Isaac) gains Alex + Nate for webhook/crawl/n8n work
 - **QA pool** adds SmokeTestAgent as a true parallel to Quinn
-- **14 pools** covering all 33 agents — the "ghost agents" problem is solved by construction
+- **21 pools** covering all 33 agents — the "ghost agents" problem is solved by construction
 
 ### 4.5 Risks & Mitigations
 
