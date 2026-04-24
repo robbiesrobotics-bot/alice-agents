@@ -1,0 +1,22 @@
+{
+  "agents": {
+    "defaults": {
+      "subagents": {
+        "maxConcurrent": 20,
+        "runTimeoutSeconds": 1800,
+        "taskTypes": {
+          "quick":          { "maxConcurrent": 8,  "runTimeoutSeconds": 300 },
+          "standard":       { "maxConcurrent": 4,  "runTimeoutSeconds": 1800 },
+          "complex":        { "maxConcurrent": 2,  "runTimeoutSeconds": 5400 },
+          "deep-research":  { "maxConcurrent": 1,  "runTimeoutSeconds": 14400 },
+          "infra-change":   { "maxConcurrent": 1,  "runTimeoutSeconds": 3600 },
+          "review":         { "maxConcurrent": 4,  "runTimeoutSeconds": 1200 },
+          "qa-pass":        { "maxConcurrent": 3,  "runTimeoutSeconds": 2700 }
+        }
+      }
+    }
+  },
+  "acp": {
+    "enabled": true
+  }
+}
