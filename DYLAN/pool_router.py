@@ -24,12 +24,12 @@ POOLS: dict[str, dict] = {
     "ui":          {"primary": "felix",       "backups": ["nadia", "quinn"]},
     "design":      {"primary": "nadia",       "backups": ["felix"]},
     "backend":     {"primary": "dylan",       "backups": ["isaac"]},
-    "frontend":    {"primary": "felix",       "backups": []},
+    "frontend":    {"primary": "felix",       "backups": ["nadia", "webber"]},
     "qa":          {"primary": "quinn",       "backups": ["smoketestagent"]},
     "security":    {"primary": "selena",      "backups": ["logan"]},
     "devops":      {"primary": "devon",       "backups": ["owen", "avery"]},
     "docs":        {"primary": "daphne",      "backups": ["parker"]},
-    "research":    {"primary": "rowan",       "backups": ["uma", "aria"]},
+    "research":    {"primary": "rowan",       "backups": ["uma", "aria", "mark"]},
     "data":        {"primary": "darius",      "backups": ["aiden", "alex"]},
     "marketing":   {"primary": "morgan",      "backups": ["clara", "sloane"]},
     "operations":  {"primary": "owen",        "backups": ["avery", "parker"]},
@@ -165,6 +165,7 @@ POOL_SCORE_KEYWORDS: dict[str, list[str]] = {
         "research", "competitive analysis", "market research", "survey",
         "intel", "benchmark", "trend analysis", "findings", "investigation",
         "deep research", "comprehensive analysis",
+        "market research", "market sizing", "tiger drop", "competitive intel",
     ],
     "data": [
         "data pipeline", "etl", "data warehouse", "sql query", "dashboard",
@@ -423,6 +424,10 @@ AGENT_SPECIALTY_KEYWORDS: dict[str, list[str]] = {
     "tommy":        ["travel", "flight", "hotel", "booking", "itinerary",
                      "visa", "logistics", "ground transport"],
     "aria":         ["autonomous", "deep research", "long-running", "independent",
+    "mark":         ["market research", "competitive intelligence", "competitive analysis",
+                     "market sizing", "tam sam som", "consumer research", "trend analysis",
+                     "industry landscape", "competitor", "win loss", "earnings call",
+                     "sec filing", "analyst report", "market intel"],
                      "multi-sprint", "persistent"],
     "nate":         ["n8n", "workflow", "automation", "node", "docker"],
     "maxxipro":     ["roof maxx", "roofing", "dealer", "construction", "shingle",
@@ -431,6 +436,8 @@ AGENT_SPECIALTY_KEYWORDS: dict[str, list[str]] = {
                      "accuLynx", "lead source", "a/r aging"],
     "smoketestagent": ["smoke test", "qa", "test", "regression", "automation"],
     "sophie":       ["support", "customer", "inquiry", "triage", "help desk"],
+    "webber":      ["website", "landing page", "nextjs", "vercel", "web builder",
+                     "design system", "responsive", "performance", "config.ts"],
 }
 
 # Agent ordinal for deterministic tie-breaking

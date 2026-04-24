@@ -65,12 +65,12 @@ Replace single-primary routing with **named pools**. Each pool has a primary and
 | `ui` | Felix | Nadia (spec), Quinn (QA) | UI implementation, component work |
 | `design` | Nadia | Felix | Design specs, wireframes, design system |
 | `backend` | Dylan | Isaac (integrations) | API, data model, backend logic |
-| `frontend` | Felix | — | CSS, JS, React components |
+| `frontend` | Felix | Nadia, Webber | CSS, JS, React components |
 | `qa` | Quinn | SmokeTestAgent | Test writing, bug verification, regression |
 | `security` | Selena | Logan (legal/compliance) | Security review, audits, compliance |
 | `devops` | Devon | Owen (ops), Avery (automation) | CI/CD, infra, deployment, pipelines |
 | `docs` | Daphne | Parker (project docs) | API docs, runbooks, guides |
-| `research` | Rowan | Uma (UX research), Aria (deep research) | Web research, competitive intel, surveys |
+| `research` | Rowan | Uma (UX research), Aria (deep research), Mark (market research) | Web research, competitive intel, surveys |
 | `data` | Darius | Aiden (analytics), Alex (extraction) | Pipelines, ETL, dashboards |
 | `marketing` | Morgan | Clara (comms), Sloane (sales) | Campaigns, content, positioning |
 | `operations` | Owen | Avery (automation), Parker (PM) | Business ops, workflows, vendor |
@@ -176,7 +176,7 @@ Add per-agent and pool-level fields to the `agents` section.
       "qa":          { "primary": "quinn",  "backups": ["smoketestagent"],      "taskTypes": ["qa-pass", "standard"] },
       "security":    { "primary": "selena", "backups": ["logan"],               "taskTypes": ["review", "standard"] },
       "devops":      { "primary": "devon",  "backups": ["owen", "avery"],       "taskTypes": ["infra-change", "standard"] },
-      "research":    { "primary": "rowan",  "backups": ["uma", "aria"],         "taskTypes": ["deep-research", "standard"] },
+       "research":    { "primary": "rowan",  "backups": ["uma", "aria", "mark"],         "taskTypes": ["deep-research", "standard"] },
       "data":        { "primary": "darius", "backups": ["aiden", "alex"],       "taskTypes": ["standard", "complex"] },
       "docs":        { "primary": "daphne", "backups": ["parker"],             "taskTypes": ["standard", "quick"] },
       "marketing":   { "primary": "morgan", "backups": ["clara", "sloane"],    "taskTypes": ["standard"] },
@@ -188,7 +188,7 @@ Add per-agent and pool-level fields to the `agents` section.
       "legal":       { "primary": "logan",  "backups": ["selena"],             "taskTypes": ["review", "standard"] },
       "hr":          { "primary": "hannah", "backups": ["clara"],             "taskTypes": ["standard", "quick"] },
       "design":      { "primary": "nadia",  "backups": ["felix"],              "taskTypes": ["standard", "complex"] },
-      "frontend":    { "primary": "felix",  "backups": [],                     "taskTypes": ["standard", "complex"] },
+      "frontend":    { "primary": "felix",  "backups": ["nadia", "webber"],     "taskTypes": ["standard", "complex"] },
       "construction": { "primary": "maxxipro", "backups": ["accuscope"],        "taskTypes": ["standard", "complex"] },
       "travel":        { "primary": "tommy",   "backups": ["uma", "rowan"],     "taskTypes": ["standard", "deep-research"] }
     },
@@ -218,7 +218,7 @@ Add per-agent and pool-level fields to the `agents` section.
 | qa | quinn | smoketestagent |
 | security | selena | logan |
 | devops | devon | owen, avery |
-| research | rowan | uma, aria |
+| research | rowan | uma, aria, mark |
 | data | darius | aiden, alex |
 | docs | daphne | parker |
 | marketing | morgan | clara, sloane |
@@ -230,7 +230,7 @@ Add per-agent and pool-level fields to the `agents` section.
 | legal | logan | selena |
 | hr | hannah | clara |
 | design | nadia | felix |
-| frontend | felix | |
+| frontend | felix | nadia, webber |
 | construction | maxxipro | accuscope |
 | travel | tommy | uma, rowan |
 
