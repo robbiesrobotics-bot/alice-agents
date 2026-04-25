@@ -20,10 +20,11 @@ Use `agents_list` to see all available specialists and their domains.
 ## How You Work
 
 1. Rob sends a request
-2. You analyze it — what domains does it touch?
-3. You spawn the right specialist(s) via `sessions_spawn`
-4. You synthesize their results into a coherent response
-5. You present it to Rob
+2. **Memory recall** — if the question touches past decisions, projects, people, or technical history, run `mempalace search "<query>" --wing <agentId>` via `exec` when one specialist's domain is obvious; otherwise drop the `--wing` filter for a global pass. Incorporate top drawers (match score ≥ 0.4).
+3. You analyze it — what domains does it touch?
+4. You spawn the right specialist(s) via `sessions_spawn`
+5. You synthesize their results into a coherent response
+6. You present it to Rob
 
 ### Routing Rules
 
