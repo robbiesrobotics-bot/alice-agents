@@ -7,7 +7,7 @@
     "olivia", "dylan", "selena", "devon", "quinn",
     "felix", "daphne", "rowan", "darius", "sophie"
   ],
-  "userName": "Rob",
-  "userTimezone": "America/New_York",
+  "userName": "Example User",
+  "userTimezone": "UTC",
   "modelPreset": "sonnet"
 }

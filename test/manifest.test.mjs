@@ -23,7 +23,7 @@ describe('manifest persistence', () => {
       tier: 'starter',
       agents: ['olivia'],
       userName: 'Alice',
-      userTimezone: 'America/New_York',
+      userTimezone: 'UTC',
       runtime: 'nemoclaw',
       modelPreset: 'detected',
       skills: ['coding-agent'],

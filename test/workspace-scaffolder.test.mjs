@@ -43,7 +43,7 @@ const mockAgent = {
 
 const mockUserInfo = {
   name: 'Alice',
-  timezone: 'America/New_York',
+  timezone: 'UTC',
   notes: '',
 };
 

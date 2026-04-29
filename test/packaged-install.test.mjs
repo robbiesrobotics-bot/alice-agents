@@ -2,10 +2,11 @@ import { after, describe, test } from 'node:test';
 import assert from 'node:assert/strict';
 import { execFileSync } from 'node:child_process';
 import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
-import { join } from 'node:path';
+import { dirname, join } from 'node:path';
 import { tmpdir } from 'node:os';
+import { fileURLToPath } from 'node:url';
 
-const ROOT = '/Users/aliceclaw/.openclaw/workspace-olivia/alice-agents';
+const ROOT = dirname(dirname(fileURLToPath(import.meta.url)));
 const TEMP_ROOT = join(tmpdir(), `alice-packaged-test-${Date.now()}`);
 const PACK_DIR = join(TEMP_ROOT, 'pack');
 const STARTER_HOME = join(TEMP_ROOT, 'starter-home');

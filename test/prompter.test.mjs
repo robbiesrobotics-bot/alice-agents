@@ -16,7 +16,7 @@ describe('detectTimezone', () => {
 
   test('returns a valid IANA timezone or UTC fallback', () => {
     const tz = detectTimezone();
-    // Should contain either a "/" (e.g. America/New_York) or be "UTC"
+    // Should contain either a "/" (e.g. Region/City) or be "UTC"
     assert.ok(
       tz.includes('/') || tz === 'UTC',
       `expected IANA timezone or UTC, got: ${tz}`

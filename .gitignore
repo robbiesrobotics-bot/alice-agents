@@ -1,10 +1,41 @@
 
-# Private — not for public repo
-templates/agents-pro.json
-templates/agents.json
-marketing/
-scripts/
-ROSTER.md
-NEMOCLAW.md
+# Release artifacts
 *.tgz
+
+# Local scripts and runtime-specific notes
+scripts/
+NEMOCLAW.md
 SELF-HEALING-SPEC.md
+
+# Internal operating content — keep local, not public
+admin/
+blog/drafts/
+data-health/
+intel/
+marketing/
+metrics/
+reports/
+sales/
+social/
+support/drafts/
+support/inbox/
+templates/skills/
+templates/workspaces/*
+!templates/workspaces/_shared/
+!templates/workspaces/_shared/**
+AUDIT-*.md
+BUSINESS-OS-PLAN.md
+COMPETITIVE-*.md
+ECOSYSTEM-SCORECARD-*.md
+EXEC-SCORECARD-*.md
+GITHUB-WEBHOOK-SETUP.md
+LAUNCH-CHECKLIST-*.md
+LICENSE-GATE-COMPLETE.md
+MESSAGING-AUDIT-*.md
+PAGE-AUDIT-*.md
+PHASE2-CRON-PROMPTS.md
+QA-REPORT-*.md
+ROSTER.md
+SPEC-v1.6-mempalace.md
+WEEK1.md
+WORKFLOW-AUDIT-*.md
