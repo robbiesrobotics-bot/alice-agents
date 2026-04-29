@@ -82,6 +82,14 @@ describe('packaged installer flows', () => {
     assert.equal(existsSync(join(PACKAGE_ROOT, 'templates', 'agents-starter.json')), true);
     assert.equal(existsSync(join(PACKAGE_ROOT, 'templates', 'agents-pro.json')), true);
     assert.equal(existsSync(join(PACKAGE_ROOT, 'templates', 'agents.json')), false);
+    assert.equal(existsSync(join(PACKAGE_ROOT, 'templates', 'skills', 'claude-code', 'SKILL.md')), false);
+    assert.equal(existsSync(join(PACKAGE_ROOT, 'templates', 'workspaces', 'olivia', 'lead_debug.png')), false);
+    assert.equal(existsSync(join(PACKAGE_ROOT, 'templates', 'workspaces', 'olivia', 'skills', '1password', 'SKILL.md')), false);
+    assert.equal(existsSync(join(PACKAGE_ROOT, 'templates', 'workspaces', 'devon', 'check_github.py')), false);
+    assert.equal(existsSync(join(PACKAGE_ROOT, 'templates', 'workspaces', 'dylan', '.env.example')), false);
+    assert.equal(existsSync(join(PACKAGE_ROOT, 'templates', 'workspaces', 'olivia', 'SOUL.md')), false);
+    assert.equal(existsSync(join(PACKAGE_ROOT, 'templates', 'workspaces', 'olivia', 'MEMORY.md')), false);
+    assert.equal(existsSync(join(PACKAGE_ROOT, 'templates', 'workspaces', '_shared', 'HEARTBEAT.md')), true);
   });
 
   test('fresh starter install works from the packed artifact', () => {
@@ -122,8 +130,8 @@ describe('packaged installer flows', () => {
     const config = readJson(join(PRO_HOME, '.openclaw', 'openclaw.json'));
 
     assert.equal(manifest.tier, 'pro');
-    assert.equal(manifest.agents.length, 28);
-    assert.equal(config.agents.list.length, 28);
+    assert.equal(manifest.agents.length, 33);
+    assert.equal(config.agents.list.length, 33);
   });
 
   test('doctor reports healthy on a packaged starter install', () => {

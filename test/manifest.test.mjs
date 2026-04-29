@@ -24,6 +24,7 @@ describe('manifest persistence', () => {
       agents: ['olivia'],
       userName: 'Alice',
       userTimezone: 'America/New_York',
+      runtime: 'nemoclaw',
       modelPreset: 'detected',
       skills: ['coding-agent'],
       codingTool: 'codex',
@@ -35,8 +36,9 @@ describe('manifest persistence', () => {
     });
 
     assert.ok(first.version, 'manifest should include the package version');
-    assert.equal(first.schemaVersion, 2);
+    assert.equal(first.schemaVersion, 3);
     assert.equal(first.packageVersion, first.version);
+    assert.equal(second.runtime, 'nemoclaw');
     assert.deepEqual(second.skills, ['coding-agent']);
     assert.equal(second.codingTool, 'codex');
     assert.equal(readManifest().agents.length, 2);

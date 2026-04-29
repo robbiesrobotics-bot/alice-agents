@@ -136,7 +136,7 @@ npx @robbiesrobotics/alice-agents --yes --tier pro --license-key YOUR_KEY --clou
 npx @robbiesrobotics/alice-agents --yes --runtime hermes
 npx @robbiesrobotics/alice-agents --yes --runtime openclaw
 
-# Reinstall over existing A.L.I.C.E.
+# Reinstall over existing A.L.I.C.E. and refresh the managed roster
 npx @robbiesrobotics/alice-agents --yes --force
 
 # Show all options

@@ -9,6 +9,7 @@ describe('agent registry', () => {
 
   test('loads starter and pro rosters with expected counts', () => {
     assert.equal(getAgentIdsForTier('starter').length, 10);
-    assert.equal(getAgentIdsForTier('pro').length, 28);
+    assert.equal(getAgentIdsForTier('pro').length, 33);
+    assert.equal(getAgentIdsForTier('pro', { runtime: 'hermes' })[0], 'alice');
   });
 });

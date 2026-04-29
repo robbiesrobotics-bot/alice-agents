@@ -39,7 +39,7 @@ if (flags.has('--help') || flags.has('-h')) {
     npx @robbiesrobotics/alice-agents --help       Show this help
 
   Options:
-    --yes         Skip prompts, use detected model when available (otherwise Sonnet)
+    --yes         Skip prompts and use detected defaults
     --update      Non-interactive upgrade (alias for --yes with upgrade mode)
     --uninstall   Remove A.L.I.C.E. agents (preserves non-ALICE agents)
     --doctor      Run diagnostics and check install health

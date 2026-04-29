@@ -6,7 +6,7 @@
  */
 import { test, describe, after } from 'node:test';
 import assert from 'node:assert/strict';
-import { mkdirSync, existsSync, rmSync } from 'node:fs';
+import { mkdirSync, existsSync, readFileSync, rmSync } from 'node:fs';
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
 
@@ -87,6 +87,20 @@ describe('scaffoldWorkspace', () => {
         `written array should include ${filename}`
       );
     }
+  });
+
+  test('normalizes coding and memory guidance in installed product files', () => {
+    const result = scaffoldWorkspace(mockAgent, mockUserInfo, 1);
+    workspaceDir = result.workspaceDir;
+
+    const agents = readFileSync(join(workspaceDir, 'AGENTS.md'), 'utf8');
+    const tools = readFileSync(join(workspaceDir, 'TOOLS.md'), 'utf8');
+    const soul = readFileSync(join(workspaceDir, 'SOUL.md'), 'utf8');
+
+    assert.match(agents, /`coding-agent` skill/);
+    assert.doesNotMatch(agents, /claude_code/);
+    assert.match(tools, /preferred coding CLI/i);
+    assert.match(soul, /Treat `mempalace` as optional tooling/);
   });
 
   test('returns workspaceDir pointing inside our temp .openclaw dir', () => {
