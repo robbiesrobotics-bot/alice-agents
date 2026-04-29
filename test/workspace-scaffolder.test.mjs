@@ -117,6 +117,20 @@ describe('scaffoldWorkspace', () => {
       scaffoldWorkspace(mockAgent, mockUserInfo, 1);
     });
   });
+
+  test('alice-runtime mode writes canonical definition.json under ~/.alice/agents', () => {
+    const result = scaffoldWorkspace(mockAgent, mockUserInfo, 1, { runtime: 'alice-runtime' });
+    const agentDir = join(TEMP_HOME, '.alice', 'agents', mockAgent.id);
+    const definitionPath = join(agentDir, 'definition.json');
+    const definition = JSON.parse(readFileSync(definitionPath, 'utf8'));
+
+    assert.equal(result.workspaceDir, join(agentDir, 'workspace'));
+    assert.equal(result.definitionPath, definitionPath);
+    assert.equal(definition.id, mockAgent.id);
+    assert.equal(definition.workspacePath, result.workspaceDir);
+    assert.equal(definition.personaFiles.soul, 'SOUL.md');
+    assert.deepEqual(definition.tools, mockAgent.tools);
+  });
 });
 
 describe('scaffoldSkills', () => {
@@ -151,5 +165,38 @@ describe('scaffoldSkills', () => {
     const skillPath = join(TEMP_OPENCLAW, 'skills', 'coding-agent', 'SKILL.md');
     assert.equal(preference.preferred.name, 'Codex');
     assert.ok(existsSync(skillPath), 'coding-agent skill should be written');
+  });
+
+  test('alice-runtime mode writes skills under ~/.alice instead of ~/.openclaw', () => {
+    scaffoldSkills({
+      skillId: 'coding-agent',
+      preferredTool: 'codex',
+      fallbackTool: 'claude',
+      preferred: {
+        id: 'codex',
+        name: 'Codex',
+        cli: 'codex',
+        skillHeading: 'Codex',
+        primaryExample: `codex exec --full-auto -C /path/to/project 'Task'`,
+        reviewExample: `codex review --base main 'Review'`,
+      },
+      fallback: {
+        id: 'claude',
+        name: 'Claude Code',
+        cli: 'claude',
+        skillHeading: 'Claude Code',
+        primaryExample: `claude --permission-mode bypassPermissions --print 'Task'`,
+        reviewExample: `claude --permission-mode bypassPermissions --print 'Review'`,
+      },
+      available: { codex: true, claude: false },
+      selectionReason: 'test',
+      provider: 'openai',
+      override: 'auto',
+    }, { runtime: 'alice-runtime' });
+
+    assert.ok(
+      existsSync(join(TEMP_HOME, '.alice', 'skills', 'coding-agent', 'SKILL.md')),
+      'alice-runtime coding-agent skill should be written under ~/.alice'
+    );
   });
 });

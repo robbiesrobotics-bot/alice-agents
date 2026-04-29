@@ -11,6 +11,7 @@ const TEMP_ROOT = join(tmpdir(), `alice-packaged-test-${Date.now()}`);
 const PACK_DIR = join(TEMP_ROOT, 'pack');
 const STARTER_HOME = join(TEMP_ROOT, 'starter-home');
 const PRO_HOME = join(TEMP_ROOT, 'pro-home');
+const ALICE_RUNTIME_HOME = join(TEMP_ROOT, 'alice-runtime-home');
 const BIN_DIR = join(TEMP_ROOT, 'bin');
 
 mkdirSync(PACK_DIR, { recursive: true });
@@ -138,5 +139,20 @@ describe('packaged installer flows', () => {
   test('doctor reports healthy on a packaged starter install', () => {
     const output = runCli(['--doctor'], STARTER_HOME);
     assert.match(output, /A\.L\.I\.C\.E\. is healthy!/);
+  });
+
+  test('forced alice-runtime install writes canonical ~/.alice agents', () => {
+    runCli(['--yes', '--runtime', 'alice-runtime', '--tier', 'starter', '--no-cloud'], ALICE_RUNTIME_HOME);
+
+    const manifest = readJson(join(ALICE_RUNTIME_HOME, '.alice', '.alice-manifest.json'));
+    const definition = readJson(join(ALICE_RUNTIME_HOME, '.alice', 'agents', 'olivia', 'definition.json'));
+
+    assert.equal(manifest.runtime, 'alice-runtime');
+    assert.equal(manifest.agents.length, 10);
+    assert.equal(definition.id, 'olivia');
+    assert.equal(
+      definition.workspacePath,
+      join(ALICE_RUNTIME_HOME, '.alice', 'agents', 'olivia', 'workspace')
+    );
   });
 });

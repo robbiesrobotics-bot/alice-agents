@@ -34,7 +34,7 @@ if (flags.has('--help') || flags.has('-h')) {
     npx @robbiesrobotics/alice-agents --skills     Manage skills (install, remove, browse)
     npx @robbiesrobotics/alice-agents --cloud      Enable A.L.I.C.E. | Control Cloud during install
     npx @robbiesrobotics/alice-agents --hermes-bridge  Enable Hermes agent bridge during install (OpenClaw+Hermes)
-    npx @robbiesrobotics/alice-agents --runtime <hermes|openclaw|nemoclaw>  Force runtime selection
+    npx @robbiesrobotics/alice-agents --runtime <alice-runtime|hermes|openclaw|nemoclaw>  Force runtime selection
     npx @robbiesrobotics/alice-agents --version    Show version
     npx @robbiesrobotics/alice-agents --help       Show this help
 
@@ -47,7 +47,7 @@ if (flags.has('--help') || flags.has('-h')) {
     --no-cloud    Skip A.L.I.C.E. | Control Cloud setup during install
     --hermes-bridge  Enable Hermes agent bridge (create hermes-agents.json, detect model)
     --tier <starter|pro>           Force the install tier
-    --runtime <hermes|openclaw|nemoclaw>  Force specific runtime
+    --runtime <alice-runtime|hermes|openclaw|nemoclaw>  Force specific runtime
     --force                        Force reinstall even if already installed
     --license-key <key>            Provide a Pro license key for automation
     --coding-tool <auto|claude|codex>  Override the preferred coding CLI
