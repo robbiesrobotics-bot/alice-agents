@@ -41,6 +41,20 @@ const mockAgent = {
   tools: { profile: 'coding' },
 };
 
+const mockAthena = {
+  id: 'athena',
+  name: 'Athena',
+  domain: 'Software Delivery',
+  theme: 'software delivery lead',
+  emoji: 'A',
+  description: 'Coordinates coding delivery',
+  tier: 'starter',
+  coding: false,
+  isOrchestrator: false,
+  sandbox: { mode: 'off' },
+  tools: { profile: 'full' },
+};
+
 const mockUserInfo = {
   name: 'Alice',
   timezone: 'UTC',
@@ -130,6 +144,21 @@ describe('scaffoldWorkspace', () => {
     assert.equal(definition.workspacePath, result.workspaceDir);
     assert.equal(definition.personaFiles.soul, 'SOUL.md');
     assert.deepEqual(definition.tools, mockAgent.tools);
+  });
+
+  test('uses Athena-specific workspace templates when present', () => {
+    const result = scaffoldWorkspace(mockAthena, mockUserInfo, 11);
+    const soul = readFileSync(join(result.workspaceDir, 'SOUL.md'), 'utf8');
+    const agents = readFileSync(join(result.workspaceDir, 'AGENTS.md'), 'utf8');
+    const tools = readFileSync(join(result.workspaceDir, 'TOOLS.md'), 'utf8');
+
+    assert.match(soul, /Software Delivery Lead/);
+    assert.match(soul, /Dylan owns backend/);
+    assert.match(agents, /MVP Specialist Mapping/);
+    assert.match(agents, /Felix/);
+    assert.match(agents, /Claw Code MCP/);
+    assert.match(tools, /Paperclip/);
+    assert.doesNotMatch(soul, /a Software Delivery specialist focused on delivering expert-level work/);
   });
 });
 

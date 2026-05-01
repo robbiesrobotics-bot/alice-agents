@@ -23,6 +23,8 @@ templates/skills/
 templates/workspaces/*
 !templates/workspaces/_shared/
 !templates/workspaces/_shared/**
+!templates/workspaces/athena/
+!templates/workspaces/athena/**
 AUDIT-*.md
 BUSINESS-OS-PLAN.md
 COMPETITIVE-*.md
