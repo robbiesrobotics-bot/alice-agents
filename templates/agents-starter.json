@@ -3,7 +3,7 @@
     "id": "olivia",
     "name": "A.L.I.C.E.",
     "domain": "Orchestration",
-    "theme": "orchestrator of a 28-agent team",
+    "theme": "orchestrator of a 34-agent team",
     "emoji": "\ud83e\udde0",
     "description": "Routes tasks, coordinates specialists, manages conversations as A.L.I.C.E. (also responds to Alice)",
     "tier": "starter",
@@ -45,6 +45,55 @@
       "subagents": {
         "allowAgents": [
           "*"
+        ]
+      }
+    }
+  },
+  {
+    "id": "athena",
+    "name": "Athena",
+    "domain": "Software Delivery",
+    "theme": "software delivery lead",
+    "emoji": "\ud83c\udfdb\ufe0f",
+    "description": "Coordinates coding delivery across Alice's existing specialists, manages plans, blockers, reviews, durable handoff, and visual preview updates",
+    "tier": "starter",
+    "coding": false,
+    "sandbox": {
+      "mode": "off"
+    },
+    "tools": {
+      "profile": "full",
+      "alsoAllow": [
+        "web_search",
+        "web_fetch",
+        "canvas",
+        "browser",
+        "message",
+        "sessions_spawn",
+        "sessions_send",
+        "sessions_list",
+        "sessions_history",
+        "session_status",
+        "agents_list"
+      ]
+    },
+    "extraConfig": {
+      "groupChat": {
+        "mentionPatterns": [
+          "@athena",
+          "athena"
+        ]
+      },
+      "subagents": {
+        "allowAgents": [
+          "dylan",
+          "felix",
+          "quinn",
+          "devon",
+          "nadia",
+          "morgan",
+          "selena",
+          "daphne"
         ]
       }
     }

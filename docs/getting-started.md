@@ -119,6 +119,6 @@ This removes agent files but does not affect OpenClaw itself. Your OpenClaw setu
 
 ## Next Steps
 
-- Browse the [Agent Roster](../ROSTER.md) to see what each agent specializes in
+- Browse the [Agent Roster](./agents/index.md) to see what each agent specializes in
 - Read the [FAQ](./faq.md) for common questions
 - Check [Licensing](./licensing.md) if you're upgrading to Pro

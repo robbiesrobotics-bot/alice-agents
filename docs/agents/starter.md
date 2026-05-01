@@ -1,6 +1,6 @@
 # Starter Agents
 
-The 10 Starter agents are available in every A.L.I.C.E. deployment. They cover the core technical and operational needs of most software teams.
+The 11 Starter agents are available in every A.L.I.C.E. deployment. They cover the core technical and operational needs of most software teams.
 
 > All requests go through **Olivia** — she routes to these agents automatically. You don't need to address them directly.
 
@@ -9,6 +9,22 @@ The 10 Starter agents are available in every A.L.I.C.E. deployment. They cover t
 ## 🧠 Olivia — Chief Orchestration Officer
 
 Olivia is the entry point for all requests. See [olivia.md](./olivia.md) for full details.
+
+---
+
+## 🏛️ Athena — Software Delivery Lead
+
+Athena turns coding goals, bug reports, technical debt, and product requests into coordinated implementation work. She plans the delivery path, chooses the right existing Alice specialists, supervises progress, tracks blockers and reviews, and keeps visual work connected to Canvas when previews are available.
+
+**Works well for:**
+- "Break this feature into implementation tasks and coordinate the agents"
+- "Fix this frontend bug, run tests, and tell me what changed"
+- "This is becoming a longer project — track the blockers and handoff points"
+
+**Don't ask Athena to:**
+- Write every code change herself (that's Dylan or Felix)
+- Replace Olivia as the main chat entry point (Olivia still routes requests)
+- Replace Paperclip or a durable issue tracker for long-running state
 
 ---
 

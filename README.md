@@ -2,7 +2,7 @@
 
 **Adaptive Learning & Intelligent Coordination Engine**
 
-One conversation. One orchestrator. 10 starter agents — with 23 more in Pro. Tell A.L.I.C.E. what you need, and she routes it to the right specialist and delivers the result.
+One conversation. One orchestrator. 11 starter agents — with 23 more in Pro. Tell A.L.I.C.E. what you need, and she routes it to the right specialist and delivers the result.
 
 A.L.I.C.E. runs on any supported runtime — OpenClaw, NemoClaw, or Hermes Agent. No required API key, no vendor lock-in.
 
@@ -39,11 +39,12 @@ npx @robbiesrobotics/alice-agents --yes --runtime openclaw
 
 ## What You Get
 
-**Starter** — 10 core agents. **Pro** — 23 additional agents. [Sign up at getalice.av3.ai](https://getalice.av3.ai/signup?plan=pro)
+**Starter** — 11 core agents. **Pro** — 23 additional agents. [Sign up at getalice.av3.ai](https://getalice.av3.ai/signup?plan=pro)
 
 | Agent | Domain | Tier |
 |-------|--------|------|
 | **A.L.I.C.E.** | Orchestration | Starter |
+| **Athena** | Software Delivery | Starter |
 | **Dylan** | Development | Starter |
 | **Selena** | Security | Starter |
 | **Devon** | DevOps | Starter |

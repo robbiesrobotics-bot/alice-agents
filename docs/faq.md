@@ -5,7 +5,7 @@
 ## General
 
 ### What is A.L.I.C.E.?
-A.L.I.C.E. (Autonomous Learning Intelligence Coordination Engine) is a multi-agent AI team that runs inside OpenClaw. It gives you 28 specialized AI agents — each with a defined role — coordinated by Olivia, the orchestrator. Instead of prompting one general-purpose AI, you get specialists: engineers, designers, analysts, a lawyer, a controller, a project manager, and more.
+A.L.I.C.E. (Autonomous Learning Intelligence Coordination Engine) is a multi-agent AI team that runs inside OpenClaw. It gives you 34 specialized AI agents — each with a defined role — coordinated by Olivia, the orchestrator. Instead of prompting one general-purpose AI, you get specialists: engineers, designers, analysts, a lawyer, a controller, a project manager, and more.
 
 ### Do I need an API key?
 No. A.L.I.C.E. does not require any API keys. It uses whatever model OpenClaw already has configured on your machine. If OpenClaw is working, A.L.I.C.E. will work.
@@ -28,11 +28,11 @@ Through your normal OpenClaw session. Address Olivia (or any specialist directly
 | | Starter | Pro |
 |---|---------|-----|
 | **Price** | Free | $49 one-time |
-| **Agents** | 10 | 28 |
+| **Agents** | 11 | 34 |
 | **License** | None required | License key via email |
 | **Updates** | Included | Included |
 
-Starter gives you the 10 core operational agents: Olivia, Dylan, Selena, Devon, Quinn, Felix, Daphne, Rowan, Darius, and Sophie. Pro unlocks all 28, adding specialists in analytics, automation, CRM, legal, finance, HR, marketing, travel, and more.
+Starter gives you the 11 core operational agents: Olivia, Athena, Dylan, Selena, Devon, Quinn, Felix, Daphne, Rowan, Darius, and Sophie. Pro unlocks all 34, adding specialists in analytics, automation, CRM, legal, finance, HR, marketing, travel, and more.
 
 ### Is the Pro license a subscription?
 No. Pro is a one-time payment of $49. You pay once and own it. Updates to A.L.I.C.E. are included.
@@ -54,7 +54,7 @@ Contact support and we'll look it up by your email address. Keys are issued via 
 ## Agents
 
 ### How many agents are there?
-28 total — 10 in Starter, 28 in Pro. See the [full roster](../ROSTER.md) for names, titles, and responsibilities.
+34 total — 11 in Starter, 34 in Pro. See the [full roster](./agents/index.md) for names, titles, and responsibilities.
 
 ### Who routes my requests?
 Olivia, the Chief Orchestration Officer, is the default entry point. She reads your request, determines which specialist is best suited, and hands it off. You can also address any specialist directly by name.

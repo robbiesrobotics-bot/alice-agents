@@ -5,17 +5,17 @@
 | Feature | Starter | Pro |
 |---------|---------|-----|
 | **Price** | Free | $49 one-time |
-| **Agents included** | 10 | 28 |
+| **Agents included** | 11 | 34 |
 | **License key required** | No | Yes |
 | **Updates** | Included | Included |
 | **Cloud add-on eligible** | Yes | Yes |
 | **Commercial use** | Yes | Yes |
 
-### Starter Agents (10)
-Olivia, Dylan, Selena, Devon, Quinn, Felix, Daphne, Rowan, Darius, Sophie
+### Starter Agents (11)
+Olivia, Athena, Dylan, Selena, Devon, Quinn, Felix, Daphne, Rowan, Darius, Sophie
 
-### Pro Agents (18 additional)
-Hannah, Aiden, Clara, Avery, Owen, Isaac, Tommy, Sloane, Nadia, Morgan, Alex, Uma, Caleb, Elena, Audrey, Logan, Eva, Parker
+### Pro Agents (23 additional)
+Hannah, Aiden, Clara, Avery, Owen, Isaac, Tommy, Sloane, Nadia, Morgan, Alex, Uma, Caleb, Elena, Audrey, Logan, Eva, Parker, Aria, Nate, MaxxiPro, AccuScope, SmokeTestAgent
 
 ### Cloud Add-On ($20/month)
 An optional hosted runtime for teams that prefer not to self-host OpenClaw. Not required for local or self-hosted deployments. Billed separately via Stripe subscription.
@@ -53,7 +53,7 @@ Or if you're re-installing and want to skip prompts:
 npx @robbiesrobotics/alice-agents --yes --tier pro --license-key YOUR_KEY
 ```
 
-The installer validates the key and unlocks all 28 Pro agents. If the validation service is temporarily unavailable, the installer stores a short grace period and asks you to re-run validation later.
+The installer validates the key and unlocks all 34 Pro agents. If the validation service is temporarily unavailable, the installer stores a short grace period and asks you to re-run validation later.
 
 ---
 

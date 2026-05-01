@@ -16,6 +16,7 @@ const {
   isAliceRuntimeInstalled,
   toAliceRuntimeDefinition,
 } = await import('../lib/alice-runtime-adapter.mjs');
+const { loadAgentRegistry } = await import('../lib/agent-registry.mjs');
 
 process.env.HOME = originalHome;
 
@@ -54,6 +55,20 @@ describe('alice-runtime adapter', () => {
     assert.equal(definition.personaFiles.playbook, 'PLAYBOOK.md');
     assert.deepEqual(definition.groupChat, { mentionPatterns: ['@alice'] });
     assert.deepEqual(definition.subagents, { allowAgents: ['dylan'] });
+  });
+
+  test('maps Athena with existing Alice specialist delegation intact', () => {
+    const athena = loadAgentRegistry('starter', { runtime: 'alice-runtime' })
+      .find((entry) => entry.id === 'athena');
+    const definition = toAliceRuntimeDefinition(athena);
+
+    assert.equal(definition.id, 'athena');
+    assert.equal(definition.domain, 'Software Delivery');
+    assert.equal(definition.workspacePath, getAliceRuntimeWorkspaceDir('athena'));
+    assert.deepEqual(definition.groupChat, { mentionPatterns: ['@athena', 'athena'] });
+    assert.deepEqual(definition.subagents, {
+      allowAgents: ['dylan', 'felix', 'quinn', 'devon', 'nadia', 'morgan', 'selena', 'daphne'],
+    });
   });
 
   test('detects alice-runtime from command availability', () => {

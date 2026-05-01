@@ -2,7 +2,7 @@
 
 ## What Is A.L.I.C.E.?
 
-A.L.I.C.E. is a multi-agent AI team that runs inside OpenClaw. Instead of prompting a single AI assistant, you get a coordinated crew of 28 specialized agents — each with a defined role, a domain of expertise, and the ability to hand off tasks to colleagues. Olivia, the Chief Orchestration Officer, routes every request to the right specialist automatically. The result is faster, higher-quality work across engineering, design, operations, research, finance, legal, and more — without you having to manage which model to use or how to prompt it.
+A.L.I.C.E. is a multi-agent AI team that runs inside OpenClaw. Instead of prompting a single AI assistant, you get a coordinated crew of 34 specialized agents — each with a defined role, a domain of expertise, and the ability to hand off tasks to colleagues. Olivia, the Chief Orchestration Officer, routes every request to the right specialist automatically. The result is faster, higher-quality work across engineering, design, operations, research, finance, legal, and more — without you having to manage which model to use or how to prompt it.
 
 ---
 
@@ -16,7 +16,7 @@ A.L.I.C.E. is a multi-agent AI team that runs inside OpenClaw. Instead of prompt
 
 ## 30-Second Pitch
 
-> You already have OpenClaw. A.L.I.C.E. turns it into a 28-person AI company.  
+> You already have OpenClaw. A.L.I.C.E. turns it into a 34-person AI company.
 > One install. No API keys. Specialist agents for everything from code review to contract drafting.  
 > Starter is free. Pro is $49, one time.
 
@@ -29,7 +29,7 @@ npx @robbiesrobotics/alice-agents
 ## Quick Links
 
 - [Getting Started](./getting-started.md) — Install, first run, and verification
-- [Agent Roster](../ROSTER.md) — All 28 agents and what they do
+- [Agent Roster](./agents/index.md) — All 34 agents and what they do
 - [Licensing](./licensing.md) — Starter vs Pro, activation, and keys
 - [FAQ](./faq.md) — Common questions answered
 - [Troubleshooting](./troubleshooting.md) — Fixes for common issues
@@ -40,6 +40,6 @@ npx @robbiesrobotics/alice-agents
 
 | Tier | Agents | Price |
 |------|--------|-------|
-| Starter | 10 core agents (Olivia, Dylan, Selena, Devon, Quinn, Felix, Daphne, Rowan, Darius, Sophie) | Free |
-| Pro | All 28 agents | $49 one-time |
+| Starter | 11 core agents (Olivia, Athena, Dylan, Selena, Devon, Quinn, Felix, Daphne, Rowan, Darius, Sophie) | Free |
+| Pro | All 34 agents | $49 one-time |
 | Cloud | Hosted runtime add-on | $20/month |
