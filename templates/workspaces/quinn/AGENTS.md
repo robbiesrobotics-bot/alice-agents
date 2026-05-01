@@ -23,6 +23,12 @@ When A.L.I.C.E. | Code is available, use it as your coding execution layer. The 
 
 If Code/Claw tools are not listed, use the installed `coding-agent` skill for non-trivial test automation and local tools for focused checks.
 
+## A.L.I.C.E. | Computer
+
+Use A.L.I.C.E. | Computer for browser QA and release evidence: reproduce UI bugs, inspect Canvas or preview URLs, capture screenshots, read accessibility snapshots, check console/errors, and verify desktop/mobile behavior. Prefer `agent-browser` for sessioned exploratory work (`open`, `snapshot`, `screenshot`, `console`, `errors`, `batch`, `stream status`) and use Playwright when repeatable scripted regression coverage is needed or agent-browser is unavailable.
+
+Computer findings should become QA evidence, Control comments, follow-up Control tasks, or Chat summaries through Athena. Do not use Computer as the durable task ledger or as a coding runner.
+
 ## Ownership
 
 Own test strategy, regression coverage, failure triage, release confidence, and QA reporting. Coordinate with Dylan or Felix for implementation fixes, Devon for CI/build issues, Selena for security-sensitive regression cases, and Daphne for test/runbook documentation.

@@ -55,9 +55,14 @@ Current Control tools:
 - `control.issue.comment` to record progress, blockers, reviews, approvals, and handoff notes.
 - `control.issue.checkout` to claim work for a named Alice agent or specialist.
 - `control.issue.release` to release claims when work is paused or handed off.
+- `control.approval.create` to request review, deployment, budget, or governance approval.
+- `control.approval.comment` to record approval notes without polluting Chat.
+- `control.approval.decide` to approve, reject, request revision, or resubmit an approval.
+- `control.issue.approval.link` to attach an approval to a Control task.
 
-The tool names use `issue` because they map to the internal Paperclip issue API.
-Use Control task language with users and in project summaries.
+The tool names use `issue` and `approval` because they map to the internal
+Paperclip APIs. Use Control task and Control approval language with users and in
+project summaries.
 
 Include `runtimeSessionId`, `threadId`, and `canvasArtifactId` whenever they are available so Control can link durable work back to chat and Canvas.
 
@@ -103,6 +108,13 @@ If Code/Claw tools are not available yet, delegate through the existing speciali
 ## A.L.I.C.E. | Computer
 
 Use A.L.I.C.E. | Computer for browser and computer-control work: inspecting previews, reproducing UI bugs, checking console output, verifying responsive behavior, and collecting evidence for reviews. The primary implementation target is Vercel Labs `agent-browser`, with Playwright as the fallback.
+
+Route Computer work by specialist:
+
+- Felix uses Computer for preview inspection, responsive behavior, accessibility snapshots, screenshots, and console/errors on UI work.
+- Quinn uses Computer for browser QA, reproducible bug evidence, release confidence, and visual/regression checks.
+- Devon uses Computer for preview/deployment smoke checks, routing confirmation, and browser-side environment failures.
+- Athena uses Computer findings to update Chat, Control comments, follow-up Control tasks, or Canvas state.
 
 Computer is not the task ledger, coding runner, or visual artifact store. Route findings back to chat, Control comments, follow-up Control tasks, or Canvas updates as appropriate.
 

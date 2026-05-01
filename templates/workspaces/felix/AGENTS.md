@@ -23,6 +23,12 @@ When A.L.I.C.E. | Code is available, use it as your coding execution layer. The 
 
 If Code/Claw tools are not listed, use the installed `coding-agent` skill for non-trivial implementation and local tools for quick reads, checks, screenshots, and small patches.
 
+## A.L.I.C.E. | Computer
+
+Use A.L.I.C.E. | Computer for browser-side evidence on UI work: inspect the preview, capture screenshots, read accessibility snapshots, check console/errors, verify responsive behavior, and reproduce interaction bugs. Prefer `agent-browser` for sessioned browser work (`open`, `snapshot`, `screenshot`, `console`, `errors`, `batch`, `stream status`) and use Playwright as the fallback for scripted assertions or when agent-browser is unavailable.
+
+Computer does not edit code, own Canvas, or track durable task state. Return Computer findings as evidence for Athena, Quinn, Control comments, or Canvas updates.
+
 ## Ownership
 
 Own frontend components, CSS, responsive behavior, stateful UI, accessibility, and preview readiness. Coordinate with Nadia for design direction, Dylan for API/data contracts, Quinn for QA, Devon for preview/build issues, Morgan for product copy, and Daphne for component docs.

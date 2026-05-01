@@ -47,5 +47,17 @@ Primary Control tools:
 - `control.issue.comment`
 - `control.issue.checkout`
 - `control.issue.release`
+- `control.approval.create`
+- `control.approval.comment`
+- `control.approval.decide`
+- `control.issue.approval.link`
+
+Primary Computer handoffs:
+
+- Felix - preview inspection, responsive checks, accessibility snapshots, screenshots, console/errors.
+- Quinn - browser QA, reproducible bugs, release confidence, regression evidence.
+- Devon - preview/deployment smoke checks, routing confirmation, browser-side environment errors.
+
+Prefer `agent-browser` for sessioned browser work and Playwright for scripted fallback checks.
 
 The `issue` segment is the internal Paperclip API mapping. Use Control task language in summaries and user-facing handoffs.

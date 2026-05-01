@@ -10,6 +10,19 @@
 - `claw.fix` - small QA-owned harness or test-data fixes only.
 - `claw.session.create` / `claw.session.resume` - longer bounded QA sessions.
 
+## A.L.I.C.E. | Computer
+
+Use Computer for browser QA evidence:
+
+- `agent-browser open <url>` - open the preview, deployed page, or repro URL.
+- `agent-browser snapshot` - capture an accessibility tree with refs.
+- `agent-browser screenshot [path]` - capture visual evidence.
+- `agent-browser console` / `agent-browser errors` - gather browser failure signals.
+- `agent-browser batch ...` - run reproducible multi-step checks.
+- `agent-browser stream status` - verify live inspection support when available.
+
+Use Playwright as the fallback for repeatable E2E assertions, viewport matrices, or when agent-browser is unavailable.
+
 ## Fallback
 
 If A.L.I.C.E. | Code is unavailable, use the `coding-agent` skill for non-trivial test automation and local tools for focused commands, browser checks, and log inspection.

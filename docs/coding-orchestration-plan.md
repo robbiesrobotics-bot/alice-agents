@@ -83,6 +83,7 @@ Do not add new coding personas for MVP unless the official roster changes.
 - Code hardening finding: the current upstream `ultraworkers/claw-code` repo builds a `claw` CLI and includes `claw mcp serve`, but that raw MCP surface does not expose the high-level A.L.I.C.E. | Code `claw.fix`/session contract expected by `alice-runtime`; live smoke testing should use the standalone A.L.I.C.E. | Code wrapper instead.
 - `/Users/aliceclaw/code/alice-code-mcp` now contains the first standalone A.L.I.C.E. | Code MCP wrapper. It speaks alice-runtime's stdio JSON-RPC contract and shells out to the raw `claw` CLI behind high-level `claw.*` tools.
 - `/Users/aliceclaw/code/agent-browser` now contains the cloned Vercel Labs `agent-browser` source for A.L.I.C.E. | Computer planning. Its useful MVP surfaces are CLI sessions, snapshots, screenshots, console/errors, batch execution, and stream status.
+- Felix, Quinn, Devon, and Athena workspace templates now describe when to use A.L.I.C.E. | Computer, which `agent-browser` surfaces to prefer, and when to fall back to Playwright without treating Computer as Control, Code, or Canvas.
 - Alice Hub includes A.L.I.C.E. | Chat as `/chat`, the synchronous conversation view.
 - `alice-runtime` has Canvas artifact storage and authenticated Canvas API endpoints.
 - Alice Hub Chat can display a right-side Canvas pane from streamed Canvas artifacts.
@@ -102,15 +103,15 @@ Do not add new coding personas for MVP unless the official roster changes.
 
 ## Recommended Next Slice
 
-Continue the no-credential roadmap with A.L.I.C.E. | Computer local planning and wiring.
+Continue the no-credential roadmap with A.L.I.C.E. | Code wrapper hardening.
 
 Scope this slice as:
 
-1. Inspect the locally cloned `/Users/aliceclaw/code/agent-browser` surfaces that can power A.L.I.C.E. | Computer.
-2. Define the runtime/agent-facing Computer tool contract separately from Control, Code, and Canvas.
-3. Document when Athena, Felix, Quinn, and Devon should use Computer versus Code or Canvas.
-4. Keep Playwright as the documented local fallback path.
-5. Stay mocked/local: no browser-provider credentials or production tokens required.
+1. Review `/Users/aliceclaw/code/alice-code-mcp` against alice-runtime's expected `claw.*` contract.
+2. Add contract tests for tool listing, JSON-RPC error handling, structured result validation, and command/env behavior.
+3. Document the exact command/env setup for using the wrapper instead of raw upstream Claw MCP.
+4. Keep live provider calls out of this slice; use fake commands/transports where needed.
+5. Leave real built-`claw` smoke testing for the credential/live validation track.
 
 ## No-Credential Roadmap
 
@@ -121,7 +122,7 @@ These slices can continue without provider credentials or live production tokens
 3. [x] Hub knowledge-base prompt budget so retrieved chunks cannot overfill Chat prompts.
 4. [x] Chat/Canvas continuity tests for refresh, reload, active thread, artifact persistence, desktop/mobile toggles, and non-polluting Control toasts.
 5. [x] Control durable mode with mocked APIs for child tasks, blockers, approvals, review handoffs, heartbeat resume, and Chat/Control linking.
-6. [ ] Computer local planning and wiring around `agent-browser` surfaces with Playwright fallback documented in agent instructions.
+6. [x] Computer local planning and wiring around `agent-browser` surfaces with Playwright fallback documented in agent instructions.
 7. [ ] Code wrapper hardening that does not require live model credentials: contract tests, command/env docs, policy checks, and structured result validation.
 
 ## Remaining Build Slices
@@ -212,7 +213,7 @@ These slices can continue without provider credentials or live production tokens
 - [x] Clone `vercel-labs/agent-browser` locally for integration work.
 - [x] Define the Computer tool boundary separately from Control, Code, and Canvas.
 - [x] Document when Computer should use `agent-browser` versus Playwright fallback.
-- [ ] Connect Computer inspection workflows to Quinn, Devon, Felix, and Athena without making Computer the durable ledger.
+- [x] Connect Computer inspection workflows to Quinn, Devon, Felix, and Athena without making Computer the durable ledger.
 
 ## Non-Goals
 
