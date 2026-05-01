@@ -37,30 +37,30 @@ Do not add new coding personas for MVP unless the official roster changes.
 - `alice-runtime` normalizes Claw coding/session results and attaches Canvas artifacts when preview metadata is returned.
 - `alice-runtime` has Canvas artifact storage and authenticated Canvas API endpoints.
 - Alice Hub Chat can display a right-side Canvas pane from streamed Canvas artifacts.
+- Alice Hub preserves alice-runtime session ids and can reload/poll persisted Canvas artifacts for the active chat thread.
 - RecordorAI compatibility fixes were applied in runtime memory client work; keep future memory changes aligned with RecordorAI, not the old mempalace naming.
 
 ## Recommended Next Slice
 
-Build the Canvas persistence bridge between Alice Hub and alice-runtime.
+Build the Athena durable-mode bridge over Paperclip.
 
-Today, Alice Hub can show Canvas artifacts when a streamed tool result already contains `canvasArtifact`, but it cannot reliably reload or poll persisted artifacts after the stream finishes. The missing link is the alice-runtime session id. Hub has `chat_thread_sessions.sessionParams`, which is the right place to store it, but alice-runtime's OpenAI-compatible stream still needs to expose the internal runtime session id in a stable way.
+The Canvas bridge now gives chat a visual continuity path for coding work. The next product gap is durable work continuity: Athena needs a first-class way to promote a coding conversation into Paperclip issues, create child work, record blockers/review states, and resume through heartbeats without bypassing the stop/resume safety rules.
 
 Scope this slice as:
 
-1. alice-runtime exposes the runtime session id during `/v1/chat/completions` streaming, preferably as an OpenAI-compatible extension field such as `conversation_id`.
-2. Alice Hub's OpenAI-compatible adapter preserves that value in `session_state.params.aliceRuntimeSessionId`.
-3. Alice Hub adds a small runtime Canvas API client for `GET /v1/sessions/{sessionId}/canvas-artifacts`.
-4. Alice Hub Chat polls/reloads Canvas artifacts for the active thread using the stored `aliceRuntimeSessionId`.
-5. Add tests proving streamed Canvas still works and persisted Canvas reloads after page/thread refresh.
+1. Define Athena's durable-mode commands/tools for creating or updating Paperclip issues.
+2. Map chat thread context, runtime session id, and Canvas artifact id into Paperclip issue metadata/comments.
+3. Add child issue creation/update paths for Athena-managed coding plans.
+4. Add blocker and review/approval handoff writes.
+5. Add tests proving Athena can promote chat work to Paperclip without breaking normal chat mode.
 
 ## Remaining Build Slices
 
-1. Hub/runtime Canvas API polling: let Alice Hub query persisted Canvas artifacts by runtime session, not only streamed tool payloads.
-2. Chat thread to runtime session mapping: preserve and expose the runtime session id needed for Canvas artifact lookup.
-3. Paperclip durable mode: let Athena create/update Paperclip issues, child issues, blockers, comments, approvals, and review handoffs.
-4. Claw Code MCP integration hardening: test against the real `ultraworkers/claw-code` MCP server and document required command/env setup.
-5. Repo workflow instructions: support `ALICE_WORKFLOW.md` for build commands, preview commands, test commands, deployment rules, and repo constraints.
-6. RecordorAI validation: keep a live compatibility smoke test for search result shape and write failure shape.
+1. Paperclip durable mode: let Athena create/update Paperclip issues, child issues, blockers, comments, approvals, and review handoffs.
+2. Claw Code MCP integration hardening: test against the real `ultraworkers/claw-code` MCP server and document required command/env setup.
+3. Named specialist acceptance criteria: make Felix/Dylan/Quinn/Devon expectations explicit for Claw-backed work.
+4. Repo workflow instructions: support `ALICE_WORKFLOW.md` for build commands, preview commands, test commands, deployment rules, and repo constraints.
+5. RecordorAI validation: keep a live compatibility smoke test for search result shape and write failure shape.
 
 ## Implementation Checklist
 
@@ -90,9 +90,9 @@ Scope this slice as:
 - [x] Add runtime Canvas artifact types, storage, and API endpoints.
 - [x] Attach Canvas artifacts from coding tool results.
 - [x] Add Alice Hub right-side Canvas pane for streamed artifacts.
-- [ ] Expose and persist alice-runtime session ids through Hub chat sessions.
-- [ ] Add Hub Canvas API polling/reload from runtime persisted artifacts.
-- [ ] Add thread refresh/page reload tests for Canvas continuity.
+- [x] Expose and persist alice-runtime session ids through Hub chat sessions.
+- [x] Add Hub Canvas API polling/reload from runtime persisted artifacts.
+- [ ] Add browser/UI thread refresh and page reload coverage for Canvas continuity.
 
 ### Phase 5: Paperclip Durable Mode
 
