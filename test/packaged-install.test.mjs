@@ -92,6 +92,11 @@ describe('packaged installer flows', () => {
     assert.equal(existsSync(join(PACKAGE_ROOT, 'templates', 'workspaces', 'olivia', 'SOUL.md')), false);
     assert.equal(existsSync(join(PACKAGE_ROOT, 'templates', 'workspaces', 'olivia', 'MEMORY.md')), false);
     assert.equal(existsSync(join(PACKAGE_ROOT, 'templates', 'workspaces', 'athena', 'SOUL.md')), true);
+    assert.equal(existsSync(join(PACKAGE_ROOT, 'templates', 'workspaces', 'felix', 'AGENTS.md')), true);
+    assert.equal(existsSync(join(PACKAGE_ROOT, 'templates', 'workspaces', 'felix', 'TOOLS.md')), true);
+    assert.equal(existsSync(join(PACKAGE_ROOT, 'templates', 'workspaces', 'dylan', 'AGENTS.md')), true);
+    assert.equal(existsSync(join(PACKAGE_ROOT, 'templates', 'workspaces', 'quinn', 'TOOLS.md')), true);
+    assert.equal(existsSync(join(PACKAGE_ROOT, 'templates', 'workspaces', 'devon', 'TOOLS.md')), true);
     assert.equal(existsSync(join(PACKAGE_ROOT, 'templates', 'workspaces', '_shared', 'HEARTBEAT.md')), true);
   });
 

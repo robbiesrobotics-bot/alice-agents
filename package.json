@@ -28,6 +28,10 @@
     "templates/mission-control-bridge/",
     "templates/workspaces/_shared/*.md",
     "templates/workspaces/athena/*.md",
+    "templates/workspaces/devon/*.md",
+    "templates/workspaces/dylan/*.md",
+    "templates/workspaces/felix/*.md",
+    "templates/workspaces/quinn/*.md",
     "README.md"
   ],
   "scripts": {

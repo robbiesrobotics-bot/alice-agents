@@ -55,6 +55,20 @@ const mockAthena = {
   tools: { profile: 'full' },
 };
 
+const mockFelix = {
+  id: 'felix',
+  name: 'Felix',
+  domain: 'Frontend Engineering',
+  theme: 'frontend engineer',
+  emoji: 'F',
+  description: 'Builds and improves user interfaces',
+  tier: 'starter',
+  coding: true,
+  isOrchestrator: false,
+  sandbox: { mode: 'off' },
+  tools: { profile: 'coding' },
+};
+
 const mockUserInfo = {
   name: 'Alice',
   timezone: 'UTC',
@@ -159,6 +173,19 @@ describe('scaffoldWorkspace', () => {
     assert.match(agents, /Claw Code MCP/);
     assert.match(tools, /Paperclip/);
     assert.doesNotMatch(soul, /a Software Delivery specialist focused on delivering expert-level work/);
+  });
+
+  test('uses coding-specialist workspace templates when present', () => {
+    const result = scaffoldWorkspace(mockFelix, mockUserInfo, 12);
+    const agents = readFileSync(join(result.workspaceDir, 'AGENTS.md'), 'utf8');
+    const tools = readFileSync(join(result.workspaceDir, 'TOOLS.md'), 'utf8');
+
+    assert.match(agents, /Felix/);
+    assert.match(agents, /Claw-Backed Execution/);
+    assert.match(agents, /Canvas/);
+    assert.match(tools, /claw\.fix/);
+    assert.match(tools, /coding-agent/);
+    assert.match(tools, /Preview Expectations/);
   });
 });
 

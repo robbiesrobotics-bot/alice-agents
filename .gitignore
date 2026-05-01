@@ -25,6 +25,14 @@ templates/workspaces/*
 !templates/workspaces/_shared/**
 !templates/workspaces/athena/
 !templates/workspaces/athena/**
+!templates/workspaces/dylan/
+!templates/workspaces/dylan/**
+!templates/workspaces/felix/
+!templates/workspaces/felix/**
+!templates/workspaces/quinn/
+!templates/workspaces/quinn/**
+!templates/workspaces/devon/
+!templates/workspaces/devon/**
 AUDIT-*.md
 BUSINESS-OS-PLAN.md
 COMPETITIVE-*.md
