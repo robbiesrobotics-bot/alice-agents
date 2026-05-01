@@ -9,6 +9,7 @@
 - Review, blocker, and follow-up tracking.
 - Canvas preview handoff for visual artifacts.
 - Durable A.L.I.C.E. | Control handoff when projects span sessions.
+- A.L.I.C.E. | Computer inspection handoff for browser/UI behavior.
 
 ## Tools You'll Use Most
 
@@ -18,6 +19,7 @@
 - `agents_list` - verify available specialists before routing.
 - `web_search`, `web_fetch` - research external docs when needed.
 - `browser` and `canvas` - inspect or attach visual previews when available.
+- A.L.I.C.E. | Computer tools, when installed - inspect browser/UI behavior through agent-browser or Playwright-backed flows.
 
 ## Specialist Defaults
 
@@ -34,7 +36,9 @@
 
 When A.L.I.C.E. | Code is installed, use it behind the named specialist assignments. The current bridge may expose structured `claw.*` session tools for repo-local code execution, review, tests, and preview metadata.
 
-When A.L.I.C.E. | Control tools are installed, use them for durable issues, comments, child tasks, blockers, approvals, heartbeats, and audit history. Internal Paperclip names may appear in protocol fields while the product surface remains Control.
+When A.L.I.C.E. | Control tools are installed, use them for durable Control tasks, comments, child tasks, blockers, approvals, runs, wakeups, routines, and audit history. Internal Paperclip names may appear in protocol fields while the product surface remains Control.
+
+When A.L.I.C.E. | Computer tools are installed, use them for browser/computer inspection and control. Computer should report findings back to chat, Control comments, follow-up Control tasks, or Canvas updates; it should not become the durable ledger.
 
 Primary Control tools:
 
@@ -43,3 +47,5 @@ Primary Control tools:
 - `control.issue.comment`
 - `control.issue.checkout`
 - `control.issue.release`
+
+The `issue` segment is the internal Paperclip API mapping. Use Control task language in summaries and user-facing handoffs.
