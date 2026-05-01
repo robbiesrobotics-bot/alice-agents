@@ -16,6 +16,7 @@ This document records the current A.L.I.C.E. coding-delivery architecture so fut
 - **A.L.I.C.E. | Computer** is the browser/computer-control layer for inspecting and controlling UI surfaces. It should initially be powered by `vercel-labs/agent-browser`, with Playwright as the fallback path.
 - **A.L.I.C.E. | Canvas** is the visual preview pane inside A.L.I.C.E. | Chat. It is not a project board or orchestrator.
 - RecordorAI is the agent memory stack. Runtime and agent templates should treat it as the direct, low-latency backend for semantic recall; old `mempalace`/`qmd` shim paths are migration artifacts, not product architecture. Runtime adapters must handle RecordorAI result shapes and failed write responses explicitly.
+- RecordorAI stores and retrieves verbatim memory. Models should receive compact, scoped, ranked memory evidence capsules by default, not raw drawers, raw JSON search churn, long tool results, or unbounded session history.
 
 ## Product Stack
 
@@ -56,6 +57,7 @@ This document records the current A.L.I.C.E. coding-delivery architecture so fut
 - Computer inspects browser/UI behavior and can report findings back into chat or Control.
 - Canvas shows the current visual artifact inside Chat; it does not own project state.
 - Runtime runs the agents, enforces policy, and connects tools.
+- Control housekeeping should not pollute Chat transcripts. Chat should surface Control links, blockers, approvals, and resume events as notifications/toasts unless Alice/Athena intentionally writes a conversational summary.
 
 ## MVP Specialist Mapping
 
@@ -85,10 +87,12 @@ Do not add new coding personas for MVP unless the official roster changes.
 - `alice-runtime` has Canvas artifact storage and authenticated Canvas API endpoints.
 - Alice Hub Chat can display a right-side Canvas pane from streamed Canvas artifacts.
 - Alice Hub preserves alice-runtime session ids and can reload/poll persisted Canvas artifacts for the active chat thread.
+- Alice Hub Chat can promote/link durable Control tasks through cross-surface refs, the active Chat thread is addressable by URL, and Control task detail can return users to linked Chat threads.
 - `alice-runtime` exposes A.L.I.C.E. | Control tools for durable task create/update/comment/checkout/release when `ALICE_CONTROL_API_URL` is configured. Tool names currently remain `control.issue.*` because they map to the internal Paperclip issue API.
 - `alice-runtime` includes `bun run validate:control` for live A.L.I.C.E. | Control task-route smoke testing with `ALICE_LIVE_CONTROL_*` variables.
 - `alice-runtime` discovers repo-local `ALICE_WORKFLOW.md` files for A.L.I.C.E. | Code tool calls with `repoRoot` or `cwd` and appends them to specialist instructions.
 - RecordorAI compatibility fixes were applied in runtime memory client work; keep future memory changes aligned with direct RecordorAI native/HTTP/MCP surfaces, not old mempalace or qmd shim naming.
+- RecordorAI/OpenClaw benchmarking showed direct memory lookup around 79-82 ms warm, while the production agent path could be 35 s p50 and 68 s p95 because of orchestration/context pressure. Future runtime work should add a context budgeter and compact memory capsule before every inference call.
 
 ## Recommended Next Slice
 
@@ -99,7 +103,7 @@ The runtime bridge now gives Athena first-class `control.issue.*` tools for Cont
 Scope this slice as:
 
 1. Run `bun run validate:control` against the real Alice Hub Control API and record any auth/route differences.
-2. Verify runtime session id and Canvas artifact id comments appear correctly on Control tasks.
+2. Verify runtime session id, Chat thread id, and Canvas artifact id comments appear correctly on Control tasks without writing Control housekeeping into Chat messages.
 3. Confirm child task creation through `parentId` renders correctly in Control.
 4. Add explicit review/approval handoff semantics if the current status/comment model is not enough.
 5. Add heartbeat resume behavior that preserves stop/resume safety rules.
@@ -148,7 +152,9 @@ Scope this slice as:
 - [x] Add Alice Hub right-side Canvas pane for streamed artifacts.
 - [x] Expose and persist alice-runtime session ids through Hub chat sessions.
 - [x] Add Hub Canvas API polling/reload from runtime persisted artifacts.
-- [ ] Make Chat-to-Control and Control-to-Chat linking explicit for durable coding work.
+- [x] Make Chat-to-Control linking explicit for durable coding work.
+- [x] Make Control-to-Chat return links explicit through addressable Chat thread URLs.
+- [x] Keep Control link notifications as Chat toasts rather than transcript messages.
 - [ ] Add browser/UI thread refresh and page reload coverage for Canvas continuity.
 
 ### Phase 5: A.L.I.C.E. | Control Durable Mode
@@ -175,6 +181,10 @@ Scope this slice as:
 - [ ] Add a live compatibility smoke test for RecordorAI MCP search and write failure shapes.
 - [ ] Add latency smoke metrics for RecordorAI search/write so extra process hops are visible.
 - [x] Keep current architecture docs and agent templates aligned to RecordorAI, not old mempalace naming.
+- [ ] Add runtime context budgeter before inference calls.
+- [ ] Make `memory.search` return compact model-facing capsules by default.
+- [ ] Add explicit `memory.get` for bounded full/verbatim drawer retrieval.
+- [ ] Add regression tests for huge memory hits, cross-session sentinels, scoped search, explicit full retrieval, and long-history compaction.
 - [ ] Introduce native FFI or clean HTTP as the preferred low-latency path when RecordorAI exposes the production binding.
 
 ### Phase 8: A.L.I.C.E. | Computer
