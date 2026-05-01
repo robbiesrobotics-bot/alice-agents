@@ -92,23 +92,35 @@ Do not add new coding personas for MVP unless the official roster changes.
 - `alice-runtime` includes `bun run validate:control` for live A.L.I.C.E. | Control task-route smoke testing with `ALICE_LIVE_CONTROL_*` variables.
 - `alice-runtime` discovers repo-local `ALICE_WORKFLOW.md` files for A.L.I.C.E. | Code tool calls with `repoRoot` or `cwd` and appends them to specialist instructions.
 - RecordorAI compatibility fixes were applied in runtime memory client work; keep future memory changes aligned with direct RecordorAI native/HTTP/MCP surfaces, not old mempalace or qmd shim naming.
-- RecordorAI/OpenClaw benchmarking showed direct memory lookup around 79-82 ms warm, while the production agent path could be 35 s p50 and 68 s p95 because of orchestration/context pressure. Future runtime work should add a context budgeter and compact memory capsule before every inference call.
+- RecordorAI/OpenClaw benchmarking showed direct memory lookup around 79-82 ms warm, while the production agent path could be 35 s p50 and 68 s p95 because of orchestration/context pressure. Runtime now uses compact memory capsules and applies a context budget before inference calls so long histories and large tool results do not balloon model prompts.
 - The runtime `memory.search` tool now returns compact model-facing evidence capsules by default instead of raw full hits.
 - The runtime `memory.get` tool now provides explicit bounded full/verbatim drawer retrieval with `maxChars` and `offset`.
 
 ## Recommended Next Slice
 
-Harden Athena durable mode against the real A.L.I.C.E. | Control API.
+Continue the no-credential roadmap with scoped RecordorAI memory regression tests.
 
-The runtime bridge now gives Athena first-class `control.issue.*` tools for Control tasks. The next product gap is live integration confidence and richer lifecycle behavior: test the bridge against Alice Hub Control auth/routes, verify child tasks and context comments in the real UI, then add explicit approval/review and heartbeat resume behavior without bypassing stop/resume safety rules.
+The immediate product risk is not live credentials. It is accidentally recreating the OpenClaw slowdown or cross-thread leakage as Chat, Runtime, and Control become more connected. The next slice should prove that memory search stays scoped by stable Alice context, that sentinel memories from other sessions do not leak, and that full memory remains available only through explicit bounded `memory.get`.
 
 Scope this slice as:
 
-1. Run `bun run validate:control` against the real Alice Hub Control API and record any auth/route differences.
-2. Verify runtime session id, Chat thread id, and Canvas artifact id comments appear correctly on Control tasks without writing Control housekeeping into Chat messages.
-3. Confirm child task creation through `parentId` renders correctly in Control.
-4. Add explicit review/approval handoff semantics if the current status/comment model is not enough.
-5. Add heartbeat resume behavior that preserves stop/resume safety rules.
+1. Add regression fixtures for `teamId`, `agentId`, `channelId`, `conversationId`, `threadId`, and `userId` memory scope.
+2. Prove default `memory.search` returns only compact scoped capsules.
+3. Prove cross-session sentinel memories do not appear unless an explicit audited broader scope is requested.
+4. Keep RecordorAI storage verbatim; only model-facing capsules are compacted.
+5. Leave live RecordorAI latency and live Control API smoke tests in the credentialed/live-validation track.
+
+## No-Credential Roadmap
+
+These slices can continue without provider credentials or live production tokens:
+
+1. [x] Runtime context budgeter plus long-history and oversized tool-result regression tests.
+2. [ ] Scoped RecordorAI memory regression tests for stable Alice scope and cross-session sentinel isolation.
+3. [ ] Hub knowledge-base prompt budget so retrieved chunks cannot overfill Chat prompts.
+4. [ ] Chat/Canvas continuity tests for refresh, reload, active thread, artifact persistence, desktop/mobile toggles, and non-polluting Control toasts.
+5. [ ] Control durable mode with mocked APIs for child tasks, blockers, approvals, review handoffs, heartbeat resume, and Chat/Control linking.
+6. [ ] Computer local planning and wiring around `agent-browser` surfaces with Playwright fallback documented in agent instructions.
+7. [ ] Code wrapper hardening that does not require live model credentials: contract tests, command/env docs, policy checks, and structured result validation.
 
 ## Remaining Build Slices
 
@@ -116,7 +128,7 @@ Scope this slice as:
 2. A.L.I.C.E. | Code integration hardening: build or wrap the MCP add-on around the real `ultraworkers/claw-code` CLI, then document required command/env setup.
 3. Named specialist acceptance criteria: make Felix/Dylan/Quinn/Devon expectations explicit for Code-backed work.
 4. Repo workflow instructions: support `ALICE_WORKFLOW.md` for build commands, preview commands, test commands, deployment rules, and repo constraints.
-5. RecordorAI validation: keep a live compatibility smoke test for search result shape, write failure shape, health, and P50/P95 latency.
+5. RecordorAI validation: keep scoped regression coverage for compact capsules and add a live compatibility smoke test for search result shape, write failure shape, health, and P50/P95 latency when credentials are available.
 6. A.L.I.C.E. | Computer planning: define the browser/computer-control tool boundary, inspect `vercel-labs/agent-browser`, and document the Playwright fallback path.
 7. A.L.I.C.E. | Chat polish: keep Chat, Canvas, and Control links consistent so users can move between immediate conversation and durable work without losing context.
 
@@ -180,14 +192,15 @@ Scope this slice as:
 
 - [x] Runtime memory client handles current RecordorAI search result shape.
 - [x] Runtime memory writes fail loudly when RecordorAI reports failure.
+- [ ] Add scoped memory regression tests for stable Alice scope and cross-session sentinel isolation.
 - [ ] Add a live compatibility smoke test for RecordorAI MCP search and write failure shapes.
 - [ ] Add latency smoke metrics for RecordorAI search/write so extra process hops are visible.
 - [x] Keep current architecture docs and agent templates aligned to RecordorAI, not old mempalace naming.
-- [ ] Add runtime context budgeter before inference calls.
+- [x] Add runtime context budgeter before inference calls.
 - [x] Make the runtime `memory.search` tool return compact model-facing capsules by default.
 - [x] Add explicit `memory.get` for bounded full/verbatim drawer retrieval.
 - [x] Add regression tests for huge memory hits and explicit full retrieval.
-- [ ] Add regression tests for cross-session sentinels, scoped search, and long-history compaction.
+- [x] Add regression tests for long-history compaction and oversized tool-result truncation.
 - [ ] Introduce native FFI or clean HTTP as the preferred low-latency path when RecordorAI exposes the production binding.
 
 ### Phase 8: A.L.I.C.E. | Computer
