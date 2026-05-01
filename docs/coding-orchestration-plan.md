@@ -94,6 +94,7 @@ Do not add new coding personas for MVP unless the official roster changes.
 - Runtime Control bridge tests now cover child-task context comments, blocker updates, approval review handoffs, approval decisions, and issue/approval linking with mocked clients and no live Control credentials.
 - `alice-runtime` includes `bun run validate:control` for live A.L.I.C.E. | Control task-route smoke testing with `ALICE_LIVE_CONTROL_*` variables.
 - `alice-runtime` discovers repo-local `ALICE_WORKFLOW.md` files for A.L.I.C.E. | Code tool calls with `repoRoot` or `cwd` and appends them to specialist instructions.
+- `/Users/aliceclaw/code/alice-code-mcp` now has no-credential contract tests for tool listing, JSON-RPC error behavior, structured Code result normalization, malformed-result fail-closed behavior, command/env overrides, and optional allowed repo roots.
 - RecordorAI compatibility fixes were applied in runtime memory client work; keep future memory changes aligned with direct RecordorAI native/HTTP/MCP surfaces, not old mempalace or qmd shim naming.
 - RecordorAI/OpenClaw benchmarking showed direct memory lookup around 79-82 ms warm, while the production agent path could be 35 s p50 and 68 s p95 because of orchestration/context pressure. Runtime now uses compact memory capsules and applies a context budget before inference calls so long histories and large tool results do not balloon model prompts.
 - The runtime `memory.search` tool now returns compact model-facing evidence capsules by default instead of raw full hits.
@@ -103,15 +104,16 @@ Do not add new coding personas for MVP unless the official roster changes.
 
 ## Recommended Next Slice
 
-Continue the no-credential roadmap with A.L.I.C.E. | Code wrapper hardening.
+The current no-credential roadmap is complete. Reassess the remaining build list
+before starting the live/credential-dependent validation track.
 
 Scope this slice as:
 
-1. Review `/Users/aliceclaw/code/alice-code-mcp` against alice-runtime's expected `claw.*` contract.
-2. Add contract tests for tool listing, JSON-RPC error handling, structured result validation, and command/env behavior.
-3. Document the exact command/env setup for using the wrapper instead of raw upstream Claw MCP.
-4. Keep live provider calls out of this slice; use fake commands/transports where needed.
-5. Leave real built-`claw` smoke testing for the credential/live validation track.
+1. Confirm which remaining items require live credentials, provider accounts, production tokens, or user approval.
+2. Separate any remaining local-only polish from live validation work.
+3. Prepare a live validation checklist for Control, Code, RecordorAI, and deployment flows.
+4. Keep live smoke tests gated behind explicit env variables and user approval.
+5. Do not begin live provider or production validation until credentials/targets are intentionally supplied.
 
 ## No-Credential Roadmap
 
@@ -123,7 +125,7 @@ These slices can continue without provider credentials or live production tokens
 4. [x] Chat/Canvas continuity tests for refresh, reload, active thread, artifact persistence, desktop/mobile toggles, and non-polluting Control toasts.
 5. [x] Control durable mode with mocked APIs for child tasks, blockers, approvals, review handoffs, heartbeat resume, and Chat/Control linking.
 6. [x] Computer local planning and wiring around `agent-browser` surfaces with Playwright fallback documented in agent instructions.
-7. [ ] Code wrapper hardening that does not require live model credentials: contract tests, command/env docs, policy checks, and structured result validation.
+7. [x] Code wrapper hardening that does not require live model credentials: contract tests, command/env docs, policy checks, and structured result validation.
 
 ## Remaining Build Slices
 
@@ -152,6 +154,7 @@ These slices can continue without provider credentials or live production tokens
 - [x] Document current upstream `ultraworkers/claw-code` command/env and MCP contract mismatch.
 - [x] Build the initial A.L.I.C.E. | Code MCP add-on/wrapper for the raw `claw` CLI.
 - [x] Smoke-test the wrapper's stdio JSON-RPC handshake and tool listing.
+- [x] Add wrapper contract tests for structured results, malformed-result fail-closed behavior, JSON-RPC errors, command/env overrides, and allowed repo roots.
 - [ ] Smoke-test the wrapper against a real built `claw` binary and provider credential.
 - [ ] Document any real-wrapper command/env differences discovered during smoke testing.
 
