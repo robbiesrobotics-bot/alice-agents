@@ -96,20 +96,21 @@ Do not add new coding personas for MVP unless the official roster changes.
 - The runtime `memory.search` tool now returns compact model-facing evidence capsules by default instead of raw full hits.
 - The runtime `memory.get` tool now provides explicit bounded full/verbatim drawer retrieval with `maxChars` and `offset`.
 - Runtime memory search/write/get calls now carry stable Alice scope through the memory boundary and include regression coverage for scoped capsules plus cross-session sentinel isolation.
+- Alice Hub Chat now applies a prompt budget to knowledge-base retrieval before dispatch: max 5 chunks, max 800 chars per chunk, max 4,000 KB chars total, with citation/source metadata preserved.
 
 ## Recommended Next Slice
 
-Continue the no-credential roadmap with Hub knowledge-base prompt budgeting.
+Continue the no-credential roadmap with Chat/Canvas continuity tests.
 
-The runtime now protects model turns from oversized memory tool results and scoped RecordorAI leakage. The next comparable risk is Hub-side knowledge-base retrieval: retrieved chunks should be compact, ranked, and budgeted before they are injected into Chat prompts, with Control notifications remaining out of the transcript unless Alice/Athena intentionally summarizes them.
+Runtime memory and Hub knowledge retrieval now both have model-facing context budgets. The next no-credential risk is continuity in the user-visible Chat surface: thread refresh, page reload, active thread URLs, Canvas artifact persistence, desktop/mobile preview switching, and Control notifications as toasts rather than transcript pollution.
 
 Scope this slice as:
 
-1. Inspect Alice Hub Chat/KB retrieval paths and identify where retrieved chunks enter model prompts.
-2. Add a prompt budgeter for KB chunks with max chunks, max chars per chunk, and max total KB chars.
-3. Preserve citation/source metadata while trimming model-facing text.
-4. Add regression tests proving huge KB chunks cannot overfill Chat prompts.
-5. Keep Control housekeeping as toasts/notifications rather than transcript prompt text.
+1. Add or extend tests for Chat reload preserving the active `threadId` URL state.
+2. Add tests for persisted Canvas artifact reload/polling on the active thread.
+3. Cover desktop/mobile Canvas viewport toggle state where practical.
+4. Verify Chat-to-Control link/unlink events use toasts/notifications and do not append transcript messages.
+5. Keep the tests mocked/local so no runtime, provider, or production credentials are required.
 
 ## No-Credential Roadmap
 
@@ -117,7 +118,7 @@ These slices can continue without provider credentials or live production tokens
 
 1. [x] Runtime context budgeter plus long-history and oversized tool-result regression tests.
 2. [x] Scoped RecordorAI memory regression tests for stable Alice scope and cross-session sentinel isolation.
-3. [ ] Hub knowledge-base prompt budget so retrieved chunks cannot overfill Chat prompts.
+3. [x] Hub knowledge-base prompt budget so retrieved chunks cannot overfill Chat prompts.
 4. [ ] Chat/Canvas continuity tests for refresh, reload, active thread, artifact persistence, desktop/mobile toggles, and non-polluting Control toasts.
 5. [ ] Control durable mode with mocked APIs for child tasks, blockers, approvals, review handoffs, heartbeat resume, and Chat/Control linking.
 6. [ ] Computer local planning and wiring around `agent-browser` surfaces with Playwright fallback documented in agent instructions.
@@ -170,6 +171,7 @@ These slices can continue without provider credentials or live production tokens
 - [x] Make Chat-to-Control linking explicit for durable coding work.
 - [x] Make Control-to-Chat return links explicit through addressable Chat thread URLs.
 - [x] Keep Control link notifications as Chat toasts rather than transcript messages.
+- [x] Add Hub knowledge-base prompt budgeting before Chat dispatch so retrieved chunks stay compact.
 - [ ] Add browser/UI thread refresh and page reload coverage for Canvas continuity.
 
 ### Phase 5: A.L.I.C.E. | Control Durable Mode
