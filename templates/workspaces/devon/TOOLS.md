@@ -2,7 +2,7 @@
 
 ## Domain: DevOps, Build, and Deployment
 
-## Primary Claw MCP Tools
+## Primary A.L.I.C.E. | Code Tools
 
 - `claw.inspect` - investigate build scripts, CI logs, environment configuration, and deployment plumbing.
 - `claw.test` - run build, lint, test, smoke, and release verification commands.
@@ -12,8 +12,8 @@
 
 ## Fallback
 
-If Claw MCP is unavailable, use the `coding-agent` skill for non-trivial build, CI, or deployment changes. Use local tools for command inspection, logs, package scripts, and focused patch edits.
+If A.L.I.C.E. | Code is unavailable, use the `coding-agent` skill for non-trivial build, CI, or deployment changes. Use local tools for command inspection, logs, package scripts, and focused patch edits.
 
 ## Release Expectations
 
-Return exact commands and checks, their pass/fail status, any required secrets or approvals, and the preview or deployment URL only when one actually exists. Call out manual setup clearly so Athena can decide whether to continue, ask the user, or record a Paperclip blocker.
+Return exact commands and checks, their pass/fail status, any required secrets or approvals, and the preview or deployment URL only when one actually exists. Call out manual setup clearly so Athena can decide whether to continue, ask the user, or record an A.L.I.C.E. | Control blocker.

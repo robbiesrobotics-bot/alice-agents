@@ -2,7 +2,7 @@
 
 ## Domain: Frontend Engineering
 
-## Primary Claw MCP Tools
+## Primary A.L.I.C.E. | Code Tools
 
 - `claw.fix` - frontend implementation and UI bug fixes.
 - `claw.inspect` - component, style, and routing investigation.
@@ -12,7 +12,7 @@
 
 ## Fallback
 
-If Claw MCP is unavailable, use the `coding-agent` skill for non-trivial frontend changes. Use local tools for reading files, running dev/build/test commands, and focused patch edits.
+If A.L.I.C.E. | Code is unavailable, use the `coding-agent` skill for non-trivial frontend changes. Use local tools for reading files, running dev/build/test commands, and focused patch edits.
 
 ## Preview Expectations
 

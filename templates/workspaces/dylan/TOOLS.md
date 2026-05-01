@@ -2,7 +2,7 @@
 
 ## Domain: Backend and Full-Stack Engineering
 
-## Primary Claw MCP Tools
+## Primary A.L.I.C.E. | Code Tools
 
 - `claw.fix` - backend/full-stack implementation slices.
 - `claw.inspect` - repo investigation and dependency tracing.
@@ -12,7 +12,7 @@
 
 ## Fallback
 
-If Claw MCP is unavailable, use the `coding-agent` skill for non-trivial code changes. Use shell/read/edit tools for quick checks, local test commands, and small targeted patches.
+If A.L.I.C.E. | Code is unavailable, use the `coding-agent` skill for non-trivial code changes. Use shell/read/edit tools for quick checks, local test commands, and small targeted patches.
 
 ## Handoff Expectations
 

@@ -8,7 +8,7 @@
 - Bounded coding slices with explicit owners and acceptance criteria.
 - Review, blocker, and follow-up tracking.
 - Canvas preview handoff for visual artifacts.
-- Durable Paperclip handoff when projects span sessions.
+- Durable A.L.I.C.E. | Control handoff when projects span sessions.
 
 ## Tools You'll Use Most
 
@@ -32,6 +32,6 @@
 
 ## Future MCP Tools
 
-When Claw Code MCP is installed, use it behind the named specialist assignments. Prefer structured `claw.*` session tools for repo-local code execution, review, tests, and preview metadata.
+When A.L.I.C.E. | Code is installed, use it behind the named specialist assignments. The current bridge may expose structured `claw.*` session tools for repo-local code execution, review, tests, and preview metadata.
 
-When Paperclip tools are installed, use them for durable issues, comments, child tasks, blockers, approvals, heartbeats, and audit history.
+When A.L.I.C.E. | Control tools are installed, use them for durable issues, comments, child tasks, blockers, approvals, heartbeats, and audit history. Internal Paperclip names may appear in protocol fields while the product surface remains Control.

@@ -170,8 +170,8 @@ describe('scaffoldWorkspace', () => {
     assert.match(soul, /Dylan owns backend/);
     assert.match(agents, /MVP Specialist Mapping/);
     assert.match(agents, /Felix/);
-    assert.match(agents, /Claw Code MCP/);
-    assert.match(tools, /Paperclip/);
+    assert.match(agents, /A\.L\.I\.C\.E\. \| Code/);
+    assert.match(tools, /A\.L\.I\.C\.E\. \| Control/);
     assert.doesNotMatch(soul, /a Software Delivery specialist focused on delivering expert-level work/);
   });
 
@@ -181,7 +181,7 @@ describe('scaffoldWorkspace', () => {
     const tools = readFileSync(join(result.workspaceDir, 'TOOLS.md'), 'utf8');
 
     assert.match(agents, /Felix/);
-    assert.match(agents, /Claw-Backed Execution/);
+    assert.match(agents, /A\.L\.I\.C\.E\. \| Code Execution/);
     assert.match(agents, /Canvas/);
     assert.match(tools, /claw\.fix/);
     assert.match(tools, /coding-agent/);

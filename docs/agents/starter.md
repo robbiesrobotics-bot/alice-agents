@@ -24,7 +24,7 @@ Athena turns coding goals, bug reports, technical debt, and product requests int
 **Don't ask Athena to:**
 - Write every code change herself (that's Dylan or Felix)
 - Replace Olivia as the main chat entry point (Olivia still routes requests)
-- Replace Paperclip or a durable issue tracker for long-running state
+- Replace A.L.I.C.E. | Control or a durable issue tracker for long-running state
 
 ---
 

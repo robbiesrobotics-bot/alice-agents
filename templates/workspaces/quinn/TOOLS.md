@@ -2,7 +2,7 @@
 
 ## Domain: QA, Testing, and Review
 
-## Primary Claw MCP Tools
+## Primary A.L.I.C.E. | Code Tools
 
 - `claw.test` - test execution, regression coverage, and QA verification.
 - `claw.review` - structured review passes and release confidence checks.
@@ -12,7 +12,7 @@
 
 ## Fallback
 
-If Claw MCP is unavailable, use the `coding-agent` skill for non-trivial test automation and local tools for focused commands, browser checks, and log inspection.
+If A.L.I.C.E. | Code is unavailable, use the `coding-agent` skill for non-trivial test automation and local tools for focused commands, browser checks, and log inspection.
 
 ## Reporting Expectations
 
