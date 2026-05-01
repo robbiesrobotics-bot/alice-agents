@@ -66,7 +66,9 @@ You can read this to understand how the agent has been performing. You can also 
 ---
 
 ### `MEMORY.md` / `memory/` ✅ Preserved on upgrade
-Persistent memory storage. Agents write task notes, prior work summaries, and context that should survive between sessions. Stored as dated Markdown files in the `memory/` directory.
+Persistent memory authoring storage. Agents write task notes, prior work summaries, and context that should survive between sessions. Stored as dated Markdown files in the `memory/` directory.
+
+RecordorAI is the semantic memory stack that indexes and retrieves those durable notes for the A.L.I.C.E. team. The Markdown files are the source material; RecordorAI is the low-latency recall backend. Current docs and templates should use RecordorAI-backed memory tools directly and should not route through old `mempalace` or `qmd` shims.
 
 Preserved across upgrades — this is the agent's long-term memory.
 

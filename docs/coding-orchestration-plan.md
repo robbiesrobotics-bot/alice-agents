@@ -13,7 +13,7 @@ This document records the current A.L.I.C.E. coding-delivery architecture so fut
 - **A.L.I.C.E. | Control** is the durable work ledger and governance layer for projects, tasks, assignments, blockers, approvals, routines, wakeups, comments, runs, and audit history. It is currently implemented on the Paperclip-derived Hub/Control codebase and APIs.
 - **A.L.I.C.E. | Computer** is the browser/computer-control layer for inspecting and controlling UI surfaces. It should initially be powered by `vercel-labs/agent-browser`, with Playwright as the fallback path.
 - **A.L.I.C.E. | Canvas** is the visual preview pane inside A.L.I.C.E. | Chat. It is not a project board or orchestrator.
-- RecordorAI is the agent memory system. Runtime adapters must handle RecordorAI result shapes and failed write responses explicitly.
+- RecordorAI is the agent memory stack. Runtime and agent templates should treat it as the direct, low-latency backend for semantic recall; old `mempalace`/`qmd` shim paths are migration artifacts, not product architecture. Runtime adapters must handle RecordorAI result shapes and failed write responses explicitly.
 
 ## Product Stack
 
@@ -81,7 +81,7 @@ Do not add new coding personas for MVP unless the official roster changes.
 - `alice-runtime` exposes A.L.I.C.E. | Control tools for durable task create/update/comment/checkout/release when `ALICE_CONTROL_API_URL` is configured. Tool names currently remain `control.issue.*` because they map to the internal Paperclip issue API.
 - `alice-runtime` includes `bun run validate:control` for live A.L.I.C.E. | Control task-route smoke testing with `ALICE_LIVE_CONTROL_*` variables.
 - `alice-runtime` discovers repo-local `ALICE_WORKFLOW.md` files for A.L.I.C.E. | Code tool calls with `repoRoot` or `cwd` and appends them to specialist instructions.
-- RecordorAI compatibility fixes were applied in runtime memory client work; keep future memory changes aligned with RecordorAI, not the old mempalace naming.
+- RecordorAI compatibility fixes were applied in runtime memory client work; keep future memory changes aligned with direct RecordorAI native/HTTP/MCP surfaces, not old mempalace or qmd shim naming.
 
 ## Recommended Next Slice
 
@@ -103,7 +103,7 @@ Scope this slice as:
 2. A.L.I.C.E. | Code integration hardening: build or wrap the MCP add-on around the real `ultraworkers/claw-code` CLI, then document required command/env setup.
 3. Named specialist acceptance criteria: make Felix/Dylan/Quinn/Devon expectations explicit for Code-backed work.
 4. Repo workflow instructions: support `ALICE_WORKFLOW.md` for build commands, preview commands, test commands, deployment rules, and repo constraints.
-5. RecordorAI validation: keep a live compatibility smoke test for search result shape and write failure shape.
+5. RecordorAI validation: keep a live compatibility smoke test for search result shape, write failure shape, health, and P50/P95 latency.
 6. A.L.I.C.E. | Computer planning: define the browser/computer-control tool boundary, inspect `vercel-labs/agent-browser`, and document the Playwright fallback path.
 
 ## Implementation Checklist
@@ -163,7 +163,9 @@ Scope this slice as:
 - [x] Runtime memory client handles current RecordorAI search result shape.
 - [x] Runtime memory writes fail loudly when RecordorAI reports failure.
 - [ ] Add a live compatibility smoke test for RecordorAI MCP search and write failure shapes.
-- [ ] Keep docs and variable names aligned to RecordorAI, not old mempalace naming.
+- [ ] Add latency smoke metrics for RecordorAI search/write so extra process hops are visible.
+- [x] Keep current architecture docs and agent templates aligned to RecordorAI, not old mempalace naming.
+- [ ] Introduce native FFI or clean HTTP as the preferred low-latency path when RecordorAI exposes the production binding.
 
 ### Phase 8: A.L.I.C.E. | Computer
 

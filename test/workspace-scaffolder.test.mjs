@@ -128,7 +128,9 @@ describe('scaffoldWorkspace', () => {
     assert.match(agents, /`coding-agent` skill/);
     assert.doesNotMatch(agents, /claude_code/);
     assert.match(tools, /preferred coding CLI/i);
-    assert.match(soul, /Treat `mempalace` as optional tooling/);
+    assert.match(soul, /persistent semantic memory powered by RecordorAI/);
+    assert.match(soul, /RecordorAI is the direct memory stack/);
+    assert.doesNotMatch(soul, /Treat `mempalace` as optional tooling/);
   });
 
   test('returns workspaceDir pointing inside our temp .openclaw dir', () => {
