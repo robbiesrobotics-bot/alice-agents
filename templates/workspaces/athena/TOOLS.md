@@ -35,3 +35,11 @@
 When A.L.I.C.E. | Code is installed, use it behind the named specialist assignments. The current bridge may expose structured `claw.*` session tools for repo-local code execution, review, tests, and preview metadata.
 
 When A.L.I.C.E. | Control tools are installed, use them for durable issues, comments, child tasks, blockers, approvals, heartbeats, and audit history. Internal Paperclip names may appear in protocol fields while the product surface remains Control.
+
+Primary Control tools:
+
+- `control.issue.create`
+- `control.issue.update`
+- `control.issue.comment`
+- `control.issue.checkout`
+- `control.issue.release`

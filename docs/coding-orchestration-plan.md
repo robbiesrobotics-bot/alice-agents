@@ -45,25 +45,26 @@ Do not add new coding personas for MVP unless the official roster changes.
 - `alice-runtime` has Canvas artifact storage and authenticated Canvas API endpoints.
 - Alice Hub Chat can display a right-side Canvas pane from streamed Canvas artifacts.
 - Alice Hub preserves alice-runtime session ids and can reload/poll persisted Canvas artifacts for the active chat thread.
+- `alice-runtime` exposes A.L.I.C.E. | Control tools for durable issue create/update/comment/checkout/release when `ALICE_CONTROL_API_URL` is configured.
 - RecordorAI compatibility fixes were applied in runtime memory client work; keep future memory changes aligned with RecordorAI, not the old mempalace naming.
 
 ## Recommended Next Slice
 
-Build the Athena durable-mode bridge over A.L.I.C.E. | Control.
+Harden Athena durable mode against the real A.L.I.C.E. | Control API.
 
-The Canvas bridge now gives chat a visual continuity path for coding work. The next product gap is durable work continuity: Athena needs a first-class way to promote a coding conversation into A.L.I.C.E. | Control issues, create child work, record blockers/review states, and resume through heartbeats without bypassing the stop/resume safety rules.
+The runtime bridge now gives Athena first-class `control.issue.*` tools. The next product gap is live integration confidence and richer lifecycle behavior: test the bridge against Alice Hub Control auth/routes, verify child issues and context comments in the real UI, then add explicit approval/review and heartbeat resume behavior without bypassing stop/resume safety rules.
 
 Scope this slice as:
 
-1. Define Athena's durable-mode commands/tools for creating or updating A.L.I.C.E. | Control issues.
-2. Map chat thread context, runtime session id, and Canvas artifact id into Control issue metadata/comments.
-3. Add child issue creation/update paths for Athena-managed coding plans.
-4. Add blocker and review/approval handoff writes.
-5. Add tests proving Athena can promote chat work to Control without breaking normal chat mode.
+1. Smoke-test `control.issue.create/update/comment/checkout/release` against the real Alice Hub Control API.
+2. Verify runtime session id and Canvas artifact id comments appear correctly on Control issues.
+3. Confirm child issue creation through `parentId` renders correctly in Control.
+4. Add explicit review/approval handoff semantics if the current status/comment model is not enough.
+5. Add heartbeat resume behavior that preserves stop/resume safety rules.
 
 ## Remaining Build Slices
 
-1. A.L.I.C.E. | Control durable mode: let Athena create/update Control issues, child issues, blockers, comments, approvals, and review handoffs.
+1. A.L.I.C.E. | Control live hardening: smoke-test real Control auth/routes, context comments, child issues, blockers, review handoffs, and heartbeat resume.
 2. A.L.I.C.E. | Code integration hardening: test against the real `ultraworkers/claw-code` MCP server and document required command/env setup.
 3. Named specialist acceptance criteria: make Felix/Dylan/Quinn/Devon expectations explicit for Code-backed work.
 4. Repo workflow instructions: support `ALICE_WORKFLOW.md` for build commands, preview commands, test commands, deployment rules, and repo constraints.
@@ -76,7 +77,7 @@ Scope this slice as:
 - [x] Add Athena to the starter roster.
 - [x] Add Athena workspace templates and operating doctrine.
 - [x] Map MVP coding roles onto the existing roster.
-- [ ] Add Athena-specific A.L.I.C.E. | Control durable-mode instructions once Control wiring begins.
+- [x] Add Athena-specific A.L.I.C.E. | Control durable-mode instructions once Control wiring begins.
 
 ### Phase 2: A.L.I.C.E. | Code MCP
 
@@ -104,9 +105,10 @@ Scope this slice as:
 ### Phase 5: A.L.I.C.E. | Control Durable Mode
 
 - [x] Existing Control/Paperclip primitives support issues, comments, blockers, approvals, heartbeats, and session state.
-- [ ] Add Athena durable-mode workflow over Control APIs.
-- [ ] Add child issue creation/update paths for Athena-managed coding plans.
-- [ ] Add review/approval handoff behavior for long-running coding work.
+- [x] Add Athena durable-mode workflow over Control APIs.
+- [x] Add child issue creation/update paths for Athena-managed coding plans.
+- [ ] Add live Control API smoke coverage for create/update/comment/checkout/release.
+- [ ] Add explicit review/approval handoff behavior for long-running coding work.
 - [ ] Add heartbeat resume behavior that preserves stop/resume safety rules.
 
 ### Phase 6: Workflow Instructions
