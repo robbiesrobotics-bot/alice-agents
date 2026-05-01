@@ -47,6 +47,7 @@ Do not add new coding personas for MVP unless the official roster changes.
 - Alice Hub preserves alice-runtime session ids and can reload/poll persisted Canvas artifacts for the active chat thread.
 - `alice-runtime` exposes A.L.I.C.E. | Control tools for durable issue create/update/comment/checkout/release when `ALICE_CONTROL_API_URL` is configured.
 - `alice-runtime` includes `bun run validate:control` for live A.L.I.C.E. | Control issue-route smoke testing with `ALICE_LIVE_CONTROL_*` variables.
+- `alice-runtime` discovers repo-local `ALICE_WORKFLOW.md` files for A.L.I.C.E. | Code tool calls with `repoRoot` or `cwd` and appends them to specialist instructions.
 - RecordorAI compatibility fixes were applied in runtime memory client work; keep future memory changes aligned with RecordorAI, not the old mempalace naming.
 
 ## Recommended Next Slice
@@ -115,10 +116,10 @@ Scope this slice as:
 
 ### Phase 6: Workflow Instructions
 
-- [ ] Define `ALICE_WORKFLOW.md` discovery rules.
-- [ ] Pass workflow instructions into Athena and Code-backed specialists.
-- [ ] Support build/test/preview/deploy command hints.
-- [ ] Add repository constraint and approval-gate guidance.
+- [x] Define `ALICE_WORKFLOW.md` discovery rules.
+- [x] Pass workflow instructions into Athena and Code-backed specialists.
+- [x] Support build/test/preview/deploy command hints through repo-owned workflow text.
+- [x] Add repository constraint and approval-gate guidance through repo-owned workflow text.
 
 ### Phase 7: RecordorAI Validation
 
