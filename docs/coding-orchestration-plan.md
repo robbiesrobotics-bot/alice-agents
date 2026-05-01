@@ -89,7 +89,8 @@ Do not add new coding personas for MVP unless the official roster changes.
 - Alice Hub preserves alice-runtime session ids and can reload/poll persisted Canvas artifacts for the active chat thread.
 - Alice Hub Chat can promote/link durable Control tasks through cross-surface refs, the active Chat thread is addressable by URL, and Control task detail can return users to linked Chat threads.
 - Alice Hub Chat continuity now has mocked UI coverage for active `threadId` reloads, persisted Canvas artifact reloads, newest-artifact selection, Canvas desktop/mobile viewport switching, and Control link notifications staying out of the transcript.
-- `alice-runtime` exposes A.L.I.C.E. | Control tools for durable task create/update/comment/checkout/release when `ALICE_CONTROL_API_URL` is configured. Tool names currently remain `control.issue.*` because they map to the internal Paperclip issue API.
+- `alice-runtime` exposes A.L.I.C.E. | Control tools for durable task create/update/comment/checkout/release, blockers through `blockedByIssueIds`, approval create/comment/decision, and issue/approval linking when `ALICE_CONTROL_API_URL` is configured. Tool names still map to the internal Paperclip issue and approval APIs.
+- Runtime Control bridge tests now cover child-task context comments, blocker updates, approval review handoffs, approval decisions, and issue/approval linking with mocked clients and no live Control credentials.
 - `alice-runtime` includes `bun run validate:control` for live A.L.I.C.E. | Control task-route smoke testing with `ALICE_LIVE_CONTROL_*` variables.
 - `alice-runtime` discovers repo-local `ALICE_WORKFLOW.md` files for A.L.I.C.E. | Code tool calls with `repoRoot` or `cwd` and appends them to specialist instructions.
 - RecordorAI compatibility fixes were applied in runtime memory client work; keep future memory changes aligned with direct RecordorAI native/HTTP/MCP surfaces, not old mempalace or qmd shim naming.
@@ -101,15 +102,15 @@ Do not add new coding personas for MVP unless the official roster changes.
 
 ## Recommended Next Slice
 
-Continue the no-credential roadmap with mocked A.L.I.C.E. | Control durable-mode coverage.
+Continue the no-credential roadmap with A.L.I.C.E. | Computer local planning and wiring.
 
 Scope this slice as:
 
-1. Identify existing Control/Paperclip service and route coverage for child tasks, blockers, approvals, review handoffs, heartbeat resume, and Chat/Control links.
-2. Add mocked/local regression coverage for the durable-mode paths Athena will depend on.
-3. Prefer API/service contract tests over live smoke tests so no production token is required.
-4. Keep user-facing language as A.L.I.C.E. | Control while preserving internal Paperclip route/env names.
-5. Update Athena/Control docs with any remaining mocked-vs-live gaps discovered during the slice.
+1. Inspect the locally cloned `/Users/aliceclaw/code/agent-browser` surfaces that can power A.L.I.C.E. | Computer.
+2. Define the runtime/agent-facing Computer tool contract separately from Control, Code, and Canvas.
+3. Document when Athena, Felix, Quinn, and Devon should use Computer versus Code or Canvas.
+4. Keep Playwright as the documented local fallback path.
+5. Stay mocked/local: no browser-provider credentials or production tokens required.
 
 ## No-Credential Roadmap
 
@@ -119,7 +120,7 @@ These slices can continue without provider credentials or live production tokens
 2. [x] Scoped RecordorAI memory regression tests for stable Alice scope and cross-session sentinel isolation.
 3. [x] Hub knowledge-base prompt budget so retrieved chunks cannot overfill Chat prompts.
 4. [x] Chat/Canvas continuity tests for refresh, reload, active thread, artifact persistence, desktop/mobile toggles, and non-polluting Control toasts.
-5. [ ] Control durable mode with mocked APIs for child tasks, blockers, approvals, review handoffs, heartbeat resume, and Chat/Control linking.
+5. [x] Control durable mode with mocked APIs for child tasks, blockers, approvals, review handoffs, heartbeat resume, and Chat/Control linking.
 6. [ ] Computer local planning and wiring around `agent-browser` surfaces with Playwright fallback documented in agent instructions.
 7. [ ] Code wrapper hardening that does not require live model credentials: contract tests, command/env docs, policy checks, and structured result validation.
 
@@ -178,9 +179,10 @@ These slices can continue without provider credentials or live production tokens
 - [x] Existing Control/Paperclip primitives support tasks, comments, blockers, approvals, heartbeats, and session state.
 - [x] Add Athena durable-mode workflow over Control APIs.
 - [x] Add child task creation/update paths for Athena-managed coding plans.
+- [x] Add mocked runtime bridge coverage for blockers, review approvals, approval decisions, and issue/approval linking.
 - [x] Add live Control API smoke coverage for create/update/comment/checkout/release.
 - [ ] Run live Control API smoke coverage against Alice Hub and document discovered env/auth differences.
-- [ ] Add explicit review/approval handoff behavior for long-running coding work.
+- [x] Add explicit review/approval handoff behavior for long-running coding work.
 - [ ] Add heartbeat resume behavior that preserves stop/resume safety rules.
 
 ### Phase 6: Workflow Instructions
