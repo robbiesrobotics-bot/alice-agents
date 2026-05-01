@@ -72,7 +72,7 @@ Do not add new coding personas for MVP unless the official roster changes.
 - `alice-agents` includes A.L.I.C.E. | Code-aware workspace templates for Dylan, Felix, Quinn, and Devon.
 - `alice-runtime` exposes A.L.I.C.E. | Code tools through the internal Claw MCP bridge behind `ALICE_CLAW_MCP=1`.
 - `alice-runtime` normalizes Code/Claw coding session results and attaches Canvas artifacts when preview metadata is returned.
-- Code hardening finding: the current upstream `ultraworkers/claw-code` repo builds a `claw` CLI and does not ship the MCP daemon entrypoint expected by `alice-runtime`; A.L.I.C.E. | Code still needs a MCP add-on/wrapper before live smoke testing can pass.
+- Code hardening finding: the current upstream `ultraworkers/claw-code` repo builds a `claw` CLI and includes `claw mcp serve`, but that raw MCP surface does not expose the high-level A.L.I.C.E. | Code `claw.fix`/session contract expected by `alice-runtime`; A.L.I.C.E. | Code still needs an MCP add-on/wrapper before live smoke testing can pass.
 - `alice-runtime` has Canvas artifact storage and authenticated Canvas API endpoints.
 - Alice Hub Chat can display a right-side Canvas pane from streamed Canvas artifacts.
 - Alice Hub preserves alice-runtime session ids and can reload/poll persisted Canvas artifacts for the active chat thread.
@@ -118,7 +118,7 @@ Scope this slice as:
 - [x] Add alice-runtime Code/Claw MCP client/tool registration behind `ALICE_CLAW_MCP=1`.
 - [x] Normalize Code/Claw coding/session result shapes.
 - [x] Attach Canvas artifacts from Code preview metadata.
-- [x] Document current upstream `ultraworkers/claw-code` command/env mismatch.
+- [x] Document current upstream `ultraworkers/claw-code` command/env and MCP contract mismatch.
 - [ ] Build or identify the A.L.I.C.E. | Code MCP add-on/wrapper for the raw `claw` CLI.
 - [ ] Smoke-test against the real A.L.I.C.E. | Code MCP add-on/wrapper.
 - [ ] Document any real-wrapper command/env differences discovered during smoke testing.
