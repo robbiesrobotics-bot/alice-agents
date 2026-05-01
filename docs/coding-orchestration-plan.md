@@ -94,6 +94,7 @@ Do not add new coding personas for MVP unless the official roster changes.
 - RecordorAI compatibility fixes were applied in runtime memory client work; keep future memory changes aligned with direct RecordorAI native/HTTP/MCP surfaces, not old mempalace or qmd shim naming.
 - RecordorAI/OpenClaw benchmarking showed direct memory lookup around 79-82 ms warm, while the production agent path could be 35 s p50 and 68 s p95 because of orchestration/context pressure. Future runtime work should add a context budgeter and compact memory capsule before every inference call.
 - The runtime `memory.search` tool now returns compact model-facing evidence capsules by default instead of raw full hits.
+- The runtime `memory.get` tool now provides explicit bounded full/verbatim drawer retrieval with `maxChars` and `offset`.
 
 ## Recommended Next Slice
 
@@ -184,8 +185,9 @@ Scope this slice as:
 - [x] Keep current architecture docs and agent templates aligned to RecordorAI, not old mempalace naming.
 - [ ] Add runtime context budgeter before inference calls.
 - [x] Make the runtime `memory.search` tool return compact model-facing capsules by default.
-- [ ] Add explicit `memory.get` for bounded full/verbatim drawer retrieval.
-- [ ] Add regression tests for huge memory hits, cross-session sentinels, scoped search, explicit full retrieval, and long-history compaction.
+- [x] Add explicit `memory.get` for bounded full/verbatim drawer retrieval.
+- [x] Add regression tests for huge memory hits and explicit full retrieval.
+- [ ] Add regression tests for cross-session sentinels, scoped search, and long-history compaction.
 - [ ] Introduce native FFI or clean HTTP as the preferred low-latency path when RecordorAI exposes the production binding.
 
 ### Phase 8: A.L.I.C.E. | Computer
