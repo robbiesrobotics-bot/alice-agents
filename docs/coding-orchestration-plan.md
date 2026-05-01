@@ -95,27 +95,28 @@ Do not add new coding personas for MVP unless the official roster changes.
 - RecordorAI/OpenClaw benchmarking showed direct memory lookup around 79-82 ms warm, while the production agent path could be 35 s p50 and 68 s p95 because of orchestration/context pressure. Runtime now uses compact memory capsules and applies a context budget before inference calls so long histories and large tool results do not balloon model prompts.
 - The runtime `memory.search` tool now returns compact model-facing evidence capsules by default instead of raw full hits.
 - The runtime `memory.get` tool now provides explicit bounded full/verbatim drawer retrieval with `maxChars` and `offset`.
+- Runtime memory search/write/get calls now carry stable Alice scope through the memory boundary and include regression coverage for scoped capsules plus cross-session sentinel isolation.
 
 ## Recommended Next Slice
 
-Continue the no-credential roadmap with scoped RecordorAI memory regression tests.
+Continue the no-credential roadmap with Hub knowledge-base prompt budgeting.
 
-The immediate product risk is not live credentials. It is accidentally recreating the OpenClaw slowdown or cross-thread leakage as Chat, Runtime, and Control become more connected. The next slice should prove that memory search stays scoped by stable Alice context, that sentinel memories from other sessions do not leak, and that full memory remains available only through explicit bounded `memory.get`.
+The runtime now protects model turns from oversized memory tool results and scoped RecordorAI leakage. The next comparable risk is Hub-side knowledge-base retrieval: retrieved chunks should be compact, ranked, and budgeted before they are injected into Chat prompts, with Control notifications remaining out of the transcript unless Alice/Athena intentionally summarizes them.
 
 Scope this slice as:
 
-1. Add regression fixtures for `teamId`, `agentId`, `channelId`, `conversationId`, `threadId`, and `userId` memory scope.
-2. Prove default `memory.search` returns only compact scoped capsules.
-3. Prove cross-session sentinel memories do not appear unless an explicit audited broader scope is requested.
-4. Keep RecordorAI storage verbatim; only model-facing capsules are compacted.
-5. Leave live RecordorAI latency and live Control API smoke tests in the credentialed/live-validation track.
+1. Inspect Alice Hub Chat/KB retrieval paths and identify where retrieved chunks enter model prompts.
+2. Add a prompt budgeter for KB chunks with max chunks, max chars per chunk, and max total KB chars.
+3. Preserve citation/source metadata while trimming model-facing text.
+4. Add regression tests proving huge KB chunks cannot overfill Chat prompts.
+5. Keep Control housekeeping as toasts/notifications rather than transcript prompt text.
 
 ## No-Credential Roadmap
 
 These slices can continue without provider credentials or live production tokens:
 
 1. [x] Runtime context budgeter plus long-history and oversized tool-result regression tests.
-2. [ ] Scoped RecordorAI memory regression tests for stable Alice scope and cross-session sentinel isolation.
+2. [x] Scoped RecordorAI memory regression tests for stable Alice scope and cross-session sentinel isolation.
 3. [ ] Hub knowledge-base prompt budget so retrieved chunks cannot overfill Chat prompts.
 4. [ ] Chat/Canvas continuity tests for refresh, reload, active thread, artifact persistence, desktop/mobile toggles, and non-polluting Control toasts.
 5. [ ] Control durable mode with mocked APIs for child tasks, blockers, approvals, review handoffs, heartbeat resume, and Chat/Control linking.
@@ -192,7 +193,7 @@ These slices can continue without provider credentials or live production tokens
 
 - [x] Runtime memory client handles current RecordorAI search result shape.
 - [x] Runtime memory writes fail loudly when RecordorAI reports failure.
-- [ ] Add scoped memory regression tests for stable Alice scope and cross-session sentinel isolation.
+- [x] Add scoped memory regression tests for stable Alice scope and cross-session sentinel isolation.
 - [ ] Add a live compatibility smoke test for RecordorAI MCP search and write failure shapes.
 - [ ] Add latency smoke metrics for RecordorAI search/write so extra process hops are visible.
 - [x] Keep current architecture docs and agent templates aligned to RecordorAI, not old mempalace naming.
