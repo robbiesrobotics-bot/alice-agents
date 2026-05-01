@@ -38,7 +38,7 @@ When A.L.I.C.E. | Code is installed, use it behind the named specialist assignme
 
 When A.L.I.C.E. | Control tools are installed, use them for durable Control tasks, comments, child tasks, blockers, approvals, runs, wakeups, routines, and audit history. Internal Paperclip names may appear in protocol fields while the product surface remains Control.
 
-When A.L.I.C.E. | Computer tools are installed, use them for browser/computer inspection and control. Computer should report findings back to chat, Control comments, follow-up Control tasks, or Canvas updates; it should not become the durable ledger.
+When A.L.I.C.E. | Computer tools are installed, use them for browser/computer inspection and control. Prefer agent-browser for sessioned browser work such as open, snapshot, screenshot, console/errors, batch execution, and stream status; keep Playwright as fallback. Computer should report findings back to chat, Control comments, follow-up Control tasks, or Canvas updates; it should not become the durable ledger.
 
 Primary Control tools:
 

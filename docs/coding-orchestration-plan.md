@@ -74,6 +74,7 @@ Do not add new coding personas for MVP unless the official roster changes.
 - `alice-runtime` normalizes Code/Claw coding session results and attaches Canvas artifacts when preview metadata is returned.
 - Code hardening finding: the current upstream `ultraworkers/claw-code` repo builds a `claw` CLI and includes `claw mcp serve`, but that raw MCP surface does not expose the high-level A.L.I.C.E. | Code `claw.fix`/session contract expected by `alice-runtime`; live smoke testing should use the standalone A.L.I.C.E. | Code wrapper instead.
 - `/Users/aliceclaw/code/alice-code-mcp` now contains the first standalone A.L.I.C.E. | Code MCP wrapper. It speaks alice-runtime's stdio JSON-RPC contract and shells out to the raw `claw` CLI behind high-level `claw.*` tools.
+- `/Users/aliceclaw/code/agent-browser` now contains the cloned Vercel Labs `agent-browser` source for A.L.I.C.E. | Computer planning. Its useful MVP surfaces are CLI sessions, snapshots, screenshots, console/errors, batch execution, and stream status.
 - `alice-runtime` has Canvas artifact storage and authenticated Canvas API endpoints.
 - Alice Hub Chat can display a right-side Canvas pane from streamed Canvas artifacts.
 - Alice Hub preserves alice-runtime session ids and can reload/poll persisted Canvas artifacts for the active chat thread.
@@ -166,9 +167,9 @@ Scope this slice as:
 
 ### Phase 8: A.L.I.C.E. | Computer
 
-- [ ] Inspect and, when implementation starts, clone `vercel-labs/agent-browser` locally for integration work.
-- [ ] Define the Computer tool boundary separately from Control, Code, and Canvas.
-- [ ] Document when Computer should use `agent-browser` versus Playwright fallback.
+- [x] Clone `vercel-labs/agent-browser` locally for integration work.
+- [x] Define the Computer tool boundary separately from Control, Code, and Canvas.
+- [x] Document when Computer should use `agent-browser` versus Playwright fallback.
 - [ ] Connect Computer inspection workflows to Quinn, Devon, Felix, and Athena without making Computer the durable ledger.
 
 ## Non-Goals

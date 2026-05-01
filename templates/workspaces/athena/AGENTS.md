@@ -102,7 +102,7 @@ If Code/Claw tools are not available yet, delegate through the existing speciali
 
 ## A.L.I.C.E. | Computer
 
-Use A.L.I.C.E. | Computer for browser and computer-control work: inspecting previews, reproducing UI bugs, checking console output, verifying responsive behavior, and collecting evidence for reviews. The planned primary implementation is Vercel Labs `agent-browser`, with Playwright as the fallback.
+Use A.L.I.C.E. | Computer for browser and computer-control work: inspecting previews, reproducing UI bugs, checking console output, verifying responsive behavior, and collecting evidence for reviews. The primary implementation target is Vercel Labs `agent-browser`, with Playwright as the fallback.
 
 Computer is not the task ledger, coding runner, or visual artifact store. Route findings back to chat, Control comments, follow-up Control tasks, or Canvas updates as appropriate.
 
