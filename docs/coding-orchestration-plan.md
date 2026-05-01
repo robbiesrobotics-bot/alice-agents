@@ -6,6 +6,8 @@ This document records the current A.L.I.C.E. coding-delivery architecture so fut
 
 ## Architecture
 
+- **A.L.I.C.E. | Hub** is the product shell that contains both the synchronous Chat surface and the durable Control surface.
+- **A.L.I.C.E. | Chat** is the synchronous conversation view where users talk to Alice/Athena, watch streamed agent progress, and see Canvas artifacts beside the conversation.
 - `alice-runtime` remains the governed agent execution harness: sessions, model routing, tools, traces, budgets, channels, memory, and API surfaces.
 - `alice-agents` remains the team/persona layer: Olivia, Athena, and named specialists.
 - Athena is the Alice-native Software Delivery Lead. She plans coding work, assigns named specialists, manages blockers/reviews, and keeps users updated.
@@ -17,15 +19,18 @@ This document records the current A.L.I.C.E. coding-delivery architecture so fut
 
 ## Product Stack
 
+- **A.L.I.C.E. | Hub** is the user-facing application shell.
+- **A.L.I.C.E. | Chat** is the synchronous conversational workspace. It hosts the left-side conversation and the right-side Canvas pane for visual artifacts.
+- **A.L.I.C.E. | Control** tracks durable work and governance. It is internally powered by Paperclip during the transition.
 - **A.L.I.C.E. | Runtime** runs the core agent loop, sessions, tool policy, traces, memory, channels, and model routing.
 - **A.L.I.C.E. | Agents** contains Olivia, Athena, and the named specialist roster.
-- **A.L.I.C.E. | Control** tracks durable work and governance. It is internally powered by Paperclip during the transition.
 - **A.L.I.C.E. | Code** performs coding work through named specialists. It is initially powered by Claw Code MCP and needs a wrapper/add-on around the raw `claw` CLI.
 - **A.L.I.C.E. | Computer** inspects and controls browser/computer surfaces. It is initially planned around Vercel Labs `agent-browser`, with Playwright fallback.
-- **A.L.I.C.E. | Canvas** shows visual output beside chat.
+- **A.L.I.C.E. | Canvas** shows visual output inside Chat. Canvas is not a separate Control view.
 
 ## Naming Boundary
 
+- Use **A.L.I.C.E. | Chat** in user-facing docs, agent instructions, and summaries for the synchronous conversation surface inside Hub.
 - Use **A.L.I.C.E. | Control** in user-facing docs, agent instructions, and summaries for durable work tracking.
 - Use **A.L.I.C.E. | Code** in user-facing docs, agent instructions, and summaries for coding execution.
 - Use **A.L.I.C.E. | Computer** in user-facing docs, agent instructions, and summaries for browser/computer inspection or control.
@@ -44,11 +49,12 @@ This document records the current A.L.I.C.E. coding-delivery architecture so fut
 
 ## Product Boundaries
 
+- Chat is where users talk with Alice/Athena, see streamed work, and iterate in the moment.
 - Control tracks and governs the work; it does not perform the domain work.
 - Athena manages software delivery and decides when chat work should become durable Control work.
 - Code performs implementation, review, test, and build tasks through coding specialists.
 - Computer inspects browser/UI behavior and can report findings back into chat or Control.
-- Canvas shows the current visual artifact beside chat; it does not own project state.
+- Canvas shows the current visual artifact inside Chat; it does not own project state.
 - Runtime runs the agents, enforces policy, and connects tools.
 
 ## MVP Specialist Mapping
@@ -75,6 +81,7 @@ Do not add new coding personas for MVP unless the official roster changes.
 - Code hardening finding: the current upstream `ultraworkers/claw-code` repo builds a `claw` CLI and includes `claw mcp serve`, but that raw MCP surface does not expose the high-level A.L.I.C.E. | Code `claw.fix`/session contract expected by `alice-runtime`; live smoke testing should use the standalone A.L.I.C.E. | Code wrapper instead.
 - `/Users/aliceclaw/code/alice-code-mcp` now contains the first standalone A.L.I.C.E. | Code MCP wrapper. It speaks alice-runtime's stdio JSON-RPC contract and shells out to the raw `claw` CLI behind high-level `claw.*` tools.
 - `/Users/aliceclaw/code/agent-browser` now contains the cloned Vercel Labs `agent-browser` source for A.L.I.C.E. | Computer planning. Its useful MVP surfaces are CLI sessions, snapshots, screenshots, console/errors, batch execution, and stream status.
+- Alice Hub includes A.L.I.C.E. | Chat as `/chat`, the synchronous conversation view.
 - `alice-runtime` has Canvas artifact storage and authenticated Canvas API endpoints.
 - Alice Hub Chat can display a right-side Canvas pane from streamed Canvas artifacts.
 - Alice Hub preserves alice-runtime session ids and can reload/poll persisted Canvas artifacts for the active chat thread.
@@ -105,6 +112,7 @@ Scope this slice as:
 4. Repo workflow instructions: support `ALICE_WORKFLOW.md` for build commands, preview commands, test commands, deployment rules, and repo constraints.
 5. RecordorAI validation: keep a live compatibility smoke test for search result shape, write failure shape, health, and P50/P95 latency.
 6. A.L.I.C.E. | Computer planning: define the browser/computer-control tool boundary, inspect `vercel-labs/agent-browser`, and document the Playwright fallback path.
+7. A.L.I.C.E. | Chat polish: keep Chat, Canvas, and Control links consistent so users can move between immediate conversation and durable work without losing context.
 
 ## Implementation Checklist
 
@@ -132,13 +140,15 @@ Scope this slice as:
 - [x] Keep Athena as coordinator instead of adding new MVP coding personas.
 - [x] Add acceptance criteria per specialist for Code-backed implementation, review, testing, and preview work.
 
-### Phase 4: Canvas MVP In Alice Chat
+### Phase 4: A.L.I.C.E. | Chat And Canvas MVP
 
+- [x] Keep A.L.I.C.E. | Chat as the synchronous conversation surface in Hub.
 - [x] Add runtime Canvas artifact types, storage, and API endpoints.
 - [x] Attach Canvas artifacts from coding tool results.
 - [x] Add Alice Hub right-side Canvas pane for streamed artifacts.
 - [x] Expose and persist alice-runtime session ids through Hub chat sessions.
 - [x] Add Hub Canvas API polling/reload from runtime persisted artifacts.
+- [ ] Make Chat-to-Control and Control-to-Chat linking explicit for durable coding work.
 - [ ] Add browser/UI thread refresh and page reload coverage for Canvas continuity.
 
 ### Phase 5: A.L.I.C.E. | Control Durable Mode
@@ -179,7 +189,8 @@ Scope this slice as:
 - Do not absorb A.L.I.C.E. | Code/Claw Code into `alice-runtime`.
 - Do not run Symphony as a separate service or expose Symphony branding.
 - Do not replace A.L.I.C.E. | Control with Athena or Canvas.
+- Do not collapse A.L.I.C.E. | Chat into Control; Chat and Control are separate Hub surfaces with shared agents/data.
 - Do not refer to Control tasks as Paperclip issues in user-facing summaries unless discussing internals.
 - Do not make A.L.I.C.E. | Computer a task ledger, coding runner, or visual artifact store.
-- Do not make Canvas a project board or design tool.
+- Do not make Canvas a standalone product, project board, or design tool.
 - Do not let coding specialists bypass runtime/Control policy, budgets, approval gates, or repository allowlists.
