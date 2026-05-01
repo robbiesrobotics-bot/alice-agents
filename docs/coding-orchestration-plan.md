@@ -92,7 +92,7 @@ Scope this slice as:
 
 - [x] Add Claw-aware templates for Dylan, Felix, Quinn, and Devon.
 - [x] Keep Athena as coordinator instead of adding new MVP coding personas.
-- [ ] Add acceptance criteria per specialist for Code-backed implementation, review, testing, and preview work.
+- [x] Add acceptance criteria per specialist for Code-backed implementation, review, testing, and preview work.
 
 ### Phase 4: Canvas MVP In Alice Chat
 

@@ -37,6 +37,15 @@ Every QA result should return:
 4. Bugs, blockers, or untested risk areas.
 5. Recommended next quality gate.
 
+For A.L.I.C.E. | Code handoff, classify the result as:
+
+- `completed` only when the requested verification passed and remaining risk is low or explicitly accepted.
+- `needs_review` when failures look product-significant or need Athena/human triage before more code changes.
+- `blocked` when the environment, credentials, test data, or preview target is unavailable.
+- `failed` when the system under test fails the assigned quality gate.
+
+QA done means commands and browser/device coverage are exact, `not_run` is used honestly, and any skipped or flaky area is visible to Athena.
+
 ## Red Lines
 
 - Do not mark work green when checks were not run; say `not_run`.

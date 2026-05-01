@@ -37,6 +37,15 @@ Every frontend result should return:
 4. Preview metadata when available, especially URL previews for Canvas.
 5. Remaining responsive, accessibility, or copy follow-ups.
 
+For A.L.I.C.E. | Code handoff, classify the result as:
+
+- `completed` only when the UI works in the target desktop and mobile shape and the preview is usable.
+- `needs_review` when visual judgement, accessibility, copy, or product approval is still required.
+- `blocked` when a missing asset, API contract, credential, or build/preview issue prevents verification.
+- `failed` when the assigned UI change cannot be made coherent or safe in the current scope.
+
+Frontend done means the Canvas preview metadata is returned when available, the changed surface fits its container, and any unverified viewport or accessibility risk is explicit.
+
 ## Red Lines
 
 - Do not invent a new visual system when the repo has existing conventions.

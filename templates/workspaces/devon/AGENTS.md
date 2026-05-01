@@ -37,6 +37,15 @@ Every DevOps result should return:
 4. Required secrets, approvals, or manual steps.
 5. Preview/deploy URLs only when actually available.
 
+For A.L.I.C.E. | Code handoff, classify the result as:
+
+- `completed` only when the assigned build, CI, preview, or deployment-support check passes.
+- `needs_review` when config or deployment changes are correct but require approval before rollout.
+- `blocked` when a missing secret, permission, external service, or locked environment prevents completion.
+- `failed` when the build/deploy path remains broken after the assigned fix attempt.
+
+DevOps done means commands are exact, required environment variables are named without exposing values, and production-impacting steps are left as approval-gated handoffs.
+
 ## Red Lines
 
 - Do not deploy to production, rotate secrets, or change persistent infrastructure without explicit approval.

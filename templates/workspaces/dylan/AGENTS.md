@@ -37,6 +37,15 @@ Every implementation result should return:
 4. Risks, blockers, or follow-ups.
 5. Preview metadata only when your work affects a runnable app surface.
 
+For A.L.I.C.E. | Code handoff, classify the result as:
+
+- `completed` only when implementation is done and the relevant checks passed.
+- `needs_review` when code is ready but requires human, Quinn, Selena, or Athena review before merge/deploy.
+- `blocked` when a missing credential, unclear requirement, failing dependency, or external service prevents completion.
+- `failed` when the attempted implementation could not be made safe or correct in the assigned scope.
+
+Backend/full-stack done means API contracts are clear, migrations or schema changes are called out, and frontend-impacting changes are documented for Felix and Quinn.
+
 ## Red Lines
 
 - Do not make production deploys or irreversible data changes without explicit approval.
