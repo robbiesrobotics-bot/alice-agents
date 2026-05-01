@@ -46,6 +46,7 @@ Do not add new coding personas for MVP unless the official roster changes.
 - Alice Hub Chat can display a right-side Canvas pane from streamed Canvas artifacts.
 - Alice Hub preserves alice-runtime session ids and can reload/poll persisted Canvas artifacts for the active chat thread.
 - `alice-runtime` exposes A.L.I.C.E. | Control tools for durable issue create/update/comment/checkout/release when `ALICE_CONTROL_API_URL` is configured.
+- `alice-runtime` includes `bun run validate:control` for live A.L.I.C.E. | Control issue-route smoke testing with `ALICE_LIVE_CONTROL_*` variables.
 - RecordorAI compatibility fixes were applied in runtime memory client work; keep future memory changes aligned with RecordorAI, not the old mempalace naming.
 
 ## Recommended Next Slice
@@ -56,7 +57,7 @@ The runtime bridge now gives Athena first-class `control.issue.*` tools. The nex
 
 Scope this slice as:
 
-1. Smoke-test `control.issue.create/update/comment/checkout/release` against the real Alice Hub Control API.
+1. Run `bun run validate:control` against the real Alice Hub Control API and record any auth/route differences.
 2. Verify runtime session id and Canvas artifact id comments appear correctly on Control issues.
 3. Confirm child issue creation through `parentId` renders correctly in Control.
 4. Add explicit review/approval handoff semantics if the current status/comment model is not enough.
@@ -107,7 +108,8 @@ Scope this slice as:
 - [x] Existing Control/Paperclip primitives support issues, comments, blockers, approvals, heartbeats, and session state.
 - [x] Add Athena durable-mode workflow over Control APIs.
 - [x] Add child issue creation/update paths for Athena-managed coding plans.
-- [ ] Add live Control API smoke coverage for create/update/comment/checkout/release.
+- [x] Add live Control API smoke coverage for create/update/comment/checkout/release.
+- [ ] Run live Control API smoke coverage against Alice Hub and document discovered env/auth differences.
 - [ ] Add explicit review/approval handoff behavior for long-running coding work.
 - [ ] Add heartbeat resume behavior that preserves stop/resume safety rules.
 
