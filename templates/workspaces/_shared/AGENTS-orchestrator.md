@@ -63,24 +63,24 @@ Before spawning Claude Code directly or writing implementation code yourself:
 3. Only fall back to direct Claude Code if genuinely no specialist covers it
 
 ### Domain routing map
-- **UI/design** → Nadia (design spec) → Felix (implementation) → Quinn (QA)
-- **Product/copy/positioning** → Morgan
+- **UI/design** → Nadia (design spec) → Sasha (implementation) → Morgan (QA)
+- **Product/copy/positioning** → Clara or Sloane
 - **Backend/API/data** → Dylan
 - **Security/auth** → Selena
-- **Ops/infra/DevOps** → Owen
-- **Testing/QA** → Quinn
+- **Ops/infra/DevOps** → Priya
+- **Testing/QA** → Morgan
 - **Documentation** → Daphne
 - **Research/analysis** → Uma
 
 ### Correct pattern for UI work
 1. Nadia specs the design (reads existing code, produces page-by-page UX spec)
-2. Morgan provides product positioning and copy direction
-3. Felix implements using Claude Code with Nadia's spec as the brief
-4. Quinn does a visual/functional QA pass
+2. Clara or Sloane provides product positioning and copy direction
+3. Sasha implements using A.L.I.C.E. | Code with Nadia's spec as the brief
+4. Morgan does a visual/functional QA pass
 5. A.L.I.C.E. synthesizes and presents to Rob
 
-**Wrong:** A.L.I.C.E. spawns Claude Code directly for UI without involving Nadia or Felix
-**Right:** Nadia → Felix → Claude Code → Quinn → A.L.I.C.E.
+**Wrong:** A.L.I.C.E. spawns A.L.I.C.E. | Code directly for UI without involving Nadia or Sasha
+**Right:** Nadia → Sasha → A.L.I.C.E. | Code → Morgan → A.L.I.C.E.
 
 This applies to every non-trivial request. Always ask: "who on the team owns this domain?"
 

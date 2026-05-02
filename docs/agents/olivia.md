@@ -47,9 +47,9 @@ Olivia breaks this down:
 | Step | Agent | Task |
 |------|-------|------|
 | 1 | 🎨 Nadia | Design wireframe and visual layout |
-| 2 | 🖥️ Felix | Implement the frontend from Nadia's specs |
+| 2 | 🖥️ Sasha | Implement the frontend from Nadia's specs |
 | 3 | 💻 Dylan | Build backend API endpoints if needed |
-| 4 | ✅ Quinn | Test across browsers and devices |
+| 4 | ✅ Morgan | Test across browsers and devices |
 | 5 | 📝 Daphne | Document the component structure |
 
 Olivia sequences these correctly, passes outputs between agents where needed, and returns a summary of what was built and where to find it.
@@ -64,8 +64,8 @@ Olivia sequences these correctly, passes outputs between agents where needed, an
 |------|-------|------|
 | 1 | 🛡️ Selena | Audit the auth code for vulnerabilities |
 | 2 | 💻 Dylan | Implement the fixes Selena identifies |
-| 3 | ✅ Quinn | Write regression tests to catch regressions |
-| 4 | 🚀 Devon | Deploy the fix to staging, then prod |
+| 3 | ✅ Morgan | Write regression tests to catch regressions |
+| 4 | 🚀 Priya | Prepare the staging/deployment handoff |
 
 You asked one question. Olivia ran a four-agent workflow.
 
@@ -75,9 +75,9 @@ You asked one question. Olivia ran a four-agent workflow.
 
 Olivia does **not** do specialist work herself. She won't:
 
-- Write code (that's Dylan or Felix)
+- Write code (that's Dylan or Sasha)
 - Audit security (that's Selena)
-- Run tests (that's Quinn)
+- Run tests (that's Morgan)
 - Write documentation (that's Daphne)
 - Design UIs (that's Nadia)
 - Do financial analysis (that's Audrey or Aiden)

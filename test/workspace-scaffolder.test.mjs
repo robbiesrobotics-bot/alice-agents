@@ -55,9 +55,9 @@ const mockAthena = {
   tools: { profile: 'full' },
 };
 
-const mockFelix = {
-  id: 'felix',
-  name: 'Felix',
+const mockSasha = {
+  id: 'sasha',
+  name: 'Sasha',
   domain: 'Frontend Engineering',
   theme: 'frontend engineer',
   emoji: 'F',
@@ -169,20 +169,20 @@ describe('scaffoldWorkspace', () => {
     const tools = readFileSync(join(result.workspaceDir, 'TOOLS.md'), 'utf8');
 
     assert.match(soul, /Software Delivery Lead/);
-    assert.match(soul, /Dylan owns backend/);
+    assert.match(soul, /Sasha owns frontend/);
     assert.match(agents, /MVP Specialist Mapping/);
-    assert.match(agents, /Felix/);
+    assert.match(agents, /Sasha/);
     assert.match(agents, /A\.L\.I\.C\.E\. \| Code/);
     assert.match(tools, /A\.L\.I\.C\.E\. \| Control/);
     assert.doesNotMatch(soul, /a Software Delivery specialist focused on delivering expert-level work/);
   });
 
   test('uses coding-specialist workspace templates when present', () => {
-    const result = scaffoldWorkspace(mockFelix, mockUserInfo, 12);
+    const result = scaffoldWorkspace(mockSasha, mockUserInfo, 14);
     const agents = readFileSync(join(result.workspaceDir, 'AGENTS.md'), 'utf8');
     const tools = readFileSync(join(result.workspaceDir, 'TOOLS.md'), 'utf8');
 
-    assert.match(agents, /Felix/);
+    assert.match(agents, /Sasha/);
     assert.match(agents, /A\.L\.I\.C\.E\. \| Code Execution/);
     assert.match(agents, /Canvas/);
     assert.match(tools, /claw\.fix/);

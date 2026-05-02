@@ -11,11 +11,11 @@
 | **Cloud add-on eligible** | Yes | Yes |
 | **Commercial use** | Yes | Yes |
 
-### Starter Agents (11)
-Olivia, Athena, Dylan, Selena, Devon, Quinn, Felix, Daphne, Rowan, Darius, Sophie
+### Starter Agents (14)
+Olivia, Athena, Dylan, Sasha, Morgan, Priya, Selena, Devon, Quinn, Felix, Daphne, Rowan, Darius, Sophie
 
-### Pro Agents (23 additional)
-Hannah, Aiden, Clara, Avery, Owen, Isaac, Tommy, Sloane, Nadia, Morgan, Alex, Uma, Caleb, Elena, Audrey, Logan, Eva, Parker, Aria, Nate, MaxxiPro, AccuScope, SmokeTestAgent
+### Pro Agents (22 additional)
+Hannah, Aiden, Clara, Avery, Owen, Isaac, Tommy, Sloane, Nadia, Alex, Uma, Caleb, Elena, Audrey, Logan, Eva, Parker, Aria, Nate, MaxxiPro, AccuScope, SmokeTestAgent
 
 ### Cloud Add-On ($20/month)
 An optional hosted runtime for teams that prefer not to self-host OpenClaw. Not required for local or self-hosted deployments. Billed separately via Stripe subscription.

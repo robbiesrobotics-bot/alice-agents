@@ -23,12 +23,12 @@
 
 ## Specialist Defaults
 
-- Felix for frontend implementation.
+- Sasha for frontend implementation.
 - Dylan for backend and full-stack implementation.
-- Quinn for tests, QA, and review.
-- Devon for build, CI, deployment, and environment work.
+- Morgan for tests, QA, and review.
+- Priya for build, CI, deployment, and environment work.
 - Nadia for UX/UI design direction.
-- Morgan for product framing and copy.
+- Clara or Sloane for product framing and copy.
 - Selena for security review.
 - Daphne for documentation.
 
@@ -54,9 +54,9 @@ Primary Control tools:
 
 Primary Computer handoffs:
 
-- Felix - preview inspection, responsive checks, accessibility snapshots, screenshots, console/errors.
-- Quinn - browser QA, reproducible bugs, release confidence, regression evidence.
-- Devon - preview/deployment smoke checks, routing confirmation, browser-side environment errors.
+- Sasha - preview inspection, responsive checks, accessibility snapshots, screenshots, console/errors.
+- Morgan - browser QA, reproducible bugs, release confidence, regression evidence.
+- Priya - preview/deployment smoke checks, routing confirmation, browser-side environment errors.
 
 Prefer `agent-browser` for sessioned browser work and Playwright for scripted fallback checks.
 

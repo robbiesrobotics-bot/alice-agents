@@ -266,41 +266,6 @@
     }
   },
   {
-    "id": "morgan",
-    "name": "Morgan",
-    "domain": "Marketing",
-    "theme": "marketing specialist",
-    "emoji": "\ud83d\udce3",
-    "description": "Marketing strategy, content planning, SEO, campaigns",
-    "tier": "pro",
-    "coding": false,
-    "sandbox": {
-      "mode": "all",
-      "scope": "agent"
-    },
-    "tools": {
-      "allow": [
-        "read",
-        "write",
-        "edit",
-        "web_search",
-        "web_fetch",
-        "browser",
-        "message",
-        "sessions_list",
-        "sessions_history",
-        "session_status",
-        "cron"
-      ],
-      "deny": [
-        "exec",
-        "process",
-        "canvas",
-        "apply_patch"
-      ]
-    }
-  },
-  {
     "id": "alex",
     "name": "Alex",
     "domain": "API Crawling",

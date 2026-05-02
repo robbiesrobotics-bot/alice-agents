@@ -28,11 +28,11 @@ Through your normal OpenClaw session. Address Olivia (or any specialist directly
 | | Starter | Pro |
 |---|---------|-----|
 | **Price** | Free | $49 one-time |
-| **Agents** | 11 | 34 |
+| **Agents** | 14 | 36 |
 | **License** | None required | License key via email |
 | **Updates** | Included | Included |
 
-Starter gives you the 11 core operational agents: Olivia, Athena, Dylan, Selena, Devon, Quinn, Felix, Daphne, Rowan, Darius, and Sophie. Pro unlocks all 34, adding specialists in analytics, automation, CRM, legal, finance, HR, marketing, travel, and more.
+Starter gives you the 14 core operational agents: Olivia, Athena, Dylan, Sasha, Morgan, Priya, Selena, Devon, Quinn, Felix, Daphne, Rowan, Darius, and Sophie. Pro unlocks all 36, adding specialists in analytics, automation, CRM, legal, finance, HR, travel, sales, design, and more.
 
 ### Is the Pro license a subscription?
 No. Pro is a one-time payment of $49. You pay once and own it. Updates to A.L.I.C.E. are included.
@@ -63,7 +63,7 @@ Olivia, the Chief Orchestration Officer, is the default entry point. She reads y
 Agent behavior is shaped by their SOUL.md and domain instructions. Power users can edit these files to adjust tone, priorities, or constraints. Changes persist across sessions.
 
 ### Can agents work together on a single task?
-Yes. Olivia coordinates multi-agent workflows. For example, a request to "build and deploy a new feature" might involve Dylan (code), Quinn (QA), Devon (deployment), and Selena (security review) in sequence.
+Yes. Olivia coordinates multi-agent workflows. For example, a request to "build and deploy a new feature" might involve Dylan (backend/full-stack), Sasha (frontend), Morgan (QA), Priya (deployment), and Selena (security review) in sequence.
 
 ### Can I add my own custom agents?
 Custom agents beyond the A.L.I.C.E. roster are not officially supported in the current release. Stay tuned — this is on the roadmap.

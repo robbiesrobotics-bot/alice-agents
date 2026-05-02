@@ -27,6 +27,12 @@ templates/workspaces/*
 !templates/workspaces/athena/**
 !templates/workspaces/dylan/
 !templates/workspaces/dylan/**
+!templates/workspaces/sasha/
+!templates/workspaces/sasha/**
+!templates/workspaces/morgan/
+!templates/workspaces/morgan/**
+!templates/workspaces/priya/
+!templates/workspaces/priya/**
 !templates/workspaces/felix/
 !templates/workspaces/felix/**
 !templates/workspaces/quinn/

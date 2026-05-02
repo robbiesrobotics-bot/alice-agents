@@ -1,6 +1,6 @@
 # Starter Agents
 
-The 11 Starter agents are available in every A.L.I.C.E. deployment. They cover the core technical and operational needs of most software teams.
+The 14 Starter agents are available in every A.L.I.C.E. deployment. They cover the core technical and operational needs of most software teams.
 
 > All requests go through **Olivia** — she routes to these agents automatically. You don't need to address them directly.
 
@@ -22,7 +22,7 @@ Athena turns coding goals, bug reports, technical debt, and product requests int
 - "This is becoming a longer project — track the blockers and handoff points"
 
 **Don't ask Athena to:**
-- Write every code change herself (that's Dylan or Felix)
+- Write every code change herself (that's Dylan or Sasha)
 - Replace Olivia as the main chat entry point (Olivia still routes requests)
 - Replace A.L.I.C.E. | Control or a durable issue tracker for long-running state
 
@@ -30,7 +30,7 @@ Athena turns coding goals, bug reports, technical debt, and product requests int
 
 ## 💻 Dylan — Senior Full-Stack Software Engineer
 
-Dylan writes, debugs, and reviews code across the full stack. He handles backend services, APIs, and data models, and coordinates with Felix on frontend contracts. He's the go-to for anything that lives in a code editor — from greenfield features to gnarly bug fixes.
+Dylan writes, debugs, and reviews code across the full stack. He handles backend services, APIs, and data models, and coordinates with Sasha on frontend contracts. He's the go-to for backend, data, and full-stack glue.
 
 **Works well for:**
 - "Build a REST API endpoint for user authentication"
@@ -38,9 +38,57 @@ Dylan writes, debugs, and reviews code across the full stack. He handles backend
 - "Review this PR for security issues and code quality"
 
 **Don't ask Dylan to:**
-- Design UIs or write CSS (that's Felix)
-- Set up CI/CD pipelines or provision infrastructure (that's Devon)
+- Design UIs or write CSS (that's Sasha)
+- Set up CI/CD pipelines or provision infrastructure (that's Priya)
 - Audit for security vulnerabilities (that's Selena)
+
+---
+
+## 🖥️ Sasha — Frontend Engineer & UI Implementation Specialist
+
+Sasha builds responsive, accessible, performant user interfaces from design specs and repo conventions. She owns app shells, components, styling, interaction polish, and preview readiness for Canvas.
+
+**Works well for:**
+- "Build a responsive navbar component from this design spec"
+- "The mobile layout overflows — fix it and verify desktop/mobile"
+- "Make this Canvas preview feel polished and production-ready"
+
+**Don't ask Sasha to:**
+- Create the design or wireframes (that's Nadia)
+- Write backend APIs she's consuming (that's Dylan)
+- Own release verification for the whole change (that's Morgan)
+
+---
+
+## ✅ Morgan — QA Engineering Lead & Review Specialist
+
+Morgan owns test strategy, regression coverage, browser QA, release confidence, and structured review. She is the last line of defense before a change is marked ready.
+
+**Works well for:**
+- "Write an end-to-end test suite for our checkout flow using Playwright"
+- "Review this frontend change and find release blockers"
+- "Run a mobile/browser QA pass against the Canvas preview"
+
+**Don't ask Morgan to:**
+- Build product features directly unless the change is QA-owned test code
+- Build the CI pipeline that runs tests (that's Priya)
+- Design the UI she's testing (that's Nadia or Sasha)
+
+---
+
+## 🚀 Priya — DevOps & Release Specialist
+
+Priya owns build systems, CI configuration, preview environments, deployment support, runtime operations, and release checks. If it runs in CI, ships to a preview, or needs environment wiring, Priya handles it.
+
+**Works well for:**
+- "Set up a GitHub Actions CI pipeline with automated tests and deploys"
+- "The preview build is failing — diagnose and fix the environment"
+- "Add a release smoke check and document required secrets"
+
+**Don't ask Priya to:**
+- Write application features (that's Dylan or Sasha)
+- Audit security posture (that's Selena)
+- Approve production deployment without a human approval gate
 
 ---
 
@@ -56,13 +104,13 @@ Selena audits code, configs, and infrastructure for security vulnerabilities and
 **Don't ask Selena to:**
 - Write application features (that's Dylan)
 - Handle compliance documentation (that's Logan)
-- Set up deployment pipelines (that's Devon)
+- Set up deployment pipelines (that's Priya)
 
 ---
 
-## 🚀 Devon — Principal DevOps & Infrastructure Engineer
+## 🚀 Devon — Compatibility DevOps Specialist
 
-Devon owns CI/CD pipelines, cloud infrastructure, containers, and deployment automation. He monitors system health, leads incident response for infrastructure failures, and optimizes build and deployment performance. If it runs in the cloud or touches a pipeline, Devon handles it.
+Devon remains available for compatibility with older A.L.I.C.E. installs. For new delivery work, prefer Priya for build, CI, preview, deployment, and runtime operations.
 
 **Works well for:**
 - "Set up a GitHub Actions CI pipeline with automated tests and deploys"
@@ -76,9 +124,9 @@ Devon owns CI/CD pipelines, cloud infrastructure, containers, and deployment aut
 
 ---
 
-## ✅ Quinn — QA Engineering Lead & Test Automation Architect
+## ✅ Quinn — Compatibility QA Specialist
 
-Quinn designs and executes test suites across functional, regression, integration, and end-to-end layers. She authors automated test scripts, tracks defect lifecycles, and defines quality gates and acceptance criteria. She's the last line of defense before a release goes out.
+Quinn remains available for compatibility with older A.L.I.C.E. installs. For new delivery work, prefer Morgan for QA, review, regression coverage, browser checks, and release confidence.
 
 **Works well for:**
 - "Write an end-to-end test suite for our checkout flow using Playwright"
@@ -87,14 +135,14 @@ Quinn designs and executes test suites across functional, regression, integratio
 
 **Don't ask Quinn to:**
 - Fix the bugs she finds (that's Dylan)
-- Build the CI pipeline that runs her tests (that's Devon)
-- Design the UI she's testing (that's Felix or Nadia)
+- Build the CI pipeline that runs her tests (that's Priya)
+- Design the UI she's testing (that's Sasha or Nadia)
 
 ---
 
-## 🖥️ Felix — Frontend Engineer & UI Implementation Specialist
+## 🖥️ Felix — Compatibility Frontend Specialist
 
-Felix builds responsive, accessible, performant user interfaces from design specs and wireframes. He implements component libraries, manages state, and optimizes frontend performance including load times and bundle size. He's the one who makes designs real in the browser.
+Felix remains available for compatibility with older A.L.I.C.E. installs. For new delivery work, prefer Sasha for frontend implementation, responsive UI, and Canvas preview readiness.
 
 **Works well for:**
 - "Build a responsive navbar component from this Figma spec"
@@ -104,7 +152,7 @@ Felix builds responsive, accessible, performant user interfaces from design spec
 **Don't ask Felix to:**
 - Create the design or wireframes (that's Nadia)
 - Write backend APIs he's consuming (that's Dylan)
-- Write automated tests for what he builds (that's Quinn)
+- Write automated tests for what he builds (that's Morgan)
 
 ---
 

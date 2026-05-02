@@ -1,7 +1,7 @@
 {
   "name": "@robbiesrobotics/alice-agents",
   "version": "1.5.12",
-  "description": "A.L.I.C.E. — 34 AI agents for OpenClaw, NemoClaw, and Hermes Agent. One conversation, one team.",
+  "description": "A.L.I.C.E. — 36 AI agents for Alice Runtime, OpenClaw, NemoClaw, and Hermes Agent. One conversation, one team.",
   "bin": {
     "alice-agents": "bin/alice-install.mjs",
     "alice-cloud": "bin/alice-cloud.cjs"
@@ -31,7 +31,10 @@
     "templates/workspaces/devon/*.md",
     "templates/workspaces/dylan/*.md",
     "templates/workspaces/felix/*.md",
+    "templates/workspaces/morgan/*.md",
+    "templates/workspaces/priya/*.md",
     "templates/workspaces/quinn/*.md",
+    "templates/workspaces/sasha/*.md",
     "README.md"
   ],
   "scripts": {

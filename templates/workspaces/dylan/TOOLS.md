@@ -16,4 +16,4 @@ If A.L.I.C.E. | Code is unavailable, use the `coding-agent` skill for non-trivia
 
 ## Handoff Expectations
 
-Return changed files, tests run, blockers, and follow-ups in a shape Athena can summarize. Ask Quinn for test coverage when behavior changes and Selena for security-sensitive paths.
+Return changed files, tests run, blockers, and follow-ups in a shape Athena can summarize. Ask Morgan for test coverage when behavior changes and Selena for security-sensitive paths.

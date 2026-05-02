@@ -2,14 +2,15 @@
 
 **Adaptive Learning & Intelligent Coordination Engine**
 
-One conversation. One orchestrator. 11 starter agents — with 23 more in Pro. Tell A.L.I.C.E. what you need, and she routes it to the right specialist and delivers the result.
+One conversation. One orchestrator. 14 starter agents — with 22 more in Pro. Tell A.L.I.C.E. what you need, and she routes it to the right specialist and delivers the result.
 
-A.L.I.C.E. runs on any supported runtime — OpenClaw, NemoClaw, or Hermes Agent. No required API key, no vendor lock-in.
+A.L.I.C.E. runs on any supported runtime — Alice Runtime, OpenClaw, NemoClaw, or Hermes Agent. No required API key, no vendor lock-in.
 
 ## Supported Runtimes
 
 | Runtime | Status | Install Guide |
 |---------|--------|---------------|
+| **Alice Runtime** | ✅ Recommended | Local A.L.I.C.E. Runtime |
 | **Hermes Agent** | ✅ Recommended | [hermes-agent.nousresearch.com](https://hermes-agent.nousresearch.com) |
 | **NemoClaw** | ✅ Supported | [nvidia.com/nemoclaw](https://nvidia.com/nemoclaw) |
 | **OpenClaw** | ✅ Supported | [openclaw.ai](https://openclaw.ai) |
@@ -33,19 +34,23 @@ npx @robbiesrobotics/alice-agents
 npx @robbiesrobotics/alice-agents --yes
 
 # Force a specific runtime
+npx @robbiesrobotics/alice-agents --yes --runtime alice-runtime
 npx @robbiesrobotics/alice-agents --yes --runtime hermes
 npx @robbiesrobotics/alice-agents --yes --runtime openclaw
 ```
 
 ## What You Get
 
-**Starter** — 11 core agents. **Pro** — 23 additional agents. [Sign up at getalice.av3.ai](https://getalice.av3.ai/signup?plan=pro)
+**Starter** — 14 core agents. **Pro** — 22 additional agents. [Sign up at getalice.av3.ai](https://getalice.av3.ai/signup?plan=pro)
 
 | Agent | Domain | Tier |
 |-------|--------|------|
 | **A.L.I.C.E.** | Orchestration | Starter |
 | **Athena** | Software Delivery | Starter |
 | **Dylan** | Development | Starter |
+| **Sasha** | Frontend Engineering | Starter |
+| **Morgan** | QA / Review | Starter |
+| **Priya** | DevOps | Starter |
 | **Selena** | Security | Starter |
 | **Devon** | DevOps | Starter |
 | **Quinn** | QA / Testing | Starter |
@@ -63,7 +68,6 @@ npx @robbiesrobotics/alice-agents --yes --runtime openclaw
 | **Tommy** | Travel | Pro |
 | **Sloane** | Sales | Pro |
 | **Nadia** | UI/UX Design | Pro |
-| **Morgan** | Marketing | Pro |
 | **Alex** | API Crawling | Pro |
 | **Uma** | UX Research | Pro |
 | **Caleb** | CRM | Pro |
@@ -136,6 +140,7 @@ npx @robbiesrobotics/alice-agents --yes --tier pro --license-key YOUR_KEY --clou
 # Force a specific runtime (useful on machines with multiple runtimes)
 npx @robbiesrobotics/alice-agents --yes --runtime hermes
 npx @robbiesrobotics/alice-agents --yes --runtime openclaw
+npx @robbiesrobotics/alice-agents --yes --runtime alice-runtime
 
 # Reinstall over existing A.L.I.C.E. and refresh the managed roster
 npx @robbiesrobotics/alice-agents --yes --force
@@ -181,7 +186,7 @@ Removes A.L.I.C.E. agents from your runtime config. Creates a backup first.
 
 ## Requirements
 
-- **Hermes Agent** v0.10.0+ **or** **OpenClaw** / **NemoClaw** installed and configured
+- **Alice Runtime**, **Hermes Agent** v0.10.0+, **OpenClaw**, or **NemoClaw** installed and configured
 - A default model set in your runtime (`hermes model` or `openclaw configure`)
 - Node.js 18+ (for the installer itself)
 - For local models: [Ollama](https://ollama.com) running locally
@@ -200,6 +205,7 @@ Both architectures are functionally equivalent — the user experience is identi
 
 | Runtime | Agent Model | Config Location |
 |---------|-------------|----------------|
+| Alice Runtime | `~/.alice/config/alice-runtime.json` | `~/.alice/agents/<agentId>/` |
 | Hermes Agent | `~/.hermes/config.yaml` | `~/.hermes/skills/alice/` |
 | NemoClaw | `~/.nemoclaw/openclaw.json` | `~/.nemoclaw/workspace/` |
 | OpenClaw | `~/.openclaw/openclaw.json` | `~/.openclaw/workspace/` |

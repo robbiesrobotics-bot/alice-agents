@@ -61,29 +61,29 @@ This document records the current A.L.I.C.E. coding-delivery architecture so fut
 
 ## MVP Specialist Mapping
 
-For the MVP, use the existing Alice roster:
+For the MVP, use the official Alice coding-delivery roster:
 
 - Athena: software delivery lead and coordinator.
-- Felix: frontend/UI implementation and preview readiness.
+- Sasha: frontend/UI implementation and preview readiness.
 - Dylan: backend/full-stack implementation.
-- Quinn: QA, test, and review.
-- Devon: build, CI, preview, deployment, and runtime operations.
+- Morgan: QA, test, review, browser verification, and release confidence.
+- Priya: build, CI, preview, deployment, and runtime operations.
 - Selena: security-sensitive review and policy concerns.
 - Daphne: documentation and runbooks.
 - Nadia: design direction.
 
-Do not add new coding personas for MVP unless the official roster changes.
+Felix, Quinn, and Devon remain compatibility specialists for older installs, but new A.L.I.C.E. | Code work should prefer Sasha, Morgan, and Priya when available.
 
 ## Current Implemented State
 
 - `alice-agents` includes Athena as a starter agent with dedicated workspace templates.
-- `alice-agents` includes A.L.I.C.E. | Code-aware workspace templates for Dylan, Felix, Quinn, and Devon.
+- `alice-agents` includes A.L.I.C.E. | Code-aware workspace templates for Sasha, Dylan, Morgan, Priya, and the compatibility specialists Felix, Quinn, and Devon.
 - `alice-runtime` exposes A.L.I.C.E. | Code tools through the internal Claw MCP bridge behind `ALICE_CLAW_MCP=1`.
 - `alice-runtime` normalizes Code/Claw coding session results and attaches Canvas artifacts when preview metadata is returned.
 - Code hardening finding: the current upstream `ultraworkers/claw-code` repo builds a `claw` CLI and includes `claw mcp serve`, but that raw MCP surface does not expose the high-level A.L.I.C.E. | Code `claw.fix`/session contract expected by `alice-runtime`; live smoke testing should use the standalone A.L.I.C.E. | Code wrapper instead.
 - `/Users/aliceclaw/code/alice-code-mcp` now contains the first standalone A.L.I.C.E. | Code MCP wrapper. It speaks alice-runtime's stdio JSON-RPC contract and shells out to the raw `claw` CLI behind high-level `claw.*` tools.
 - `/Users/aliceclaw/code/agent-browser` now contains the cloned Vercel Labs `agent-browser` source for A.L.I.C.E. | Computer planning. Its useful MVP surfaces are CLI sessions, snapshots, screenshots, console/errors, batch execution, and stream status.
-- Felix, Quinn, Devon, and Athena workspace templates now describe when to use A.L.I.C.E. | Computer, which `agent-browser` surfaces to prefer, and when to fall back to Playwright without treating Computer as Control, Code, or Canvas.
+- Sasha, Morgan, Priya, Felix, Quinn, Devon, and Athena workspace templates now describe when to use A.L.I.C.E. | Computer, which `agent-browser` surfaces to prefer, and when to fall back to Playwright without treating Computer as Control, Code, or Canvas.
 - Alice Hub includes A.L.I.C.E. | Chat as `/chat`, the synchronous conversation view.
 - `alice-runtime` has Canvas artifact storage and authenticated Canvas API endpoints.
 - Alice Hub Chat can display a right-side Canvas pane from streamed Canvas artifacts.
@@ -131,7 +131,7 @@ These slices can continue without provider credentials or live production tokens
 
 1. A.L.I.C.E. | Control live hardening: smoke-test real Control auth/routes, context comments, child tasks, blockers, review handoffs, and heartbeat resume.
 2. A.L.I.C.E. | Code integration hardening: build or wrap the MCP add-on around the real `ultraworkers/claw-code` CLI, then document required command/env setup.
-3. Named specialist acceptance criteria: make Felix/Dylan/Quinn/Devon expectations explicit for Code-backed work.
+3. Named specialist acceptance criteria: keep Sasha/Dylan/Morgan/Priya expectations explicit for Code-backed work.
 4. Repo workflow instructions: support `ALICE_WORKFLOW.md` for build commands, preview commands, test commands, deployment rules, and repo constraints.
 5. RecordorAI validation: keep scoped regression coverage for compact capsules and add a live compatibility smoke test for search result shape, write failure shape, health, and P50/P95 latency when credentials are available.
 6. A.L.I.C.E. | Computer planning: define the browser/computer-control tool boundary, inspect `vercel-labs/agent-browser`, and document the Playwright fallback path.
@@ -160,8 +160,8 @@ These slices can continue without provider credentials or live production tokens
 
 ### Phase 3: Named Coding Specialist Mapping
 
-- [x] Add Claw-aware templates for Dylan, Felix, Quinn, and Devon.
-- [x] Keep Athena as coordinator instead of adding new MVP coding personas.
+- [x] Add Code-aware templates for Sasha, Dylan, Morgan, and Priya.
+- [x] Keep Felix, Quinn, and Devon as compatibility specialists for older installs.
 - [x] Add acceptance criteria per specialist for Code-backed implementation, review, testing, and preview work.
 
 ### Phase 4: A.L.I.C.E. | Chat And Canvas MVP
@@ -216,7 +216,7 @@ These slices can continue without provider credentials or live production tokens
 - [x] Clone `vercel-labs/agent-browser` locally for integration work.
 - [x] Define the Computer tool boundary separately from Control, Code, and Canvas.
 - [x] Document when Computer should use `agent-browser` versus Playwright fallback.
-- [x] Connect Computer inspection workflows to Quinn, Devon, Felix, and Athena without making Computer the durable ledger.
+- [x] Connect Computer inspection workflows to Sasha, Morgan, Priya, compatibility specialists, and Athena without making Computer the durable ledger.
 
 ## Non-Goals
 

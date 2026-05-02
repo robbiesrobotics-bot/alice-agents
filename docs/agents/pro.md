@@ -48,8 +48,8 @@ Clara drafts and edits high-stakes written communications including executive me
 - "Edit this investor update — it needs to feel more confident and less apologetic"
 
 **Don't ask Clara to:**
-- Run marketing campaigns (that's Morgan)
-- Manage social media or SEO (that's Morgan)
+- Run sales campaigns (that's Sloane)
+- Manage launch messaging or brand voice (that's Clara)
 - Write technical documentation (that's Daphne)
 
 ---
@@ -129,7 +129,7 @@ Sloane develops and executes outbound sales strategies, manages the pipeline fro
 
 **Don't ask Sloane to:**
 - Manage the CRM platform itself (that's Caleb)
-- Run marketing campaigns (that's Morgan)
+- Run marketing campaigns (that's Clara or Sloane)
 - Handle customer support issues (that's Sophie)
 
 ---
@@ -144,25 +144,9 @@ Nadia creates wireframes, high-fidelity mockups, and interactive prototypes. She
 - "Our dashboard feels cluttered — redesign the information hierarchy"
 
 **Don't ask Nadia to:**
-- Implement the designs in code (that's Felix)
+- Implement the designs in code (that's Sasha)
 - Conduct user research (that's Uma)
 - Write content for the UI (that's Clara)
-
----
-
-## 📣 Morgan — Digital Marketing & Growth Strategy Manager
-
-Morgan plans and executes marketing campaigns across SEO, paid, social, and email channels. She develops content marketing strategies, editorial calendars, and go-to-market launch plans. She analyzes campaign performance and continuously optimizes spend, messaging, and targeting. She's the agent who brings products to market and keeps them growing.
-
-**Works well for:**
-- "Create a 3-month content marketing strategy for our developer tool"
-- "Our Google Ads CPC is too high — audit the campaigns and suggest fixes"
-- "We're launching a new feature next month — plan the go-to-market"
-
-**Don't ask Morgan to:**
-- Write executive communications or company announcements (that's Clara)
-- Manage the sales pipeline (that's Sloane)
-- Build marketing automation workflows (that's Avery or Isaac)
 
 ---
 
@@ -193,7 +177,7 @@ Uma plans and conducts user research including interviews, surveys, usability te
 
 **Don't ask Uma to:**
 - Design the UI based on her research (that's Nadia)
-- Run marketing surveys (that's Morgan)
+- Run marketing surveys (that's Clara or Sloane)
 - Analyze product usage metrics (that's Aiden)
 
 ---
@@ -210,7 +194,7 @@ Caleb configures, maintains, and optimizes CRM platforms including pipelines, fi
 **Don't ask Caleb to:**
 - Drive sales strategy (that's Sloane)
 - Handle customer support tickets (that's Sophie)
-- Build marketing automation (that's Avery or Morgan)
+- Build marketing automation (that's Avery or Isaac)
 
 ---
 

@@ -29,7 +29,7 @@ npx @robbiesrobotics/alice-agents
 ## Quick Links
 
 - [Getting Started](./getting-started.md) — Install, first run, and verification
-- [Agent Roster](./agents/index.md) — All 34 agents and what they do
+- [Agent Roster](./agents/index.md) — All 36 agents and what they do
 - [Licensing](./licensing.md) — Starter vs Pro, activation, and keys
 - [FAQ](./faq.md) — Common questions answered
 - [Troubleshooting](./troubleshooting.md) — Fixes for common issues
@@ -40,6 +40,6 @@ npx @robbiesrobotics/alice-agents
 
 | Tier | Agents | Price |
 |------|--------|-------|
-| Starter | 11 core agents (Olivia, Athena, Dylan, Selena, Devon, Quinn, Felix, Daphne, Rowan, Darius, Sophie) | Free |
-| Pro | All 34 agents | $49 one-time |
+| Starter | 14 core agents (Olivia, Athena, Dylan, Sasha, Morgan, Priya, Selena, Devon, Quinn, Felix, Daphne, Rowan, Darius, Sophie) | Free |
+| Pro | All 36 agents | $49 one-time |
 | Cloud | Hosted runtime add-on | $20/month |

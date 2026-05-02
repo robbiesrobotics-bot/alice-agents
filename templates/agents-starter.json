@@ -3,7 +3,7 @@
     "id": "olivia",
     "name": "A.L.I.C.E.",
     "domain": "Orchestration",
-    "theme": "orchestrator of a 34-agent team",
+    "theme": "orchestrator of a 36-agent team",
     "emoji": "\ud83e\udde0",
     "description": "Routes tasks, coordinates specialists, manages conversations as A.L.I.C.E. (also responds to Alice)",
     "tier": "starter",
@@ -86,12 +86,14 @@
       },
       "subagents": {
         "allowAgents": [
+          "sasha",
           "dylan",
+          "morgan",
+          "priya",
           "felix",
           "quinn",
           "devon",
           "nadia",
-          "morgan",
           "selena",
           "daphne"
         ]
@@ -115,6 +117,70 @@
       "alsoAllow": [
         "web_search",
         "web_fetch"
+      ]
+    }
+  },
+  {
+    "id": "sasha",
+    "name": "Sasha",
+    "domain": "Frontend Engineering",
+    "theme": "frontend implementation specialist",
+    "emoji": "\ud83d\udda5\ufe0f",
+    "description": "Frontend implementation, responsive UI, app shells, interaction polish, and Canvas preview readiness",
+    "tier": "starter",
+    "coding": true,
+    "sandbox": {
+      "mode": "off"
+    },
+    "tools": {
+      "profile": "coding",
+      "alsoAllow": [
+        "web_search",
+        "web_fetch",
+        "browser",
+        "canvas"
+      ]
+    }
+  },
+  {
+    "id": "morgan",
+    "name": "Morgan",
+    "domain": "QA/Review",
+    "theme": "QA and review specialist",
+    "emoji": "\u2705",
+    "description": "Test strategy, regression coverage, code review, browser QA, and release confidence",
+    "tier": "starter",
+    "coding": true,
+    "sandbox": {
+      "mode": "off"
+    },
+    "tools": {
+      "profile": "coding",
+      "alsoAllow": [
+        "web_search",
+        "web_fetch",
+        "browser"
+      ]
+    }
+  },
+  {
+    "id": "priya",
+    "name": "Priya",
+    "domain": "DevOps",
+    "theme": "DevOps and release specialist",
+    "emoji": "\ud83d\ude80",
+    "description": "Build systems, CI, deployment support, preview environments, runtime operations, and release checks",
+    "tier": "starter",
+    "coding": true,
+    "sandbox": {
+      "mode": "off"
+    },
+    "tools": {
+      "profile": "coding",
+      "alsoAllow": [
+        "web_search",
+        "web_fetch",
+        "browser"
       ]
     }
   },

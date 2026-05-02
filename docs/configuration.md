@@ -144,7 +144,7 @@ Open `~/.openclaw/workspace-daphne/PLAYBOOK.md` and add:
 - Use American English spelling
 ```
 
-### Example: Set brand voice for Clara and Morgan
+### Example: Set brand voice for Clara and Sloane
 
 Add to both `PLAYBOOK.md` files:
 

@@ -67,7 +67,18 @@ describe('alice-runtime adapter', () => {
     assert.equal(definition.workspacePath, getAliceRuntimeWorkspaceDir('athena'));
     assert.deepEqual(definition.groupChat, { mentionPatterns: ['@athena', 'athena'] });
     assert.deepEqual(definition.subagents, {
-      allowAgents: ['dylan', 'felix', 'quinn', 'devon', 'nadia', 'morgan', 'selena', 'daphne'],
+      allowAgents: [
+        'sasha',
+        'dylan',
+        'morgan',
+        'priya',
+        'felix',
+        'quinn',
+        'devon',
+        'nadia',
+        'selena',
+        'daphne',
+      ],
     });
   });
 

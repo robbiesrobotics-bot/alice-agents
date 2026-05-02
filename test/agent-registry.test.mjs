@@ -8,8 +8,8 @@ describe('agent registry', () => {
   });
 
   test('loads starter and pro rosters with expected counts', () => {
-    assert.equal(getAgentIdsForTier('starter').length, 11);
-    assert.equal(getAgentIdsForTier('pro').length, 34);
+    assert.equal(getAgentIdsForTier('starter').length, 14);
+    assert.equal(getAgentIdsForTier('pro').length, 36);
     assert.equal(getAgentIdsForTier('pro', { runtime: 'hermes' })[0], 'alice');
   });
 
@@ -24,7 +24,18 @@ describe('agent registry', () => {
       mentionPatterns: ['@athena', 'athena'],
     });
     assert.deepEqual(athena?.extraConfig?.subagents, {
-      allowAgents: ['dylan', 'felix', 'quinn', 'devon', 'nadia', 'morgan', 'selena', 'daphne'],
+      allowAgents: [
+        'sasha',
+        'dylan',
+        'morgan',
+        'priya',
+        'felix',
+        'quinn',
+        'devon',
+        'nadia',
+        'selena',
+        'daphne',
+      ],
     });
   });
 });

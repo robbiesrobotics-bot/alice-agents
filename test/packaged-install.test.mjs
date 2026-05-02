@@ -92,6 +92,9 @@ describe('packaged installer flows', () => {
     assert.equal(existsSync(join(PACKAGE_ROOT, 'templates', 'workspaces', 'olivia', 'SOUL.md')), false);
     assert.equal(existsSync(join(PACKAGE_ROOT, 'templates', 'workspaces', 'olivia', 'MEMORY.md')), false);
     assert.equal(existsSync(join(PACKAGE_ROOT, 'templates', 'workspaces', 'athena', 'SOUL.md')), true);
+    assert.equal(existsSync(join(PACKAGE_ROOT, 'templates', 'workspaces', 'sasha', 'AGENTS.md')), true);
+    assert.equal(existsSync(join(PACKAGE_ROOT, 'templates', 'workspaces', 'morgan', 'TOOLS.md')), true);
+    assert.equal(existsSync(join(PACKAGE_ROOT, 'templates', 'workspaces', 'priya', 'TOOLS.md')), true);
     assert.equal(existsSync(join(PACKAGE_ROOT, 'templates', 'workspaces', 'felix', 'AGENTS.md')), true);
     assert.equal(existsSync(join(PACKAGE_ROOT, 'templates', 'workspaces', 'felix', 'TOOLS.md')), true);
     assert.equal(existsSync(join(PACKAGE_ROOT, 'templates', 'workspaces', 'dylan', 'AGENTS.md')), true);
@@ -109,7 +112,7 @@ describe('packaged installer flows', () => {
     const codingSkill = readFileSync(join(STARTER_HOME, '.openclaw', 'skills', 'coding-agent', 'SKILL.md'), 'utf8');
 
     assert.equal(manifest.tier, 'starter');
-    assert.equal(manifest.agents.length, 11);
+    assert.equal(manifest.agents.length, 14);
     assert.match(codingSkill, /Preferred tool: \*\*Codex\*\*/);
     assert.ok(config.tools.agentToAgent.allow.includes('custom-agent'));
   });
@@ -138,8 +141,8 @@ describe('packaged installer flows', () => {
     const config = readJson(join(PRO_HOME, '.openclaw', 'openclaw.json'));
 
     assert.equal(manifest.tier, 'pro');
-    assert.equal(manifest.agents.length, 34);
-    assert.equal(config.agents.list.length, 34);
+    assert.equal(manifest.agents.length, 36);
+    assert.equal(config.agents.list.length, 36);
   });
 
   test('doctor reports healthy on a packaged starter install', () => {
@@ -154,7 +157,7 @@ describe('packaged installer flows', () => {
     const definition = readJson(join(ALICE_RUNTIME_HOME, '.alice', 'agents', 'olivia', 'definition.json'));
 
     assert.equal(manifest.runtime, 'alice-runtime');
-    assert.equal(manifest.agents.length, 11);
+    assert.equal(manifest.agents.length, 14);
     assert.equal(definition.id, 'olivia');
     assert.equal(
       definition.workspacePath,

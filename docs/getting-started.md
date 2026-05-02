@@ -52,7 +52,7 @@ Olivia will introduce the active agents and summarize what each one does.
 Olivia will route this to Dylan (engineering) automatically. You don't need to address specialists directly — but you can if you want to.
 
 **Address a specialist directly:**
-> "Devon, set up a GitHub Actions CI pipeline for a Node.js project."
+> "Priya, set up a GitHub Actions CI pipeline for a Node.js project."
 
 Specialists respond in their domain without needing Olivia to route it.
 
