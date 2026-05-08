@@ -131,11 +131,8 @@ npx @robbiesrobotics/alice-agents
 # Non-interactive (uses detected defaults)
 npx @robbiesrobotics/alice-agents --yes
 
-# Pro tier
-npx @robbiesrobotics/alice-agents --yes --tier pro
-
-# With A.L.I.C.E. | Control Cloud (Pro)
-npx @robbiesrobotics/alice-agents --yes --tier pro --license-key YOUR_KEY --cloud
+# Pro tier (requires license key)
+npx @robbiesrobotics/alice-agents --yes --tier pro --license-key YOUR_KEY
 
 # Force a specific runtime (useful on machines with multiple runtimes)
 npx @robbiesrobotics/alice-agents --yes --runtime hermes
@@ -148,19 +145,6 @@ npx @robbiesrobotics/alice-agents --yes --force
 # Show all options
 npx @robbiesrobotics/alice-agents --help
 ```
-
-## A.L.I.C.E. | Control Cloud
-
-A Pro add-on that connects your local runtime to the A.L.I.C.E. Control web dashboard. Enables telemetry, fleet visibility, and remote agent management.
-
-```bash
-npx @robbiesrobotics/alice-agents --yes --tier pro --license-key YOUR_KEY --cloud
-```
-
-Optional flags:
-- `--cloud-token <token>` — access or ingest token
-- `--cloud-dashboard-url <url>` — defaults to `https://alice.av3.ai`
-- `--cloud-ingest-url <url>` — defaults to `<dashboard-url>/api/v1/ingest`
 
 ## Upgrading
 

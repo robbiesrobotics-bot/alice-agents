@@ -58,6 +58,8 @@ describe('alice-runtime adapter', () => {
   });
 
   test('maps Athena with existing Alice specialist delegation intact', () => {
+    // Starter tier — defensive filter strips nadia (pro-only) from allowAgents
+    // before the adapter sees it.
     const athena = loadAgentRegistry('starter', { runtime: 'alice-runtime' })
       .find((entry) => entry.id === 'athena');
     const definition = toAliceRuntimeDefinition(athena);
@@ -66,20 +68,17 @@ describe('alice-runtime adapter', () => {
     assert.equal(definition.domain, 'Software Delivery');
     assert.equal(definition.workspacePath, getAliceRuntimeWorkspaceDir('athena'));
     assert.deepEqual(definition.groupChat, { mentionPatterns: ['@athena', 'athena'] });
-    assert.deepEqual(definition.subagents, {
-      allowAgents: [
-        'sasha',
-        'dylan',
-        'morgan',
-        'priya',
-        'felix',
-        'quinn',
-        'devon',
-        'nadia',
-        'selena',
-        'daphne',
-      ],
-    });
+    assert.deepEqual(definition.subagents?.allowAgents, [
+      'sasha',
+      'dylan',
+      'morgan',
+      'priya',
+      'felix',
+      'quinn',
+      'devon',
+      'selena',
+      'daphne',
+    ]);
   });
 
   test('detects alice-runtime from command availability', () => {

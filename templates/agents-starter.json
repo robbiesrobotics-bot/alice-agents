@@ -27,7 +27,8 @@
         "sessions_history",
         "session_status",
         "agents_list",
-        "cron"
+        "cron",
+        "project_workspace"
       ]
     },
     "extraConfig": {
@@ -74,7 +75,8 @@
         "sessions_list",
         "sessions_history",
         "session_status",
-        "agents_list"
+        "agents_list",
+        "project_workspace"
       ]
     },
     "extraConfig": {
@@ -116,8 +118,16 @@
       "profile": "coding",
       "alsoAllow": [
         "web_search",
-        "web_fetch"
+        "web_fetch",
+        "project_workspace"
       ]
+    },
+    "extraConfig": {
+      "subagents": {
+        "cloneSelf": {
+          "max": 4
+        }
+      }
     }
   },
   {
@@ -138,8 +148,16 @@
         "web_search",
         "web_fetch",
         "browser",
-        "canvas"
+        "canvas",
+        "project_workspace"
       ]
+    },
+    "extraConfig": {
+      "subagents": {
+        "cloneSelf": {
+          "max": 4
+        }
+      }
     }
   },
   {
@@ -159,8 +177,16 @@
       "alsoAllow": [
         "web_search",
         "web_fetch",
-        "browser"
+        "browser",
+        "project_workspace"
       ]
+    },
+    "extraConfig": {
+      "subagents": {
+        "cloneSelf": {
+          "max": 4
+        }
+      }
     }
   },
   {
@@ -180,8 +206,16 @@
       "alsoAllow": [
         "web_search",
         "web_fetch",
-        "browser"
+        "browser",
+        "project_workspace"
       ]
+    },
+    "extraConfig": {
+      "subagents": {
+        "cloneSelf": {
+          "max": 4
+        }
+      }
     }
   },
   {
@@ -214,7 +248,17 @@
         "canvas",
         "browser",
         "cron"
+      ],
+      "alsoAllow": [
+        "project_workspace"
       ]
+    },
+    "extraConfig": {
+      "subagents": {
+        "cloneSelf": {
+          "max": 4
+        }
+      }
     }
   },
   {
@@ -233,8 +277,16 @@
       "profile": "coding",
       "alsoAllow": [
         "web_search",
-        "web_fetch"
+        "web_fetch",
+        "project_workspace"
       ]
+    },
+    "extraConfig": {
+      "subagents": {
+        "cloneSelf": {
+          "max": 4
+        }
+      }
     }
   },
   {
@@ -254,8 +306,16 @@
       "alsoAllow": [
         "web_search",
         "web_fetch",
-        "browser"
+        "browser",
+        "project_workspace"
       ]
+    },
+    "extraConfig": {
+      "subagents": {
+        "cloneSelf": {
+          "max": 4
+        }
+      }
     }
   },
   {
@@ -274,8 +334,16 @@
       "profile": "coding",
       "alsoAllow": [
         "web_search",
-        "web_fetch"
+        "web_fetch",
+        "project_workspace"
       ]
+    },
+    "extraConfig": {
+      "subagents": {
+        "cloneSelf": {
+          "max": 4
+        }
+      }
     }
   },
   {
@@ -309,7 +377,17 @@
         "browser",
         "canvas",
         "cron"
+      ],
+      "alsoAllow": [
+        "project_workspace"
       ]
+    },
+    "extraConfig": {
+      "subagents": {
+        "cloneSelf": {
+          "max": 4
+        }
+      }
     }
   },
   {
@@ -343,6 +421,9 @@
         "canvas",
         "apply_patch",
         "cron"
+      ],
+      "alsoAllow": [
+        "project_workspace"
       ]
     }
   },
@@ -362,7 +443,8 @@
       "profile": "coding",
       "alsoAllow": [
         "web_search",
-        "web_fetch"
+        "web_fetch",
+        "project_workspace"
       ]
     }
   },
@@ -398,6 +480,9 @@
         "browser",
         "apply_patch",
         "cron"
+      ],
+      "alsoAllow": [
+        "project_workspace"
       ]
     }
   }

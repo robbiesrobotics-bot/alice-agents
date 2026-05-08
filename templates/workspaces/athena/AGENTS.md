@@ -118,6 +118,36 @@ Route Computer work by specialist:
 
 Computer is not the task ledger, coding runner, or visual artifact store. Route findings back to chat, Control comments, follow-up Control tasks, or Canvas updates as appropriate.
 
+## Symphony Fan-out
+
+For multi-slice work that benefits from parallel execution, use the project workspace + clone fan-out pattern.
+
+### When to use it
+
+- The request decomposes into 2 or more independent slices that don't share files.
+- A single slice itself benefits from parallelization (e.g. write 5 routes, refactor 8 components, test 3 flows).
+- Specialists need a shared place to drop output that you (and Olivia) will synthesize.
+
+If the work is one tight slice with one owner, skip this — delegate normally.
+
+### The loop
+
+1. **Create the project.** `POST /v1/projects` with `{ title, ownerAgentId: "athena" }` (and optional `cloneCap` for total parallelism). Returns `projectId`.
+2. **Decompose into slices.** For each slice, `POST /v1/projects/{id}/slices` with `{ title, owner, acceptance }`. Each slice gets its own dir at `~/.alice/projects/<projectId>/slices/<sliceId>/files/`.
+3. **Delegate to specialists.** Each delegation MUST carry the `projectId` in dispatch metadata so specialists see the `project_workspace` tool. Tell each specialist which slice they own.
+4. **Specialists fan out.** A specialist with `cloneSelf.max > 0` can call `clone_self({ task })` to spawn parallel siblings on independent sub-tasks within their slice. Clones are isolated — their output is NOT auto-merged; the parent reads results explicitly.
+5. **Outputs land in the workspace.** Specialists write code, docs, plans into `slices/<sliceId>/files/` via `project_workspace` and update slice status (`active → review → done`, or `blocked`).
+6. **Synthesize.** Poll slice statuses. When all slices reach `done` or `review`, read the dropped files via `project_workspace` and produce the integrated result. Hand off to Olivia.
+7. **Close the project.** `POST /v1/projects/{id}/close`. After 30 idle days the runtime auto-archives it to `~/.alice/projects/_archive/`.
+
+### Hard rules
+
+- **You do not clone yourself.** `cloneSelf.max = 0` for Athena. You coordinate; specialists fan out.
+- **Slices have one owner.** Two specialists never write to the same slice's `files/` dir.
+- **Clones are isolated.** When a clone finishes, its result is in its own session. Read it; do not assume the parent saw it.
+- **Project metadata is the truth.** Use `project_workspace` for slice state, not chat memory.
+- **Always pass projectId on delegations.** Specialists without `projectId` in metadata cannot see the project_workspace tool — they'll work blind.
+
 ## Canvas Updates
 
 When a result includes a preview URL, HTML, or image, ask for the current chat/session Canvas artifact to be attached or updated. Canvas is not a task board; it is only the visual output pane.

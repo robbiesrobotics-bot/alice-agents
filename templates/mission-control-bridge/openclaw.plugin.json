@@ -1,8 +1,0 @@
-{
-  "id": "mission-control-bridge",
-  "configSchema": {
-    "type": "object",
-    "additionalProperties": false,
-    "properties": {}
-  }
-}

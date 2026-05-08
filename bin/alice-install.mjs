@@ -32,7 +32,6 @@ if (flags.has('--help') || flags.has('-h')) {
     npx @robbiesrobotics/alice-agents --uninstall  Remove A.L.I.C.E. agents from config
     npx @robbiesrobotics/alice-agents --doctor     Run diagnostics on your A.L.I.C.E. install
     npx @robbiesrobotics/alice-agents --skills     Manage skills (install, remove, browse)
-    npx @robbiesrobotics/alice-agents --cloud      Enable A.L.I.C.E. | Control Cloud during install
     npx @robbiesrobotics/alice-agents --hermes-bridge  Enable Hermes agent bridge during install (OpenClaw+Hermes)
     npx @robbiesrobotics/alice-agents --runtime <alice-runtime|hermes|openclaw|nemoclaw>  Force runtime selection
     npx @robbiesrobotics/alice-agents --version    Show version
@@ -43,21 +42,12 @@ if (flags.has('--help') || flags.has('-h')) {
     --update      Non-interactive upgrade (alias for --yes with upgrade mode)
     --uninstall   Remove A.L.I.C.E. agents (preserves non-ALICE agents)
     --doctor      Run diagnostics and check install health
-    --cloud       Enable A.L.I.C.E. | Control Cloud setup during install
-    --no-cloud    Skip A.L.I.C.E. | Control Cloud setup during install
     --hermes-bridge  Enable Hermes agent bridge (create hermes-agents.json, detect model)
     --tier <starter|pro>           Force the install tier
     --runtime <alice-runtime|hermes|openclaw|nemoclaw>  Force specific runtime
     --force                        Force reinstall even if already installed
     --license-key <key>            Provide a Pro license key for automation
     --coding-tool <auto|claude|codex>  Override the preferred coding CLI
-    --cloud-token <token>           A.L.I.C.E. | Control ingest/access token
-    --cloud-dashboard-url <url>     A.L.I.C.E. | Control dashboard URL
-    --cloud-ingest-url <url>        A.L.I.C.E. | Control ingest endpoint
-    --cloud-team-id <id>            A.L.I.C.E. | Control team UUID
-    --cloud-team-slug <slug>        A.L.I.C.E. | Control team slug
-    --cloud-team-name <name>        A.L.I.C.E. | Control team name
-    --cloud-team-plan <plan>        A.L.I.C.E. | Control team plan
     --version     Print package version
   `);
   process.exit(0);
@@ -69,13 +59,6 @@ const baseOptions = {
   force: flags.has('--force'),
   licenseKey: getFlagValue('--license-key'),
   codingTool: getFlagValue('--coding-tool'),
-  cloudToken: getFlagValue('--cloud-token'),
-  cloudDashboardUrl: getFlagValue('--cloud-dashboard-url'),
-  cloudIngestUrl: getFlagValue('--cloud-ingest-url'),
-  cloudTeamId: getFlagValue('--cloud-team-id'),
-  cloudTeamSlug: getFlagValue('--cloud-team-slug'),
-  cloudTeamName: getFlagValue('--cloud-team-name'),
-  cloudTeamPlan: getFlagValue('--cloud-team-plan'),
   hermesBridge: flags.has('--hermes-bridge'),
 };
 
@@ -85,7 +68,7 @@ if (flags.has('--doctor')) {
     process.exit(1);
   });
 } else if (flags.has('--update')) {
-  runInstall({ yes: true, modeOverride: 'upgrade', cloud: flags.has('--cloud') ? true : flags.has('--no-cloud') ? false : undefined, ...baseOptions })
+  runInstall({ yes: true, modeOverride: 'upgrade', ...baseOptions })
     .then(() => process.exit(0))
     .catch((err) => { console.error('  ❌ Upgrade failed:', err.message); process.exit(1); });
 } else if (flags.has('--skills')) {
@@ -99,7 +82,7 @@ if (flags.has('--doctor')) {
     process.exit(1);
   });
 } else {
-  runInstall({ yes: flags.has('--yes'), cloud: flags.has('--cloud') ? true : flags.has('--no-cloud') ? false : undefined, ...baseOptions })
+  runInstall({ yes: flags.has('--yes'), ...baseOptions })
     .then(() => process.exit(0))
     .catch((err) => { console.error('  ❌ Install failed:', err.message); process.exit(1); });
 }

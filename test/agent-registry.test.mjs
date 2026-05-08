@@ -14,6 +14,8 @@ describe('agent registry', () => {
   });
 
   test('includes Athena as the software delivery lead for existing coding specialists', () => {
+    // Starter tier — defensive filter drops nadia (pro-only) from Athena's
+    // allowAgents at registry load time.
     const athena = loadAgentRegistry('starter').find((entry) => entry.id === 'athena');
 
     assert.equal(athena?.name, 'Athena');
@@ -23,19 +25,33 @@ describe('agent registry', () => {
     assert.deepEqual(athena?.extraConfig?.groupChat, {
       mentionPatterns: ['@athena', 'athena'],
     });
-    assert.deepEqual(athena?.extraConfig?.subagents, {
-      allowAgents: [
-        'sasha',
-        'dylan',
-        'morgan',
-        'priya',
-        'felix',
-        'quinn',
-        'devon',
-        'nadia',
-        'selena',
-        'daphne',
-      ],
-    });
+    assert.deepEqual(athena?.extraConfig?.subagents?.allowAgents, [
+      'sasha',
+      'dylan',
+      'morgan',
+      'priya',
+      'felix',
+      'quinn',
+      'devon',
+      'selena',
+      'daphne',
+    ]);
+  });
+
+  test('Athena keeps nadia in allowAgents when loaded as pro tier', () => {
+    // Pro tier includes nadia in the roster, so the defensive filter keeps her.
+    const athena = loadAgentRegistry('pro').find((entry) => entry.id === 'athena');
+    assert.deepEqual(athena?.extraConfig?.subagents?.allowAgents, [
+      'sasha',
+      'dylan',
+      'morgan',
+      'priya',
+      'felix',
+      'quinn',
+      'devon',
+      'nadia',
+      'selena',
+      'daphne',
+    ]);
   });
 });

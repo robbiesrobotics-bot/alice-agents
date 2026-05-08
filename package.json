@@ -1,10 +1,9 @@
 {
   "name": "@robbiesrobotics/alice-agents",
-  "version": "1.5.12",
+  "version": "1.5.13",
   "description": "A.L.I.C.E. — 36 AI agents for Alice Runtime, OpenClaw, NemoClaw, and Hermes Agent. One conversation, one team.",
   "bin": {
-    "alice-agents": "bin/alice-install.mjs",
-    "alice-cloud": "bin/alice-cloud.cjs"
+    "alice-agents": "bin/alice-install.mjs"
   },
   "type": "module",
   "engines": {
@@ -25,7 +24,6 @@
     "snapshots/*.json",
     "templates/agents-starter.json",
     "templates/agents-pro.json",
-    "templates/mission-control-bridge/",
     "templates/workspaces/_shared/*.md",
     "templates/workspaces/athena/*.md",
     "templates/workspaces/devon/*.md",

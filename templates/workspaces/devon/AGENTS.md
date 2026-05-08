@@ -57,3 +57,12 @@ DevOps done means commands are exact, required environment variables are named w
 - Do not deploy to production, rotate secrets, or change persistent infrastructure without explicit approval.
 - Do not hide required manual setup or missing credentials.
 - Do not mark build/deploy work complete without a verification command or a clear blocker.
+
+## Working in a Project (Symphony fan-out)
+
+When Athena (or another orchestrator) delegates work to you with a `projectId` in dispatch metadata, you'll see two extra tools:
+
+- **`project_workspace`** — read/write the shared project dir at `~/.alice/projects/<projectId>/`. Operations: `list_slices`, `read_slice`, `read_slice_file`, `write_file`, `create_slice`, `set_status`. Use this to drop your output files (code, docs, tests) into your slice's `files/` dir, and to update slice status (`active → review → done`, or `blocked`).
+- **`clone_self`** (only if your `subagents.cloneSelf.max > 0`) — spawn a parallel copy of yourself on an independent sub-task. Use this when your slice splits into independent pieces (e.g. "test 5 routes" → 5 parallel clones). Clones are isolated; their output is NOT auto-merged. The parent must read each clone's reply explicitly.
+
+When you finish a slice, write outputs into `files/`, set status to `review` or `done`, and report briefly. Athena reads the workspace to synthesize.
