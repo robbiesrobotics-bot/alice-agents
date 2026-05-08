@@ -76,7 +76,12 @@
         "sessions_history",
         "session_status",
         "agents_list",
-        "project_workspace"
+        "project_workspace",
+        "computer.snapshot",
+        "computer.screenshot",
+        "computer.console",
+        "computer.network",
+        "computer.inspect"
       ]
     },
     "extraConfig": {
@@ -149,7 +154,15 @@
         "web_fetch",
         "browser",
         "canvas",
-        "project_workspace"
+        "project_workspace",
+        "computer.snapshot",
+        "computer.screenshot",
+        "computer.console",
+        "computer.network",
+        "computer.inspect",
+        "computer.session.open",
+        "computer.session.close",
+        "computer.action"
       ]
     },
     "extraConfig": {
@@ -178,7 +191,15 @@
         "web_search",
         "web_fetch",
         "browser",
-        "project_workspace"
+        "project_workspace",
+        "computer.snapshot",
+        "computer.screenshot",
+        "computer.console",
+        "computer.network",
+        "computer.inspect",
+        "computer.session.open",
+        "computer.session.close",
+        "computer.action"
       ]
     },
     "extraConfig": {
@@ -278,7 +299,15 @@
       "alsoAllow": [
         "web_search",
         "web_fetch",
-        "project_workspace"
+        "project_workspace",
+        "computer.snapshot",
+        "computer.screenshot",
+        "computer.console",
+        "computer.network",
+        "computer.inspect",
+        "computer.session.open",
+        "computer.session.close",
+        "computer.action"
       ]
     },
     "extraConfig": {
@@ -307,7 +336,15 @@
         "web_search",
         "web_fetch",
         "browser",
-        "project_workspace"
+        "project_workspace",
+        "computer.snapshot",
+        "computer.screenshot",
+        "computer.console",
+        "computer.network",
+        "computer.inspect",
+        "computer.session.open",
+        "computer.session.close",
+        "computer.action"
       ]
     },
     "extraConfig": {
@@ -335,7 +372,15 @@
       "alsoAllow": [
         "web_search",
         "web_fetch",
-        "project_workspace"
+        "project_workspace",
+        "computer.snapshot",
+        "computer.screenshot",
+        "computer.console",
+        "computer.network",
+        "computer.inspect",
+        "computer.session.open",
+        "computer.session.close",
+        "computer.action"
       ]
     },
     "extraConfig": {
