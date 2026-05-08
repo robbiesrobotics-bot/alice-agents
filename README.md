@@ -91,6 +91,33 @@ npx @robbiesrobotics/alice-agents --yes --runtime openclaw
 
 Each specialist agent operates within their domain and flags when something falls outside their scope.
 
+## Symphony Fan-out (alice-runtime only)
+
+For multi-slice coding work, Athena (the Software Delivery Lead) coordinates a Symphony loop where specialists fan out in parallel, drop output into a shared project workspace, and Athena synthesizes. This is the runtime's answer to OpenAI's Symphony pattern.
+
+**The loop:**
+
+1. Athena creates a project — `POST /v1/projects { title, ownerAgentId: "athena" }`
+2. Athena decomposes work into slices — `POST /v1/projects/{id}/slices { title, owner, acceptance }`
+3. Athena delegates each slice to its specialist owner with `projectId` in dispatch metadata
+4. Specialists with `cloneSelf.max > 0` (Sasha, Dylan, Morgan, Priya, Felix, Quinn, Devon by default) can call `clone_self` to spawn parallel siblings on independent sub-tasks
+5. Specialists drop output files into `~/.alice/projects/<projectId>/slices/<sliceId>/files/` via the `project_workspace` tool, and update slice status as they go
+6. Athena polls slice statuses, reads completed work via `project_workspace`, synthesizes the integrated result, and returns it to A.L.I.C.E.
+
+**Two new agent tools:**
+
+- `clone_self({ task })` — spawn a parallel copy of the agent on a different sub-task. Per-agent and per-project clone budgets enforce concurrency caps. Clones are isolated; their replies are NOT auto-merged into the parent's session — read them explicitly.
+- `project_workspace({ op, ... })` — read/write the shared project dir. Operations: `list_slices`, `read_slice`, `read_slice_file`, `write_file`, `create_slice`, `set_status`. Path traversal escapes are rejected.
+
+**Lifecycle:**
+
+- Active → Closed (explicit `POST /v1/projects/{id}/close`) → Archived (auto after 30 idle days; the project dir moves to `~/.alice/projects/_archive/`)
+- Slice statuses: `active → review → done` (or `blocked` at any point)
+
+**Pinning a chat to a project:** add `projectId` to a channel binding (Slack, Telegram, etc.) and inbound messages on that conversation will dispatch with project context. Athena and her specialists see the Symphony tools automatically.
+
+Symphony is a Pro-tier setup (Athena requires the full Pro roster to delegate to Nadia for design and Clara/Sloane for product framing).
+
 ## Model Configuration
 
 A.L.I.C.E. does **not** pick a model for you. It uses whatever your runtime already has configured.
