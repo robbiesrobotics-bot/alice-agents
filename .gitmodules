@@ -1,0 +1,4 @@
+[submodule "landing"]
+	path = landing
+	url = https://github.com/robbiesrobotics-bot/alice-landing.git
+	ignore = dirty
