@@ -206,7 +206,7 @@ Removes A.L.I.C.E. agents from your runtime config. Creates a backup first.
 
 A.L.I.C.E. is an orchestrator + specialist agent team. The orchestrator (A.L.I.C.E.) receives all requests, classifies intent, routes to the right specialist(s), and synthesizes results.
 
-On **Hermes Agent:** A.L.I.C.E. and all specialists are installed as Hermes skills (`~/.hermes/skills/alice/`). Delegation is skill-to-skill via Hermes tool calling.
+On **Hermes Agent:** A.L.I.C.E. and all specialists are installed as Hermes skills in the active Hermes profile (`~/.hermes/skills/alice/` for the default profile, or `~/.hermes/profiles/<profile>/skills/alice/` when `HERMES_PROFILE`/`HERMES_HOME` is active). Delegation is skill-to-skill via Hermes tool calling.
 
 On **OpenClaw / NemoClaw:** A.L.I.C.E. and specialists are installed as agent workspaces. Delegation uses `sessions_spawn`.
 
@@ -217,7 +217,7 @@ Both architectures are functionally equivalent — the user experience is identi
 | Runtime | Agent Model | Config Location |
 |---------|-------------|----------------|
 | Alice Runtime | `~/.alice/config/alice-runtime.json` | `~/.alice/agents/<agentId>/` |
-| Hermes Agent | `~/.hermes/config.yaml` | `~/.hermes/skills/alice/` |
+| Hermes Agent | active profile `config.yaml` (`~/.hermes/config.yaml` or `~/.hermes/profiles/<profile>/config.yaml`) | active profile `skills/alice/` |
 | NemoClaw | `~/.nemoclaw/openclaw.json` | `~/.nemoclaw/workspace/` |
 | OpenClaw | `~/.openclaw/openclaw.json` | `~/.openclaw/workspace/` |
 
